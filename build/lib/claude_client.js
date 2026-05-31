@@ -34,6 +34,30 @@ const OSM_HINWEISE = {
   verkehr_logistik: 'amenity=fuel, shop=car_repair (reine Logistik oft ohne Einzelbetrieb → ggf. leer)',
 };
 
+/**
+ * Extrahiert das erste vollständige, balancierte JSON-Objekt aus dem Text —
+ * robust gegen Code-Fences und nachgestellte Prosa (manche Modelle hängen nach
+ * dem JSON noch Erklärungen an, was JSON.parse sonst scheitern lässt).
+ */
+function ersteJsonObjekt(text) {
+  const start = text.indexOf('{');
+  if (start < 0) throw new Error('kein JSON-Objekt in der Antwort');
+  let tiefe = 0;
+  let inStr = false;
+  let esc = false;
+  for (let i = start; i < text.length; i++) {
+    const c = text[i];
+    if (inStr) {
+      if (esc) esc = false;
+      else if (c === '\\') esc = true;
+      else if (c === '"') inStr = false;
+    } else if (c === '"') inStr = true;
+    else if (c === '{') tiefe++;
+    else if (c === '}' && --tiefe === 0) return text.slice(start, i + 1);
+  }
+  throw new Error('unvollständiges JSON-Objekt in der Antwort');
+}
+
 function ladeEnv() {
   const envPath = path.join(__dirname, '..', '..', '.env');
   if (fs.existsSync(envPath)) {
@@ -53,6 +77,7 @@ function baueSystemPrompt(tagsJson) {
 
 REGELN:
 - Verwende für "kategorien" und "tags" AUSSCHLIESSLICH Werte, die WÖRTLICH im unten stehenden Vokabular stehen. Kopiere die Tag-Strings exakt. Erfinde KEINE neuen Tags und ändere keine Schreibweise — frei erfundene Tags werden verworfen.
+- Vergib IMMER mindestens 3 gültige Tags. Wenn kein exakt passender existiert, nimm den semantisch NÄCHSTEN aus der Liste, statt einen zu erfinden. Beispiele: Ton/Keramik/Modellieren/Gips → stein_keramik_formen; Papier/Karton/Buchbinden → produkt_entwerfen + praezisionsarbeit_hand; Reinigen/Pflegen von Oberflächen → maschine_bedienen + praezisionsarbeit_hand; medizinische Hilfsmittel/Prothesen fertigen → praezisionsarbeit_hand + metall_bearbeiten + produkt_entwerfen.
 - 3 bis 6 Tags, die CHARAKTERISTISCH sind (nicht nur am Rande zutreffend). 1 bis 3 Oberkategorien.
 - Schätze vier Umgebungs-Werte (0–100):
     drinnen_draussen: 0 = komplett drinnen, 100 = komplett draußen
@@ -108,8 +133,7 @@ function erstelleTagger(tagsJson, { model } = {}) {
 
     const text = response.content.map((c) => c.text || '').join('').trim();
     const usage = response.usage || {};
-    const cleaned = text.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
-    return { parsed: JSON.parse(cleaned), usage };
+    return { parsed: JSON.parse(ersteJsonObjekt(text)), usage };
   }
 
   return { taggeEinen, MODEL, systemPrompt };

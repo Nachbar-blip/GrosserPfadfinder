@@ -38,7 +38,13 @@ function main() {
   let review = 0;
   for (const b of berufe) {
     if (b.needs_review) review++;
-    if (!Array.isArray(b.tags) || b.tags.length < 3) fehler.push(`${b.id} ${b.name}: < 3 Tags`);
+    if (!Array.isArray(b.tags) || b.tags.length < 3) {
+      // < 3 Tags ist nur ein harter Fehler bei Berufen, die im Tool angezeigt
+      // werden. needs_review-Berufe sind bewusst vom Matching ausgeschlossen.
+      const msg = `${b.id} ${b.name}: < 3 Tags`;
+      if (b.needs_review) warnung.push(`${msg} (needs_review → vom Matching ausgeschlossen)`);
+      else fehler.push(msg);
+    }
     for (const t of b.tags || []) {
       if (!alleTags.has(t)) fehler.push(`${b.id} ${b.name}: unbekannter Tag "${t}"`);
       tagCount[t] = (tagCount[t] || 0) + 1;
