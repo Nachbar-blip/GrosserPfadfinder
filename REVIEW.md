@@ -60,13 +60,11 @@ Auf Wunsch ergänzt und **im Code fertig + verifiziert**:
   (PLZ ✓, 11 KI-Ampeln, Anschluss-Sektion, 0 Konsolenfehler); graceful degradation
   mit Altdaten (Features blenden sich aus, keine Fehler).
 
-> **⚠ Daten-Retag ausstehend:** Der volle Lauf (1841 Berufe inkl. KI-Feld) brach
-> nach 125 Berufen ab — die **Anthropic-API-Monatsgrenze** war erreicht
-> („regain access 2026-06-01 00:00 UTC"). `berufe.json` ist auf den geprüften
-> 1097-Stand zurückgesetzt; `build/raw/berufe_voll.json` (1841) liegt bereit.
-> Sobald die Grenze zurückgesetzt ist (oder im Anthropic-Console-Cap angehoben):
-> `node build/03_tag_berufe.js --full-retag` → die KI-/Master-/Weiterbildungs-
-> Features füllen sich automatisch. Bis dahin läuft die App mit 1097 (ohne KI/Anschluss).
+**Daten-Retag erledigt** (nach Anhebung des Anthropic-Limits): voller Lauf über
+alle **1841 Berufe** inkl. KI-Feld, 0 Fehler, **5 needs_review**, ~15,50 €.
+Validierung grün (81/81 Tags, größte Kategorie 13,9 %). KI-Verteilung:
+593 niedrig / 1083 mittel / 165 hoch. End-to-end gegen Volldaten verifiziert
+(10 Einstiegs-Karten + 5 Anschluss-Karten, alle mit KI-Ampel, 0 Konsolenfehler).
 
 ## Offen (nur mit ausdrücklicher Freigabe)
 
