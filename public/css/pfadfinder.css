@@ -1,0 +1,199 @@
+/* ======================================================================
+   pfadfinder.css — Basis-Styles für den großen Pfadfinder.
+   Pfadfinder-Look (Spec §9): warmer Papierton, ruhige Typografie,
+   sparsame Akzentfarben (Kompass-Rot / Tinten-Blau / Moos-Grün / Sand),
+   System-Font, keine externen Fonts, mobile-first, barrierearm.
+   ====================================================================== */
+
+:root {
+  --papier: #f7f3ea;
+  --text: #2a2620;
+  --text-weich: #5a5046;
+  --kompass-rot: #b03a2e;
+  --kompass-rot-dunkel: #8a2d24;
+  --tinten-blau: #2d4a6b;
+  --moos-gruen: #4a6b3a;
+  --moos-gruen-dunkel: #3a5530;
+  --sand: #d4c4a0;
+  --sand-hell: #ebe1c8;
+  --linie: #c9bea4;
+  --weiss: #ffffff;
+  --schatten: 0 1px 3px rgba(42, 38, 32, 0.08), 0 3px 8px rgba(42, 38, 32, 0.06);
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--papier);
+  color: var(--text);
+  line-height: 1.55;
+  font-size: 17px;
+  min-height: 100vh;
+}
+
+/* sehr blasse Höhenlinien als Hintergrundmotiv (optional, <5 % Opacity) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: radial-gradient(circle at 50% 50%, transparent 0, transparent 60px, rgba(74, 107, 58, 0.04) 61px, transparent 62px);
+  background-size: 180px 180px;
+}
+
+main { padding: 1.5rem 1rem 4rem; }
+.container { max-width: 760px; margin: 0 auto; }
+.container-breit { max-width: 1100px; margin: 0 auto; }
+
+h1, h2, h3 { font-weight: 600; letter-spacing: 0.02em; line-height: 1.25; margin: 0 0 0.6em; }
+h1 { font-size: 2.1rem; color: var(--kompass-rot-dunkel); }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.15rem; }
+p { margin: 0 0 1em; }
+a { color: var(--tinten-blau); }
+
+/* ---- Kopfzeile mit Schulname ---- */
+.kopf {
+  border-bottom: 1px solid var(--linie);
+  padding: 0.9rem 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.kopf .marke { font-weight: 700; letter-spacing: 0.04em; color: var(--kompass-rot-dunkel); }
+.kopf .schule { color: var(--text-weich); font-size: 0.9rem; }
+
+/* ---- Buttons ---- */
+button, .btn {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  padding: 0.75em 1.4em;
+  border-radius: 6px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.05s, border-color 0.15s;
+}
+button:active, .btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--kompass-rot); color: #fff; }
+.btn-primary:hover { background: var(--kompass-rot-dunkel); }
+.btn-primary:disabled { background: var(--sand); cursor: not-allowed; }
+.btn-sekundaer { background: transparent; color: var(--tinten-blau); border: 1.5px solid var(--tinten-blau); }
+.btn-sekundaer:hover { background: var(--tinten-blau); color: #fff; }
+.btn-leise { background: transparent; color: var(--text-weich); padding: 0.5em 0.9em; font-weight: 500; }
+.btn-leise:hover { color: var(--kompass-rot); }
+:focus-visible { outline: 3px solid var(--tinten-blau); outline-offset: 2px; }
+
+.karte {
+  background: var(--weiss);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--schatten);
+  margin-bottom: 1rem;
+}
+
+/* ---- Startseite ---- */
+.startseite { text-align: center; padding: 2rem 1rem; }
+.startseite .untertitel { font-size: 1.15rem; color: var(--text-weich); max-width: 600px; margin: 0 auto 2rem; }
+.startseite ul.leitplanken { list-style: none; padding: 0; max-width: 520px; margin: 2rem auto; text-align: left; font-size: 0.98rem; }
+.startseite ul.leitplanken li { padding: 0.4em 0 0.4em 1.8em; position: relative; color: var(--text-weich); }
+.startseite ul.leitplanken li::before { content: "•"; color: var(--moos-gruen); font-weight: bold; font-size: 1.4em; position: absolute; left: 0.4em; top: -0.1em; }
+
+.hinweis-block { margin-top: 2.5rem; padding: 0.75rem 1rem; border-top: 1px solid var(--linie); font-size: 0.88rem; color: var(--text-weich); text-align: left; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hinweis-block summary { cursor: pointer; font-weight: 600; padding: 0.4em 0; }
+.hinweis-block summary:hover { color: var(--tinten-blau); }
+.hinweis-block p { margin: 0.5em 0; line-height: 1.5; }
+
+/* ---- Fragebogen ---- */
+.fortschritt { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; color: var(--text-weich); font-size: 0.92rem; }
+.fortschritt-balken { flex: 1; height: 4px; background: var(--sand-hell); border-radius: 2px; margin: 0 1rem; overflow: hidden; }
+.fortschritt-balken-fuell { height: 100%; width: 0; background: var(--kompass-rot); transition: width 0.3s; }
+.frage-titel { margin-bottom: 1.5rem; font-size: 1.5rem; }
+.frage-hinweis { color: var(--text-weich); font-size: 0.95rem; margin: -1rem 0 1.25rem; }
+
+/* Optionen (Radio / Checkbox) */
+.optionen { display: flex; flex-direction: column; gap: 0.5rem; }
+.option { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 1rem; border: 1.5px solid var(--linie); border-radius: 6px; cursor: pointer; background: var(--weiss); transition: border-color 0.15s, background 0.15s; }
+.option:hover { border-color: var(--tinten-blau); }
+.option input { margin-top: 0.2em; accent-color: var(--kompass-rot); flex-shrink: 0; width: 1.1em; height: 1.1em; }
+.option.gewaehlt { border-color: var(--kompass-rot); background: rgba(176, 58, 46, 0.04); }
+.option-text { flex: 1; }
+
+/* Schieberegler */
+.regler-block { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem; }
+.regler-label { display: flex; justify-content: space-between; font-size: 0.92rem; color: var(--text-weich); }
+.regler-label .pol-aktiv { color: var(--kompass-rot); font-weight: 600; }
+input[type="range"] { width: 100%; accent-color: var(--kompass-rot); height: 1.6em; }
+.regler-ausgabe { text-align: center; font-size: 0.92rem; color: var(--text-weich); min-height: 1.4em; }
+
+/* Navigation */
+.frage-navigation { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; gap: 1rem; }
+
+/* ---- Ergebnis ---- */
+.ergebnis-kopf { text-align: center; margin-bottom: 1.5rem; }
+.ergebnis-kopf p { color: var(--text-weich); max-width: 640px; margin: 0 auto 1em; }
+.ergebnis-gitter { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1rem; }
+
+.ergebnis-karte { background: var(--weiss); border: 1px solid var(--linie); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--schatten); display: flex; flex-direction: column; }
+.ergebnis-karte.top { border-color: var(--moos-gruen); border-width: 2px; }
+.ergebnis-karte .rang { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-weich); margin-bottom: 0.3rem; }
+.ergebnis-karte h2 { font-size: 1.3rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+.badge-selten { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--moos-gruen-dunkel); background: rgba(74, 107, 58, 0.12); border: 1px solid var(--moos-gruen); border-radius: 4px; padding: 0.1em 0.5em; }
+.badge-weg { font-size: 0.72rem; font-weight: 600; color: var(--tinten-blau); background: rgba(45, 74, 107, 0.08); border-radius: 4px; padding: 0.12em 0.5em; }
+
+.match-zeile { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.8rem; }
+.match-balken { flex: 1; height: 8px; background: var(--sand-hell); border-radius: 4px; overflow: hidden; }
+.match-fuellung { height: 100%; width: 0; background: var(--moos-gruen); transition: width 0.4s; }
+.match-fuellung.mittel { background: var(--sand); }
+.match-fuellung.schwach { background: var(--linie); }
+.match-prozent { font-size: 0.85rem; color: var(--text-weich); font-variant-numeric: tabular-nums; min-width: 2.6em; text-align: right; }
+
+.ergebnis-karte .beschreibung { font-size: 0.95rem; color: var(--text); margin-bottom: 0.7rem; }
+.ergebnis-karte .begruendung { font-size: 0.92rem; color: var(--text-weich); background: var(--papier); border-left: 3px solid var(--moos-gruen); padding: 0.6rem 0.8rem; border-radius: 0 4px 4px 0; margin-bottom: 0.8rem; }
+.ergebnis-karte .meta { font-size: 0.85rem; color: var(--text-weich); margin-bottom: 0.3rem; }
+.ergebnis-karte .meta strong { color: var(--text); }
+
+/* Live-API-Bereiche */
+.live-aktionen { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
+.live-aktionen .btn { padding: 0.5em 0.9em; font-size: 0.85rem; }
+.live-panel { font-size: 0.88rem; margin-top: 0.5rem; border-top: 1px dashed var(--linie); padding-top: 0.6rem; }
+.live-panel ul { margin: 0.3rem 0; padding-left: 1.1rem; }
+.live-panel li { margin-bottom: 0.3rem; }
+.live-panel .lade { color: var(--text-weich); font-style: italic; }
+.live-panel .fehler { color: var(--kompass-rot-dunkel); }
+.link-mehr { display: inline-block; margin-top: auto; padding-top: 0.6rem; font-size: 0.9rem; font-weight: 600; }
+
+.ergebnis-aktionen { display: flex; justify-content: center; gap: 1rem; margin: 2.5rem 0 1rem; flex-wrap: wrap; }
+.grosser-hinweis { background: var(--sand-hell); border: 1px solid var(--sand); border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.92rem; }
+
+.fehler { border-color: var(--kompass-rot); }
+.fuss { text-align: center; font-size: 0.82rem; color: var(--text-weich); padding: 2rem 1rem; border-top: 1px solid var(--linie); margin-top: 2rem; }
+.fuss a { color: var(--tinten-blau); }
+
+/* ---- Mobile ---- */
+@media (max-width: 520px) {
+  body { font-size: 17px; }
+  h1 { font-size: 1.8rem; }
+  .ergebnis-gitter { grid-template-columns: 1fr; }
+  main { padding: 1rem 0.8rem 3rem; }
+}
+
+/* ---- Druck (window.print, Spec §9) ---- */
+@media print {
+  body { background: #fff; font-size: 12pt; }
+  body::before, .kopf, .fortschritt, .frage-navigation, .ergebnis-aktionen, .live-aktionen, .btn, button, .hinweis-block { display: none !important; }
+  .ergebnis-gitter { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+  .ergebnis-karte { break-inside: avoid; box-shadow: none; border: 1px solid #999; }
+  .live-panel { display: none; }
+  a[href]::after { content: ""; }
+}
