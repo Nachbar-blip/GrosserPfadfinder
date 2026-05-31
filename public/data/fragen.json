@@ -107,7 +107,7 @@
       "filter": "ausbildungsart",
       "optionen": [
         { "wert": "betriebliche_ausbildung", "label": "Betriebliche Ausbildung", "akzeptiert": ["betriebliche_ausbildung", "schulische_ausbildung"] },
-        { "wert": "duales_studium", "label": "Duales Studium", "akzeptiert": ["duales_studium"] },
+        { "wert": "duales_studium", "label": "Duales Studium", "akzeptiert": ["duales_studium", "studium", "betriebliche_ausbildung"] },
         { "wert": "vollzeit_studium", "label": "Vollzeit-Studium", "akzeptiert": ["studium"] },
         { "wert": "unbekannt", "label": "Weiß ich noch nicht", "akzeptiert": [] }
       ]

@@ -98,5 +98,14 @@ console.log('matching.test.mjs');
   ok(anschluss.length > 0 && anschluss.every((m) => ['master', 'weiterbildung'].includes(m.beruf.stufe)), 'matcheAnschluss() liefert nur Master/Weiterbildung');
 }
 
+// 8) Sicherheitsnetz: ein Weg, den (fast) kein Beruf trägt (z.B. duales_studium),
+//    darf den Pool nicht kollabieren lassen — Fallback liefert Interesse-Treffer.
+{
+  const p = profil({ blockA: { weg: new Set(['duales_studium']) }, taetigkeiten: ['holz_bearbeiten', 'praezisionsarbeit_hand', 'produkt_entwerfen'] });
+  // Keiner der Test-Berufe ist ausbildungsart "duales_studium" → ohne Netz wäre der Pool leer.
+  const top = matche(BERUFE, p, fragen);
+  ok(top.length > 0 && top.some((m) => m.beruf.tags.includes('holz_bearbeiten')), 'Sicherheitsnetz: seltener Weg kollabiert den Pool nicht (Interesse-Fallback)');
+}
+
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);
 process.exit(fehlgeschlagen ? 1 : 0);

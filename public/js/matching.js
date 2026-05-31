@@ -61,7 +61,7 @@ function tagUeberlapp(a, b) {
  * oder der gewünschte Weg (Ausbildung/Studium) ausschließen.
  * Leere/„unsicher"/„unbekannt"-Angaben filtern bewusst NICHT (lieber zu viel zeigen).
  */
-export function hartFiltern(berufe, antworten, fragenDef) {
+export function hartFiltern(berufe, antworten, fragenDef, { wegFilter = true } = {}) {
   const a = antworten.blockA || {};
 
   // 1) Schulabschluss: Beruf bleibt, wenn sein Mindestabschluss ≤ angestrebtem.
@@ -73,7 +73,7 @@ export function hartFiltern(berufe, antworten, fragenDef) {
   const akzeptierteArten = new Set();
   let wegFilterAktiv = false;
   const wegOption = (fragenDef.block_a || []).find((f) => f.id === 'weg');
-  if (wegOption && wegWerte.size > 0 && !wegWerte.has('unbekannt')) {
+  if (wegFilter && wegOption && wegWerte.size > 0 && !wegWerte.has('unbekannt')) {
     for (const opt of wegOption.optionen) {
       if (wegWerte.has(opt.wert)) {
         for (const art of opt.akzeptiert || []) akzeptierteArten.add(art);
@@ -193,8 +193,17 @@ function istEinstieg(b) {
  * Hauptfunktion: das Spektrum der EINSTIEGS-Wege (Ausbildung + Bachelor),
  * gefiltert, bewertet, diversifiziert (max. 10). [] wenn nichts die Schwelle erreicht.
  */
+export const MIN_POOL = 8;
+
 export function matche(berufe, antworten, fragenDef) {
-  const kandidaten = hartFiltern(berufe.filter(istEinstieg), antworten, fragenDef);
+  const einstieg = berufe.filter(istEinstieg);
+  let kandidaten = hartFiltern(einstieg, antworten, fragenDef);
+  // Sicherheitsnetz: wenn der Weg-Filter den Pool kollabieren lässt (z.B. eine
+  // Ausbildungsart ist in den Daten kaum vertreten), den Weg-Filter fallenlassen
+  // und nach Interesse matchen, statt 2 unpassende Berufe zu zeigen.
+  if (kandidaten.length < MIN_POOL) {
+    kandidaten = hartFiltern(einstieg, antworten, fragenDef, { wegFilter: false });
+  }
   return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef), MAX_ERGEBNISSE);
 }
 
