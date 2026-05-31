@@ -1,0 +1,4 @@
+{
+  "//": "Markiert public/ als ES-Module-Bereich (für Node-Tests). Der Browser lädt die Module ohnehin über <script type=\"module\"> + import — diese Datei beeinflusst das Frontend nicht.",
+  "type": "module"
+}

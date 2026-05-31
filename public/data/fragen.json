@@ -1,0 +1,225 @@
+{
+  "version": "1.0.0",
+  "_hinweis": "Fragebogen-Definition für den großen Pfadfinder. tag_text deckt alle ~75 Tags aus tags.json ab. block_a sind harte/weiche Filter, block_b sind Umgebungsregler, block_c die Tätigkeitsfragen (decken zusammen ALLE Tags ab), block_d Motivation + Sinn. Schulen können Formulierungen hier ändern, ohne JS anzufassen.",
+
+  "tag_text": {
+    "holz_bearbeiten": "Ein Holzbrett genau zuschneiden und zusammenbauen",
+    "metall_bearbeiten": "Ein Metallstück feilen, bohren und in Form bringen",
+    "stoff_verarbeiten": "Einen Stoff zuschneiden und etwas daraus nähen",
+    "stein_keramik_formen": "Aus Ton eine Schale formen oder einen Stein bearbeiten",
+    "glas_bearbeiten": "Glas schneiden, schleifen oder kunstvoll bemalen",
+    "schmuck_fertigen": "Einen Ring oder eine Kette aus Silber fertigen",
+    "praezisionsarbeit_hand": "Sehr feine Arbeit mit ruhiger Hand — auf Zehntelmillimeter genau",
+    "maschine_bedienen": "Eine Produktionsmaschine einrichten und laufen lassen",
+    "maschine_warten_reparieren": "Ein defektes Gerät öffnen und wieder zum Laufen bringen",
+    "motor_diagnostizieren": "Herausfinden, warum ein Motor nicht richtig läuft",
+    "fahrzeug_reparieren": "Eine Bremse wechseln oder einen Ölwechsel machen",
+    "hydraulik_pneumatik": "Mit Druckluft oder Öldruck eine Maschine steuern",
+    "schweissen_loeten": "Zwei Metallteile mit Hitze fest verbinden",
+    "stromkreis_verdrahten": "Kabel verlegen und einen Stromkreis zum Laufen bringen",
+    "elektronik_loeten": "Winzige Bauteile auf eine Platine löten",
+    "computer_reparieren": "Einen Computer aufschrauben und ein defektes Teil tauschen",
+    "netzwerk_einrichten": "Ein WLAN-Netzwerk oder einen Server einrichten",
+    "code_schreiben": "Ein kleines Programm schreiben, das etwas automatisiert",
+    "datenbank_auswerten": "Aus großen Tabellen wichtige Zahlen herausfiltern",
+    "app_website_gestalten": "Eine App oder Website entwerfen und programmieren",
+    "ki_datenanalyse": "Mit Daten Muster erkennen und Vorhersagen treffen",
+    "wunde_versorgen": "Einen Verband anlegen und eine Wunde versorgen",
+    "patient_untersuchen": "Blutdruck messen und Beschwerden eines Patienten untersuchen",
+    "medikament_verabreichen": "Medikamente nach Plan vorbereiten und geben",
+    "senior_pflegen": "Einer älteren Person beim Essen und Anziehen helfen",
+    "kind_medizinisch_betreuen": "Ein Kind beim Arztbesuch beruhigen und untersuchen",
+    "therapie_anleiten": "Jemandem zeigen, wie er nach einer Verletzung wieder gehen lernt",
+    "zahn_behandeln": "Einen Zahn behandeln oder beim Zahnarzt assistieren",
+    "mikroskop_bedienen": "Eine Wasserprobe unter dem Mikroskop untersuchen",
+    "probe_analysieren": "Eine Blut- oder Bodenprobe im Labor auswerten",
+    "experiment_durchfuehren": "Ein wissenschaftliches Experiment aufbauen und durchführen",
+    "messdaten_dokumentieren": "Messwerte genau aufschreiben und in Tabellen sortieren",
+    "chemikalie_mischen": "Chemikalien nach Rezept mischen und reagieren lassen",
+    "mauer_errichten": "Steine zu einer Mauer aufeinander schichten",
+    "dach_decken": "Ziegel auf ein Dach setzen",
+    "rohr_verlegen": "Wasserrohre verlegen und verbinden",
+    "fliesen_setzen": "Fliesen in einem Bad passgenau verlegen",
+    "gebaeude_planen_zeichnen": "Einen Grundriss für ein Haus zeichnen",
+    "vermessen_im_gelaende": "Mit Lasergerät ein Grundstück vermessen",
+    "pflanze_bestimmen_pflegen": "Verschiedene Pflanzen erkennen und pflegen",
+    "boden_wasser_untersuchen": "Wasser- und Bodenproben auf Schadstoffe untersuchen",
+    "wald_bewirtschaften": "Im Wald Bäume pflanzen und fällen",
+    "garten_anlegen": "Einen Garten anlegen, Wege pflastern, Blumen pflanzen",
+    "ernte_verarbeiten": "Obst oder Gemüse ernten und zum Verkauf vorbereiten",
+    "tier_untersuchen_behandeln": "Einem Tier in der Praxis helfen und es untersuchen",
+    "tier_versorgen_fuettern": "Tiere im Zoo oder auf dem Hof füttern und pflegen",
+    "tier_trainieren": "Einen Hund oder ein Pferd trainieren",
+    "zuchttier_beurteilen": "Zuchttiere auswählen und ihre Gesundheit beurteilen",
+    "zeichnen_illustrieren": "Mit der Hand Zeichnungen oder Illustrationen anfertigen",
+    "grafik_am_computer_gestalten": "Am Computer Poster oder Logos gestalten",
+    "foto_video_aufnehmen": "Fotos oder Videos aufnehmen und bearbeiten",
+    "raum_innen_gestalten": "Einen Raum gestalten — Farben, Möbel, Licht auswählen",
+    "mode_entwerfen": "Kleidung entwerfen und skizzieren",
+    "produkt_entwerfen": "Ein neues Produkt wie einen Stuhl oder ein Gerät entwerfen",
+    "text_schreiben_redigieren": "Einen Text verfassen, überarbeiten und korrigieren",
+    "uebersetzen_dolmetschen": "Von einer Sprache in eine andere übersetzen",
+    "moderieren_praesentieren": "Vor einer Gruppe etwas vortragen oder moderieren",
+    "recherche_journalistisch": "Ein Thema recherchieren und einen Artikel dazu schreiben",
+    "unterricht_halten_erklaeren": "Einer Gruppe etwas erklären und Unterricht gestalten",
+    "kind_betreuen_erziehen": "Mit Kindern spielen, basteln und sie fördern",
+    "mensch_beraten_begleiten": "Menschen mit Problemen zuhören und beraten",
+    "gruppe_anleiten": "Eine Gruppe führen, Aufgaben verteilen, motivieren",
+    "konflikt_vermitteln": "Zwischen zwei Parteien vermitteln und Streit schlichten",
+    "zahlen_buchhaltung": "Rechnungen prüfen und Einnahmen/Ausgaben verbuchen",
+    "tabelle_auswerten": "Mit Excel Tabellen auswerten und Grafiken erstellen",
+    "kunde_beraten_verkaufen": "Kund:innen beraten und ihnen beim Kauf helfen",
+    "projekt_planen_organisieren": "Ein Projekt planen, Aufgaben verteilen und überwachen",
+    "personal_verwalten": "Dienstpläne erstellen und Personal einteilen",
+    "einkauf_handel": "Waren einkaufen, verhandeln und weiterverkaufen",
+    "gesetz_recherchieren_anwenden": "In Gesetzestexten nach der richtigen Regel suchen",
+    "vertrag_aufsetzen": "Einen Vertrag formulieren und prüfen",
+    "ordnung_sicherheit_durchsetzen": "Für Ordnung und Sicherheit sorgen — z.B. als Wachperson",
+    "ermitteln_untersuchen": "Einem Hinweis nachgehen und einen Fall aufklären",
+    "speise_zubereiten": "Ein mehrgängiges Menü frisch zubereiten",
+    "lebensmittel_herstellen": "Brot backen, Wurst herstellen oder Käse machen",
+    "gast_bedienen": "In einem Restaurant Gäste freundlich bedienen",
+    "getraenk_mixen_servieren": "Cocktails mixen und Getränke servieren",
+    "fahrzeug_fuehren": "Einen LKW, Bus oder Zug sicher durch den Verkehr führen",
+    "route_planen_navigieren": "Routen planen und am schnellsten ans Ziel navigieren",
+    "waren_verladen_lagern": "Pakete sortieren, verladen und im Lager organisieren",
+    "flugzeug_schiff_fuehren": "Ein Flugzeug oder Schiff steuern"
+  },
+
+  "block_a": [
+    {
+      "id": "schulabschluss",
+      "frage": "Welchen Schulabschluss strebst du an?",
+      "typ": "einfach",
+      "filter": "schulabschluss_min",
+      "optionen": [
+        { "wert": "realschule", "label": "Realschulabschluss" },
+        { "wert": "fachhochschulreife", "label": "Fachhochschulreife" },
+        { "wert": "abitur", "label": "Allgemeine Hochschulreife (Abitur)" },
+        { "wert": "unsicher", "label": "Noch unsicher" }
+      ]
+    },
+    {
+      "id": "weg",
+      "frage": "Welcher Weg kommt für dich in Frage?",
+      "hinweis": "Mehrfachauswahl möglich",
+      "typ": "mehrfach",
+      "filter": "ausbildungsart",
+      "optionen": [
+        { "wert": "betriebliche_ausbildung", "label": "Betriebliche Ausbildung", "akzeptiert": ["betriebliche_ausbildung", "schulische_ausbildung"] },
+        { "wert": "duales_studium", "label": "Duales Studium", "akzeptiert": ["duales_studium"] },
+        { "wert": "vollzeit_studium", "label": "Vollzeit-Studium", "akzeptiert": ["studium"] },
+        { "wert": "unbekannt", "label": "Weiß ich noch nicht", "akzeptiert": [] }
+      ]
+    },
+    {
+      "id": "umkreis",
+      "frage": "Wie weit würdest du für Ausbildung oder Studium fahren oder ziehen?",
+      "typ": "einfach",
+      "filter": "umkreis",
+      "optionen": [
+        { "wert": "25", "label": "Maximal 25 km (täglich pendeln)" },
+        { "wert": "100", "label": "Bis 100 km (mit Zug/ÖPNV erreichbar)" },
+        { "wert": "200", "label": "Bundesweit (auch umziehen)" }
+      ]
+    },
+    {
+      "id": "gehalt_wichtig",
+      "frage": "Wie wichtig ist dir ein hohes Einstiegsgehalt?",
+      "typ": "einfach",
+      "filter": "gehalt",
+      "optionen": [
+        { "wert": "sehr", "label": "Sehr wichtig" },
+        { "wert": "mittel", "label": "Wichtig, aber nicht entscheidend" },
+        { "wert": "egal", "label": "Nicht so wichtig" }
+      ]
+    }
+  ],
+
+  "regler": [
+    { "id": "drinnen_draussen", "frage": "Lieber drinnen oder draußen?", "linksPol": "drinnen", "rechtsPol": "draußen" },
+    { "id": "allein_team", "frage": "Lieber allein oder im Team?", "linksPol": "allein", "rechtsPol": "im Team" },
+    { "id": "routine_wechsel", "frage": "Lieber ruhige Routine oder ständiger Wechsel?", "linksPol": "ruhige Routine", "rechtsPol": "ständiger Wechsel" },
+    { "id": "anpacken_konzentriert", "frage": "Lieber körperlich anpackend oder lieber still konzentriert?", "linksPol": "anpackend", "rechtsPol": "still konzentriert" }
+  ],
+
+  "fragen_c_titel": "Welche dieser Tätigkeiten würdest du gerne tun?",
+  "fragen_c": [
+    [
+      "holz_bearbeiten", "metall_bearbeiten", "schweissen_loeten",
+      "mauer_errichten", "dach_decken", "fliesen_setzen",
+      "fahrzeug_reparieren", "maschine_warten_reparieren",
+      "stromkreis_verdrahten", "praezisionsarbeit_hand",
+      "schmuck_fertigen", "glas_bearbeiten"
+    ],
+    [
+      "pflanze_bestimmen_pflegen", "garten_anlegen", "wald_bewirtschaften",
+      "ernte_verarbeiten", "boden_wasser_untersuchen",
+      "tier_versorgen_fuettern", "tier_trainieren", "zuchttier_beurteilen",
+      "rohr_verlegen", "vermessen_im_gelaende", "fahrzeug_fuehren"
+    ],
+    [
+      "wunde_versorgen", "patient_untersuchen", "medikament_verabreichen",
+      "senior_pflegen", "kind_medizinisch_betreuen", "therapie_anleiten",
+      "zahn_behandeln", "tier_untersuchen_behandeln",
+      "kind_betreuen_erziehen", "mensch_beraten_begleiten",
+      "konflikt_vermitteln"
+    ],
+    [
+      "mikroskop_bedienen", "probe_analysieren", "experiment_durchfuehren",
+      "messdaten_dokumentieren", "chemikalie_mischen",
+      "code_schreiben", "datenbank_auswerten", "ki_datenanalyse",
+      "elektronik_loeten", "computer_reparieren", "netzwerk_einrichten",
+      "gesetz_recherchieren_anwenden", "ermitteln_untersuchen"
+    ],
+    [
+      "zeichnen_illustrieren", "grafik_am_computer_gestalten",
+      "foto_video_aufnehmen", "raum_innen_gestalten",
+      "mode_entwerfen", "produkt_entwerfen", "stoff_verarbeiten",
+      "app_website_gestalten", "gebaeude_planen_zeichnen",
+      "text_schreiben_redigieren",
+      "moderieren_praesentieren", "recherche_journalistisch",
+      "stein_keramik_formen", "unterricht_halten_erklaeren", "gruppe_anleiten"
+    ],
+    [
+      "zahlen_buchhaltung", "tabelle_auswerten", "kunde_beraten_verkaufen",
+      "projekt_planen_organisieren", "personal_verwalten", "einkauf_handel",
+      "vertrag_aufsetzen", "ordnung_sicherheit_durchsetzen",
+      "speise_zubereiten", "lebensmittel_herstellen", "gast_bedienen",
+      "getraenk_mixen_servieren", "route_planen_navigieren",
+      "waren_verladen_lagern", "flugzeug_schiff_fuehren",
+      "maschine_bedienen", "motor_diagnostizieren", "hydraulik_pneumatik",
+      "uebersetzen_dolmetschen"
+    ]
+  ],
+
+  "motivationen": [
+    { "id": "anderen_helfen", "label": "Anderen Menschen helfen" },
+    { "id": "sichtbares_schaffen", "label": "Etwas Sichtbares schaffen" },
+    { "id": "gut_verdienen", "label": "Gut verdienen" },
+    { "id": "sicherheit", "label": "Sicherheit und Stabilität" },
+    { "id": "eigenstaendig", "label": "Eigenständig arbeiten" },
+    { "id": "neues_lernen", "label": "Ständig Neues lernen" },
+    { "id": "mit_haenden", "label": "Mit den Händen arbeiten" },
+    { "id": "verantwortung", "label": "Verantwortung übernehmen" }
+  ],
+  "motivation_max": 3,
+  "motivation_mapping": {
+    "anderen_helfen": ["medizin_pflege", "bildung_soziales"],
+    "sichtbares_schaffen": ["handwerk_material", "bau_architektur", "gestaltung_design"],
+    "gut_verdienen": ["technik_maschinen", "elektronik_it", "wirtschaft_verwaltung"],
+    "sicherheit": ["wirtschaft_verwaltung", "recht_sicherheit", "medizin_pflege"],
+    "eigenstaendig": ["handwerk_material", "gestaltung_design", "natur_umwelt"],
+    "neues_lernen": ["elektronik_it", "labor_naturwissenschaft", "medizin_pflege"],
+    "mit_haenden": ["handwerk_material", "bau_architektur", "gastronomie_lebensmittel", "tiere"],
+    "verantwortung": ["medizin_pflege", "recht_sicherheit", "bildung_soziales"]
+  },
+
+  "sinnvoll_frage": {
+    "id": "gesellschaftlich_sinnvoll",
+    "frage": "Wie wichtig ist dir, dass dein Beruf gesellschaftlich sinnvoll ist?",
+    "linksPol": "nicht so wichtig",
+    "rechtsPol": "sehr wichtig"
+  },
+  "sinnvoll_kategorien": ["medizin_pflege", "bildung_soziales", "natur_umwelt", "labor_naturwissenschaft", "recht_sicherheit"]
+}

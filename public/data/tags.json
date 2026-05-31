@@ -1,0 +1,161 @@
+{
+  "version": "1.0.0",
+  "kategorien": {
+    "handwerk_material": {
+      "label": "Handwerk & Material",
+      "tags": [
+        "holz_bearbeiten",
+        "metall_bearbeiten",
+        "stoff_verarbeiten",
+        "stein_keramik_formen",
+        "glas_bearbeiten",
+        "schmuck_fertigen",
+        "praezisionsarbeit_hand"
+      ]
+    },
+    "technik_maschinen": {
+      "label": "Technik & Maschinen",
+      "tags": [
+        "maschine_bedienen",
+        "maschine_warten_reparieren",
+        "motor_diagnostizieren",
+        "fahrzeug_reparieren",
+        "hydraulik_pneumatik",
+        "schweissen_loeten"
+      ]
+    },
+    "elektronik_it": {
+      "label": "Elektronik & IT",
+      "tags": [
+        "stromkreis_verdrahten",
+        "elektronik_loeten",
+        "computer_reparieren",
+        "netzwerk_einrichten",
+        "code_schreiben",
+        "datenbank_auswerten",
+        "app_website_gestalten",
+        "ki_datenanalyse"
+      ]
+    },
+    "medizin_pflege": {
+      "label": "Medizin & Pflege",
+      "tags": [
+        "wunde_versorgen",
+        "patient_untersuchen",
+        "medikament_verabreichen",
+        "senior_pflegen",
+        "kind_medizinisch_betreuen",
+        "therapie_anleiten",
+        "zahn_behandeln"
+      ]
+    },
+    "labor_naturwissenschaft": {
+      "label": "Labor & Naturwissenschaft",
+      "tags": [
+        "mikroskop_bedienen",
+        "probe_analysieren",
+        "experiment_durchfuehren",
+        "messdaten_dokumentieren",
+        "chemikalie_mischen"
+      ]
+    },
+    "bau_architektur": {
+      "label": "Bau & Architektur",
+      "tags": [
+        "mauer_errichten",
+        "dach_decken",
+        "rohr_verlegen",
+        "fliesen_setzen",
+        "gebaeude_planen_zeichnen",
+        "vermessen_im_gelaende"
+      ]
+    },
+    "natur_umwelt": {
+      "label": "Natur & Umwelt",
+      "tags": [
+        "pflanze_bestimmen_pflegen",
+        "boden_wasser_untersuchen",
+        "wald_bewirtschaften",
+        "garten_anlegen",
+        "ernte_verarbeiten"
+      ]
+    },
+    "tiere": {
+      "label": "Tiere",
+      "tags": [
+        "tier_untersuchen_behandeln",
+        "tier_versorgen_fuettern",
+        "tier_trainieren",
+        "zuchttier_beurteilen"
+      ]
+    },
+    "gestaltung_design": {
+      "label": "Gestaltung & Design",
+      "tags": [
+        "zeichnen_illustrieren",
+        "grafik_am_computer_gestalten",
+        "foto_video_aufnehmen",
+        "raum_innen_gestalten",
+        "mode_entwerfen",
+        "produkt_entwerfen"
+      ]
+    },
+    "sprache_kommunikation": {
+      "label": "Sprache & Kommunikation",
+      "tags": [
+        "text_schreiben_redigieren",
+        "uebersetzen_dolmetschen",
+        "moderieren_praesentieren",
+        "recherche_journalistisch"
+      ]
+    },
+    "bildung_soziales": {
+      "label": "Bildung & Soziales",
+      "tags": [
+        "unterricht_halten_erklaeren",
+        "kind_betreuen_erziehen",
+        "mensch_beraten_begleiten",
+        "gruppe_anleiten",
+        "konflikt_vermitteln"
+      ]
+    },
+    "wirtschaft_verwaltung": {
+      "label": "Wirtschaft & Verwaltung",
+      "tags": [
+        "zahlen_buchhaltung",
+        "tabelle_auswerten",
+        "kunde_beraten_verkaufen",
+        "projekt_planen_organisieren",
+        "personal_verwalten",
+        "einkauf_handel"
+      ]
+    },
+    "recht_sicherheit": {
+      "label": "Recht & Sicherheit",
+      "tags": [
+        "gesetz_recherchieren_anwenden",
+        "vertrag_aufsetzen",
+        "ordnung_sicherheit_durchsetzen",
+        "ermitteln_untersuchen"
+      ]
+    },
+    "gastronomie_lebensmittel": {
+      "label": "Gastronomie & Lebensmittel",
+      "tags": [
+        "speise_zubereiten",
+        "lebensmittel_herstellen",
+        "gast_bedienen",
+        "getraenk_mixen_servieren"
+      ]
+    },
+    "verkehr_logistik": {
+      "label": "Verkehr & Logistik",
+      "tags": [
+        "fahrzeug_fuehren",
+        "route_planen_navigieren",
+        "waren_verladen_lagern",
+        "flugzeug_schiff_fuehren"
+      ]
+    }
+  }
+}

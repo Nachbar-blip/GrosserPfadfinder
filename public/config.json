@@ -1,0 +1,8 @@
+{
+  "schulname": "Freiherr-vom-Stein-Gymnasium Weferlingen",
+  "schulkuerzel": "FvSG",
+  "plz": "39356",
+  "koordinaten": { "lat": 52.2833, "lon": 11.1333 },
+  "default_umkreis_km": 50,
+  "impressum_url": "https://fvsg-weferlingen.de/impressum"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "grosser-pfadfinder-build",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Build-Pipeline (Datenbeschaffung + Tagging) für den großen Pfadfinder. Das Frontend in public/ ist vanilla und braucht diese Abhängigkeiten NICHT.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "fetch:berufe": "node build/01_fetch_berufenet.js",
+    "fetch:kompetenzen": "node build/02_fetch_kompetenzen.js",
+    "tag": "node build/03_tag_berufe.js",
+    "tag:sample": "node build/03_tag_berufe.js --sample=50",
+    "tag:full-retag": "node build/03_tag_berufe.js --full-retag",
+    "validate": "node build/04_validate.js",
+    "build:data": "npm run fetch:berufe && npm run fetch:kompetenzen && npm run tag && npm run validate"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0"
+  }
+}
