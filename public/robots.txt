@@ -1,0 +1,3 @@
+# Privates Werkzeug — nicht für Suchmaschinen-Indexierung vorgesehen.
+User-agent: *
+Disallow: /
