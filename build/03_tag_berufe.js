@@ -41,8 +41,9 @@ const ALLE_TAGS = new Set();
 const ALLE_KAT = new Set(Object.keys(tagsJson.kategorien));
 for (const k of Object.values(tagsJson.kategorien)) for (const t of k.tags) ALLE_TAGS.add(t);
 const ABSCHLUESSE = new Set(['hauptschule', 'realschule', 'fachhochschulreife', 'abitur']);
-const ARTEN = new Set(['betriebliche_ausbildung', 'schulische_ausbildung', 'duales_studium', 'studium']);
+const ARTEN = new Set(['betriebliche_ausbildung', 'schulische_ausbildung', 'duales_studium', 'studium', 'weiterbildung']);
 const SELTENHEITEN = new Set(['haeufig', 'regional', 'selten']);
+const KI_RISIKO = new Set(['niedrig', 'mittel', 'hoch']);
 
 function quellHash(b) {
   return crypto
@@ -64,6 +65,8 @@ function validiere(p, roh) {
   if (!ABSCHLUESSE.has(p.schulabschluss_min)) fehler.push(`schulabschluss_min ungültig (${p.schulabschluss_min})`);
   if (!ARTEN.has(p.ausbildungsart)) fehler.push(`ausbildungsart ungültig (${p.ausbildungsart})`);
   if (!SELTENHEITEN.has(p.seltenheit)) fehler.push(`seltenheit ungültig (${p.seltenheit})`);
+  if (!KI_RISIKO.has(p.ki_risiko)) fehler.push(`ki_risiko ungültig (${p.ki_risiko})`);
+  if (typeof p.zukunft_text !== 'string' || p.zukunft_text.trim().length < 10) fehler.push('zukunft_text fehlt/zu kurz');
   if (!Array.isArray(p.osm_tags)) fehler.push('osm_tags kein Array');
   return fehler;
 }
@@ -73,6 +76,7 @@ function normalisiere(p, roh) {
   p.id = roh.id;
   p.name = roh.name;
   p.gattung = roh.gattung;
+  p.stufe = roh.stufe;
   // Ungültige (erfundene) Tags/Kategorien verwerfen statt den Beruf zu blockieren.
   const tagsRoh = Array.isArray(p.tags) ? p.tags : [];
   const verworfen = tagsRoh.filter((t) => !ALLE_TAGS.has(t));
@@ -99,6 +103,14 @@ const KW_STUDIUM = [
   'Architektur', 'Bauingenieur', 'Psychologie', 'Medizin', 'Rechtswissenschaft', 'Lehramt',
   'Biologie', 'Wirtschaftsingenieur', 'Pflege', 'Chemie',
 ];
+const KW_MASTER = [
+  'Informatik', 'Data', 'Management', 'Maschinenbau', 'Psychologie', 'Wirtschaft', 'Medizin',
+  'Robotik', 'Künstliche', 'Energie', 'Bau', 'Soziale', 'Bio', 'Elektro', 'Umwelt',
+];
+const KW_WEITERBILDUNG = [
+  'Meister', 'Techniker', 'Fachwirt', 'Betriebswirt', 'Industriemeister', 'Handwerksmeister',
+  'Fachkaufmann', 'Polier', 'Geprüfte', 'Pflegedienst', 'Erzieher', 'Bilanzbuchhalter',
+];
 
 function waehlePerKeywords(kandidaten, keywords, gewaehlt, limit) {
   const niedrig = kandidaten.map((b) => ({ b, lname: (b.name || '').toLowerCase() }));
@@ -110,10 +122,13 @@ function waehlePerKeywords(kandidaten, keywords, gewaehlt, limit) {
 }
 
 function waehleSample(berufe, n) {
-  const nStudium = Math.round(n * 0.25); // ~25 % Studium, Rest Ausbildung
   const gewaehlt = new Map();
-  waehlePerKeywords(berufe.filter((b) => b.gattung === 'ausbildung'), KW_AUSBILDUNG, gewaehlt, n - nStudium);
-  waehlePerKeywords(berufe.filter((b) => b.gattung === 'studium'), KW_STUDIUM, gewaehlt, n);
+  const proStufe = (s) => berufe.filter((b) => b.stufe === s);
+  // Kumulative Quoten über alle vier Stufen (~45/20/17/18 %).
+  waehlePerKeywords(proStufe('ausbildung'), KW_AUSBILDUNG, gewaehlt, Math.round(n * 0.45));
+  waehlePerKeywords(proStufe('bachelor'), KW_STUDIUM, gewaehlt, Math.round(n * 0.65));
+  waehlePerKeywords(proStufe('master'), KW_MASTER, gewaehlt, Math.round(n * 0.82));
+  waehlePerKeywords(proStufe('weiterbildung'), KW_WEITERBILDUNG, gewaehlt, n);
   // Mit gleichmäßigem Durchgriff über die ID-Liste auffüllen (deterministisch).
   if (gewaehlt.size < n) {
     const rest = berufe.filter((b) => !gewaehlt.has(b.id));
@@ -244,21 +259,28 @@ function berichteStichprobe(getaggt, fehlerCount, kosten, gesamtBerufe) {
   const haeufigste = Object.entries(tagVert).sort((a, b) => b[1] - a[1]).slice(0, 8);
   const review = getaggt.filter((b) => b.needs_review);
   const ohneOsm = getaggt.filter((b) => (b.osm_tags || []).length === 0).length;
-  const proGattung = getaggt.reduce((m, b) => ((m[b.gattung] = (m[b.gattung] || 0) + 1), m), {});
+  const proStufe = getaggt.reduce((m, b) => ((m[b.stufe] = (m[b.stufe] || 0) + 1), m), {});
+  const proKi = getaggt.reduce((m, b) => ((m[b.ki_risiko] = (m[b.ki_risiko] || 0) + 1), m), {});
   const hochrechnung = (kosten.eur / Math.max(1, getaggt.length)) * gesamtBerufe;
 
   console.log(`\n\n========================= STICHPROBEN-BERICHT =========================`);
   console.log(`Datei:            ${path.relative(process.cwd(), OUT_SAMPLE)}`);
-  console.log(`Getaggt:          ${getaggt.length} Berufe (${JSON.stringify(proGattung)})`);
+  console.log(`Getaggt:          ${getaggt.length} Berufe — Stufe ${JSON.stringify(proStufe)}`);
+  console.log(`KI-Risiko-Verteilung: ${JSON.stringify(proKi)}`);
   console.log(`needs_review:     ${review.length}${review.length ? ' → ' + review.map((b) => b.name).join(', ') : ''}`);
   console.log(`Fehler (kein JSON/Abbruch): ${fehlerCount}`);
   console.log(`Ohne osm_tags:    ${ohneOsm}`);
   console.log(`Häufigste Tags:   ${haeufigste.map(([t, n]) => `${t}(${n})`).join(', ')}`);
   console.log(`Kosten Stichprobe: ~${kosten.eur.toFixed(2)} €  →  Hochrechnung voller Lauf (${gesamtBerufe}): ~${hochrechnung.toFixed(2)} €`);
+  console.log(`\n--- KI-/Zukunfts-Einschätzungen (Stichprobe) ---`);
+  const ki = (r) => getaggt.filter((b) => b.ki_risiko === r).slice(0, 2);
+  for (const b of [...ki('hoch'), ...ki('mittel'), ...ki('niedrig')]) {
+    console.log(`  [${b.ki_risiko.toUpperCase()}] ${b.name} (${b.stufe}): ${b.zukunft_text}`);
+  }
   console.log(`\n--- 5 Beispiele zur Sichtprüfung ---`);
   for (const b of getaggt.slice(0, 5)) {
-    console.log(`  ${b.name} [${b.gattung}] → kat:${(b.kategorien || []).join('/')} | tags:${(b.tags || []).join(',')}`);
-    console.log(`     umgebung:${JSON.stringify(b.umgebung)} osm:${JSON.stringify(b.osm_tags)} abschluss:${b.schulabschluss_min} art:${b.ausbildungsart} gehalt:${b.mediangehalt} selten:${b.seltenheit}`);
+    console.log(`  ${b.name} [${b.stufe}] → kat:${(b.kategorien || []).join('/')} | tags:${(b.tags || []).join(',')}`);
+    console.log(`     osm:${JSON.stringify(b.osm_tags)} abschluss:${b.schulabschluss_min} art:${b.ausbildungsart} gehalt:${b.mediangehalt} selten:${b.seltenheit} ki:${b.ki_risiko}`);
   }
   console.log(`\n⛔ PFLICHT-STOPP (Spec §8.3): voller Lauf NICHT automatisch gestartet.`);
   console.log(`   Bitte Stichprobe prüfen. >>> Freigabe für vollen Lauf? <<<`);

@@ -35,9 +35,16 @@ function main() {
   // pro Beruf
   const tagCount = {};
   const katCount = {};
+  const stufeCount = {};
+  const kiCount = {};
   let review = 0;
   for (const b of berufe) {
     if (b.needs_review) review++;
+    stufeCount[b.stufe || '?'] = (stufeCount[b.stufe || '?'] || 0) + 1;
+    kiCount[b.ki_risiko || '?'] = (kiCount[b.ki_risiko || '?'] || 0) + 1;
+    if (!['niedrig', 'mittel', 'hoch'].includes(b.ki_risiko)) {
+      (b.needs_review ? warnung : fehler).push(`${b.id} ${b.name}: ki_risiko fehlt/ungültig (${b.ki_risiko})`);
+    }
     if (!Array.isArray(b.tags) || b.tags.length < 3) {
       // < 3 Tags ist nur ein harter Fehler bei Berufen, die im Tool angezeigt
       // werden. needs_review-Berufe sind bewusst vom Matching ausgeschlossen.
@@ -67,6 +74,7 @@ function main() {
 
   console.log(`=== VALIDIERUNG ===`);
   console.log(`Berufe: ${berufe.length} | needs_review: ${review}`);
+  console.log(`Stufe: ${JSON.stringify(stufeCount)} | KI-Risiko: ${JSON.stringify(kiCount)}`);
   console.log(`Tags benutzt: ${Object.keys(tagCount).length}/${alleTags.size}`);
   console.log(`\nKategorien-Verteilung (Hauptkategorie):`);
   for (const [k, n] of Object.entries(katCount).sort((a, b) => b[1] - a[1])) {

@@ -87,7 +87,9 @@ REGELN:
 - "osm_tags": 0–3 REAL existierende OpenStreetMap-Tags ("key=value"), mit denen man typische Betriebe dieses Berufs auf einer Karte findet. Nur wenn es solche Publikums-/Handwerksbetriebe gibt; reine Industrie-/Bürotätigkeiten ohne auffindbaren Einzelbetrieb bekommen []. Orientiere dich an diesen geprüften Mustern je Kategorie:
 ${osmText}
 - "schulabschluss_min": realistischer Mindest-Schulabschluss, einer von: hauptschule, realschule, fachhochschulreife, abitur. (Studiengänge i.d.R. fachhochschulreife oder abitur.)
-- "ausbildungsart": einer von: betriebliche_ausbildung (duale Ausbildung in Betrieb+Berufsschule), schulische_ausbildung (an einer Berufsfachschule), duales_studium, studium (Vollzeit-Studium). Nutze Berufstyp/Ausbildungsart aus dem Input.
+- "ausbildungsart": einer von: betriebliche_ausbildung (duale Ausbildung in Betrieb+Berufsschule), schulische_ausbildung (an einer Berufsfachschule), duales_studium, studium (Hochschulstudium), weiterbildung (Aufstiegsfortbildung wie Meister/Techniker/Fachwirt, baut auf einer Ausbildung auf). Richte dich nach dem Feld "stufe" im Input: stufe=master → studium; stufe=weiterbildung → weiterbildung; stufe=bachelor → studium; stufe=ausbildung → betriebliche_ oder schulische_ausbildung bzw. duales_studium laut Steckbrief.
+- "ki_risiko": realistische Einschätzung, wie stark Künstliche Intelligenz und Automatisierung diesen Beruf in den nächsten ~10 Jahren verändern oder Tätigkeiten ersetzen — einer von: niedrig, mittel, hoch. Differenziere ehrlich: körpernahe, handwerkliche, pflegerische, zwischenmenschliche und unvorhersehbare Tätigkeiten eher niedrig; stark standardisierte Routine-, Büro-, Sachbearbeitungs- und reine Datentätigkeiten eher hoch. Keine pauschale Panik.
+- "zukunft_text": ein bis zwei ehrliche, konkrete Sätze auf Deutsch: WAS verändert KI/Automatisierung in diesem Beruf konkret und wie zukunftssicher gilt er? Sachlich, ohne Angstmacherei und ohne Schönfärberei.
 - "mediangehalt": grobe SCHÄTZUNG des monatlichen Brutto-Einstiegsgehalts NACH der Ausbildung/dem Studium in Euro (ganze Zahl), basierend auf deinem Wissen und der genannten Ausbildungsvergütung. Kein exakter Wert nötig.
 - "dauer_jahre": typische Dauer in Jahren (Zahl, ggf. Dezimal), aus dem Input ableiten.
 - "seltenheit": Verfügbarkeit von Ausbildungs-/Studienplätzen in Deutschland — einer von: haeufig (überall), regional (nur in manchen Regionen), selten (bundesweit nur wenige Standorte, z.B. Orgelbauer, Geigenbauer).
@@ -95,7 +97,7 @@ ${osmText}
 - Antworte AUSSCHLIESSLICH mit gültigem JSON. Keine Prosa, kein Markdown-Codeblock.
 
 FORMAT:
-{"id":<id>,"name":"<name>","kategorien":["..."],"tags":["..."],"umgebung":{"drinnen_draussen":<0-100>,"allein_team":<0-100>,"routine_wechsel":<0-100>,"anpacken_konzentriert":<0-100>},"osm_tags":["key=value"],"schulabschluss_min":"<...>","ausbildungsart":"<...>","mediangehalt":<zahl>,"dauer_jahre":<zahl>,"seltenheit":"<...>","needs_review":<true|false>}
+{"id":<id>,"name":"<name>","kategorien":["..."],"tags":["..."],"umgebung":{"drinnen_draussen":<0-100>,"allein_team":<0-100>,"routine_wechsel":<0-100>,"anpacken_konzentriert":<0-100>},"osm_tags":["key=value"],"schulabschluss_min":"<...>","ausbildungsart":"<...>","mediangehalt":<zahl>,"dauer_jahre":<zahl>,"seltenheit":"<...>","ki_risiko":"<niedrig|mittel|hoch>","zukunft_text":"<1-2 Sätze>","needs_review":<true|false>}
 
 VOKABULAR:
 ${JSON.stringify(tagsJson, null, 2)}`;
@@ -113,6 +115,7 @@ function erstelleTagger(tagsJson, { model } = {}) {
         id: rohBeruf.id,
         name: rohBeruf.name,
         gattung: rohBeruf.gattung,
+        stufe: rohBeruf.stufe,
         beschreibung: rohBeruf.beschreibung,
         anforderungen: rohBeruf.anforderungen,
         taetigkeitsfelder: rohBeruf.taetigkeitsfelder,

@@ -5,9 +5,10 @@
  * Anforderungen, Tätigkeitsfelder, Ausbildungsvergütung, kldb2010) und
  * bereitet ihn als sauberen Text fürs Tagging auf.
  *
- * Liest build/raw/berufe_basis.json, schreibt build/raw/berufe_voll.json.
- * Inkrementell: bereits geholte IDs werden übersprungen (Cache = vorhandene
- * berufe_voll.json). Gedrosselt, mit Zwischenspeichern.
+ * Basis-getrieben: Metadaten (name, gattung, stufe, bkgrId) kommen immer frisch
+ * aus berufe_basis.json (so werden neue Felder wie stufe auch für bereits
+ * geholte Berufe nachgetragen); die teuren Text-Felder werden gecacht und nur
+ * für neue IDs per API geholt. Gedrosselt, mit Zwischenspeichern.
  *
  * Aufruf:  node build/02_fetch_kompetenzen.js [--limit=N]
  */
@@ -26,21 +27,29 @@ const LIMIT = limitArg ? parseInt(limitArg.split('=')[1], 10) : Infinity;
 const THROTTLE_MS = 120;
 const SPEICHER_INTERVALL = 25;
 
-function ladeCache() {
+const TEXT_FELDER = ['beschreibung', 'anforderungen', 'steckbrief_kurz', 'verguetung', 'taetigkeitsfelder', 'kldb2010', '_fetch_fehler'];
+
+function ladeTextCache() {
   if (!fs.existsSync(OUT)) return new Map();
   try {
-    return new Map(JSON.parse(fs.readFileSync(OUT, 'utf8')).map((b) => [b.id, b]));
+    const m = new Map();
+    for (const b of JSON.parse(fs.readFileSync(OUT, 'utf8'))) {
+      const t = {};
+      for (const k of TEXT_FELDER) if (k in b) t[k] = b[k];
+      m.set(b.id, t);
+    }
+    return m;
   } catch (e) {
     return new Map();
   }
 }
 
-function speichere(cache, basisIds) {
-  // Nur Details schreiben, die auch in der aktuellen Basis-Liste stehen
-  // (pruned damit ausgeschlossene Berufe nicht in voll.json zurückbleiben).
-  const arr = Array.from(cache.values())
-    .filter((b) => !basisIds || basisIds.has(b.id))
-    .sort((a, b) => a.id - b.id);
+function baueEintrag(basisB, text) {
+  return { id: basisB.id, name: basisB.name, gattung: basisB.gattung, stufe: basisB.stufe, bkgrId: basisB.bkgrId, ...text };
+}
+
+function speichere(basis, textCache) {
+  const arr = basis.map((b) => baueEintrag(b, textCache.get(b.id) || {})).sort((a, b) => a.id - b.id);
   fs.writeFileSync(OUT, JSON.stringify(arr, null, 2), 'utf8');
 }
 
@@ -50,14 +59,13 @@ async function main() {
     process.exit(1);
   }
   const basis = JSON.parse(fs.readFileSync(BASIS, 'utf8'));
-  const basisIds = new Set(basis.map((b) => b.id));
-  const cache = ladeCache();
-  const todo = basis.filter((b) => !cache.has(b.id)).slice(0, LIMIT === Infinity ? undefined : LIMIT);
+  const textCache = ladeTextCache();
+  const todo = basis.filter((b) => !textCache.has(b.id)).slice(0, LIMIT === Infinity ? undefined : LIMIT);
 
-  console.log(`Basis: ${basis.length} | im Cache: ${cache.size} | zu holen: ${todo.length}`);
+  console.log(`Basis: ${basis.length} | Text im Cache: ${textCache.size} | zu holen: ${todo.length}`);
   if (todo.length === 0) {
-    speichere(cache, basisIds); // ggf. ausgeschlossene Berufe aus voll.json entfernen
-    console.log('Nichts zu holen (voll.json auf Basis-Umfang gekürzt).');
+    speichere(basis, textCache); // Metadaten (stufe) ggf. nachtragen
+    console.log('Nichts zu holen (voll.json mit aktuellen Metadaten geschrieben).');
     return;
   }
 
@@ -66,22 +74,21 @@ async function main() {
     const b = todo[i];
     try {
       const detail = await ba.holeDetail(b.id);
-      const text = ba.steckbriefZuText(detail);
-      cache.set(b.id, { id: b.id, name: b.name, gattung: b.gattung, bkgrId: b.bkgrId, ...text });
+      textCache.set(b.id, ba.steckbriefZuText(detail));
     } catch (e) {
       fehler++;
       console.warn(`  ✗ ${b.id} ${b.name}: ${e.message}`);
-      cache.set(b.id, { id: b.id, name: b.name, gattung: b.gattung, bkgrId: b.bkgrId, beschreibung: '', anforderungen: '', steckbrief_kurz: '', verguetung: '', taetigkeitsfelder: [], kldb2010: null, _fetch_fehler: true });
+      textCache.set(b.id, { beschreibung: '', anforderungen: '', steckbrief_kurz: '', verguetung: '', taetigkeitsfelder: [], kldb2010: null, _fetch_fehler: true });
     }
     if ((i + 1) % SPEICHER_INTERVALL === 0) {
-      speichere(cache, basisIds);
+      speichere(basis, textCache);
       process.stdout.write(`  ${i + 1}/${todo.length} (${Math.round(((i + 1) / todo.length) * 100)}%)\r`);
     }
     await ba.schlaf(THROTTLE_MS);
   }
-  speichere(cache, basisIds);
+  speichere(basis, textCache);
 
-  console.log(`\nFertig. Detail vorhanden für ${cache.size} Berufe, ${fehler} Fehler → ${path.relative(process.cwd(), OUT)}`);
+  console.log(`\nFertig. ${basis.length} Berufe in voll.json, ${fehler} Fetch-Fehler → ${path.relative(process.cwd(), OUT)}`);
 }
 
 main().catch((e) => {
