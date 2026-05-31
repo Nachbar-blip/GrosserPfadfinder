@@ -1,0 +1,1630 @@
+[
+  {
+    "id": 272,
+    "name": "Landwirt/in",
+    "kategorien": [
+      "natur_umwelt",
+      "tiere",
+      "technik_maschinen"
+    ],
+    "tags": [
+      "pflanze_bestimmen_pflegen",
+      "ernte_verarbeiten",
+      "tier_versorgen_fuettern",
+      "maschine_bedienen",
+      "maschine_warten_reparieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 85,
+      "allein_team": 40,
+      "routine_wechsel": 65,
+      "anpacken_konzentriert": 25
+    },
+    "osm_tags": [
+      "landuse=farmyard",
+      "craft=beekeeper"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "25006799a50e92f3"
+  },
+  {
+    "id": 588,
+    "name": "Gärtner/in - Garten- und Landschaftsbau",
+    "kategorien": [
+      "natur_umwelt",
+      "bau_architektur",
+      "handwerk_material"
+    ],
+    "tags": [
+      "pflanze_bestimmen_pflegen",
+      "garten_anlegen",
+      "mauer_errichten",
+      "vermessen_im_gelaende",
+      "boden_wasser_untersuchen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 95,
+      "allein_team": 70,
+      "routine_wechsel": 75,
+      "anpacken_konzentriert": 25
+    },
+    "osm_tags": [
+      "craft=gardener",
+      "shop=garden_centre"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "5bd57f3223dffc55"
+  },
+  {
+    "id": 680,
+    "name": "Florist/in",
+    "kategorien": [
+      "natur_umwelt",
+      "gestaltung_design",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "pflanze_bestimmen_pflegen",
+      "raum_innen_gestalten",
+      "kunde_beraten_verkaufen",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 50,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "shop=florist"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 1900,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "2fc472aafe5e7b70"
+  },
+  {
+    "id": 862,
+    "name": "Steinmetz/in und Steinbildhauer/in - Steinmetzarbeiten",
+    "kategorien": [
+      "handwerk_material",
+      "bau_architektur",
+      "gestaltung_design"
+    ],
+    "tags": [
+      "stein_keramik_formen",
+      "praezisionsarbeit_hand",
+      "maschine_bedienen",
+      "gebaeude_planen_zeichnen",
+      "produkt_entwerfen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 40,
+      "allein_team": 45,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=stonemason"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "regional",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "cb045ea5815cd839"
+  },
+  {
+    "id": 2376,
+    "name": "Fachpraktiker/in für Kfz-Mechatroniker (§66 BBiG/§42r HwO)",
+    "kategorien": [
+      "technik_maschinen",
+      "elektronik_it"
+    ],
+    "tags": [
+      "fahrzeug_reparieren",
+      "motor_diagnostizieren",
+      "maschine_warten_reparieren",
+      "stromkreis_verdrahten",
+      "elektronik_loeten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 15,
+      "allein_team": 60,
+      "routine_wechsel": 45,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "shop=car_repair",
+      "shop=car"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "b5c12beffe69f045"
+  },
+  {
+    "id": 2634,
+    "name": "Augenoptiker/in",
+    "kategorien": [
+      "medizin_pflege",
+      "handwerk_material",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "glas_bearbeiten",
+      "praezisionsarbeit_hand",
+      "kunde_beraten_verkaufen",
+      "messdaten_dokumentieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 60,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 75
+    },
+    "osm_tags": [
+      "shop=optician",
+      "craft=optician"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "9445ea709fc9f096"
+  },
+  {
+    "id": 2739,
+    "name": "Fachpraktiker/in für Elektroniker (§66 BBiG/§42r HwO)",
+    "kategorien": [
+      "elektronik_it",
+      "technik_maschinen",
+      "bau_architektur"
+    ],
+    "tags": [
+      "stromkreis_verdrahten",
+      "elektronik_loeten",
+      "maschine_warten_reparieren",
+      "rohr_verlegen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 20,
+      "allein_team": 50,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=electrician"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3.5,
+    "seltenheit": "regional",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "58e8d65b1097d8a5"
+  },
+  {
+    "id": 3626,
+    "name": "Bäcker/in",
+    "kategorien": [
+      "gastronomie_lebensmittel",
+      "handwerk_material"
+    ],
+    "tags": [
+      "lebensmittel_herstellen",
+      "speise_zubereiten",
+      "praezisionsarbeit_hand",
+      "chemikalie_mischen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 60,
+      "routine_wechsel": 35,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "shop=bakery",
+      "craft=bakery"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2100,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "60d1c0694d6c99a3"
+  },
+  {
+    "id": 3654,
+    "name": "Konditor/in",
+    "kategorien": [
+      "gastronomie_lebensmittel",
+      "gestaltung_design",
+      "handwerk_material"
+    ],
+    "tags": [
+      "speise_zubereiten",
+      "lebensmittel_herstellen",
+      "praezisionsarbeit_hand",
+      "zeichnen_illustrieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 55,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "shop=confectionery",
+      "shop=pastry",
+      "craft=confectionery"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2100,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "e5a6968f8ba7ffe6"
+  },
+  {
+    "id": 3673,
+    "name": "Fachpraktiker/in für Fleischer (§66 BBiG/§42r HwO)",
+    "kategorien": [
+      "gastronomie_lebensmittel",
+      "handwerk_material"
+    ],
+    "tags": [
+      "lebensmittel_herstellen",
+      "speise_zubereiten",
+      "metall_bearbeiten",
+      "maschine_bedienen",
+      "kunde_beraten_verkaufen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 60,
+      "routine_wechsel": 30,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "shop=butcher",
+      "craft=butcher"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2000,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "0b8a2e79679e99ab"
+  },
+  {
+    "id": 3726,
+    "name": "Koch/Köchin",
+    "kategorien": [
+      "gastronomie_lebensmittel"
+    ],
+    "tags": [
+      "speise_zubereiten",
+      "lebensmittel_herstellen",
+      "projekt_planen_organisieren",
+      "gruppe_anleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "amenity=restaurant",
+      "amenity=cafe",
+      "amenity=fast_food"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "1f1b6a85a50681c1"
+  },
+  {
+    "id": 3938,
+    "name": "Maurer/in",
+    "kategorien": [
+      "bau_architektur",
+      "handwerk_material"
+    ],
+    "tags": [
+      "mauer_errichten",
+      "schweissen_loeten",
+      "vermessen_im_gelaende",
+      "maschine_bedienen",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 75,
+      "allein_team": 80,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 25
+    },
+    "osm_tags": [
+      "craft=bricklayer",
+      "craft=builder"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "7a2cecfa25170fcc"
+  },
+  {
+    "id": 4010,
+    "name": "Zimmerer/Zimmerin",
+    "kategorien": [
+      "handwerk_material",
+      "bau_architektur"
+    ],
+    "tags": [
+      "holz_bearbeiten",
+      "gebaeude_planen_zeichnen",
+      "dach_decken",
+      "mauer_errichten",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 70,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=carpenter",
+      "craft=builder"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "baa9dc59e5227b15"
+  },
+  {
+    "id": 4364,
+    "name": "Glaser/in - Verglasung und Glasbau",
+    "kategorien": [
+      "handwerk_material",
+      "bau_architektur",
+      "gestaltung_design"
+    ],
+    "tags": [
+      "glas_bearbeiten",
+      "praezisionsarbeit_hand",
+      "raum_innen_gestalten",
+      "zeichnen_illustrieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 35,
+      "allein_team": 40,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "craft=glaziery"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "53c105caaab32a3b"
+  },
+  {
+    "id": 4460,
+    "name": "Tischler/in",
+    "kategorien": [
+      "handwerk_material",
+      "gestaltung_design"
+    ],
+    "tags": [
+      "holz_bearbeiten",
+      "praezisionsarbeit_hand",
+      "kunde_beraten_verkaufen",
+      "produkt_entwerfen",
+      "zeichnen_illustrieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 15,
+      "allein_team": 45,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=carpenter",
+      "craft=joiner",
+      "craft=cabinet_maker"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "f83b8cd9a5cd6739"
+  },
+  {
+    "id": 4585,
+    "name": "Fachpraktiker/in für Maler und Lackierer (§66 BBiG/§42r HwO)",
+    "kategorien": [
+      "handwerk_material",
+      "bau_architektur"
+    ],
+    "tags": [
+      "mauer_errichten",
+      "metall_bearbeiten",
+      "holz_bearbeiten",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 50,
+      "allein_team": 65,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=painter"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "cd83d89977efbc3f"
+  },
+  {
+    "id": 6580,
+    "name": "Kaufmann/-frau - Einzelhandel",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "gastronomie_lebensmittel"
+    ],
+    "tags": [
+      "kunde_beraten_verkaufen",
+      "zahlen_buchhaltung",
+      "projekt_planen_organisieren",
+      "einkauf_handel",
+      "tabelle_auswerten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 70,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "shop=supermarket",
+      "shop=convenience",
+      "shop=clothes"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "34a4862e2609045b"
+  },
+  {
+    "id": 6755,
+    "name": "Bankkaufmann/-frau",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "recht_sicherheit"
+    ],
+    "tags": [
+      "kunde_beraten_verkaufen",
+      "zahlen_buchhaltung",
+      "tabelle_auswerten",
+      "gesetz_recherchieren_anwenden",
+      "vertrag_aufsetzen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 0,
+      "allein_team": 65,
+      "routine_wechsel": 45,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [
+      "amenity=bank"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "aa1c90bfdc805183"
+  },
+  {
+    "id": 7573,
+    "name": "Steuerfachangestellte/r",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "recht_sicherheit"
+    ],
+    "tags": [
+      "zahlen_buchhaltung",
+      "tabelle_auswerten",
+      "kunde_beraten_verkaufen",
+      "gesetz_recherchieren_anwenden",
+      "vertrag_aufsetzen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 0,
+      "allein_team": 60,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 95
+    },
+    "osm_tags": [
+      "office=tax_advisor",
+      "office=accountant"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "7e6b980645fb8ac5"
+  },
+  {
+    "id": 7847,
+    "name": "Fachinformatiker/in - Systemintegration",
+    "kategorien": [
+      "elektronik_it",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "netzwerk_einrichten",
+      "computer_reparieren",
+      "kunde_beraten_verkaufen",
+      "projekt_planen_organisieren",
+      "stromkreis_verdrahten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 60,
+      "routine_wechsel": 70,
+      "anpacken_konzentriert": 75
+    },
+    "osm_tags": [
+      "office=it",
+      "shop=computer"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "cd84707c991727f2"
+  },
+  {
+    "id": 7883,
+    "name": "Fachpraktiker/in für Büromanagement (§66 BBiG/§42r HwO)",
+    "kategorien": [
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "tabelle_auswerten",
+      "zahlen_buchhaltung",
+      "kunde_beraten_verkaufen",
+      "projekt_planen_organisieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 0,
+      "allein_team": 65,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "31a955398c313b26"
+  },
+  {
+    "id": 7965,
+    "name": "Industriekaufmann/-frau",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "verkehr_logistik"
+    ],
+    "tags": [
+      "zahlen_buchhaltung",
+      "tabelle_auswerten",
+      "kunde_beraten_verkaufen",
+      "projekt_planen_organisieren",
+      "personal_verwalten",
+      "einkauf_handel"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 70,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "3aac11b3a2e252df"
+  },
+  {
+    "id": 8533,
+    "name": "Mediengestalter/in - Bild und Ton",
+    "kategorien": [
+      "elektronik_it",
+      "gestaltung_design"
+    ],
+    "tags": [
+      "foto_video_aufnehmen",
+      "app_website_gestalten",
+      "projekt_planen_organisieren",
+      "moderieren_praesentieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 20,
+      "allein_team": 75,
+      "routine_wechsel": 80,
+      "anpacken_konzentriert": 70
+    },
+    "osm_tags": [
+      "craft=photographer",
+      "office=it"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "a3149ced474479c3"
+  },
+  {
+    "id": 8750,
+    "name": "Physiotherapeut/in (Ausbildung)",
+    "kategorien": [
+      "medizin_pflege",
+      "bildung_soziales"
+    ],
+    "tags": [
+      "patient_untersuchen",
+      "therapie_anleiten",
+      "mensch_beraten_begleiten",
+      "gruppe_anleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 60,
+      "routine_wechsel": 45,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "healthcare=physiotherapist",
+      "amenity=clinic"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "schulische_ausbildung",
+    "mediangehalt": 2600,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "dc05ad21ed73ed85"
+  },
+  {
+    "id": 9063,
+    "name": "Altenpflegehelfer/in",
+    "kategorien": [
+      "medizin_pflege",
+      "bildung_soziales"
+    ],
+    "tags": [
+      "senior_pflegen",
+      "wunde_versorgen",
+      "mensch_beraten_begleiten",
+      "gruppe_anleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 75,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "amenity=social_facility",
+      "amenity=nursing_home",
+      "healthcare=physiotherapist"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "schulische_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 1,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "757817e9632e12c2"
+  },
+  {
+    "id": 9106,
+    "name": "Erzieher/in - Jugend- und Heimerziehung",
+    "kategorien": [
+      "bildung_soziales"
+    ],
+    "tags": [
+      "kind_betreuen_erziehen",
+      "mensch_beraten_begleiten",
+      "gruppe_anleiten",
+      "konflikt_vermitteln"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 20,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 65
+    },
+    "osm_tags": [
+      "amenity=childcare",
+      "amenity=social_facility"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "schulische_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "72b1244aa4e9e38a"
+  },
+  {
+    "id": 9910,
+    "name": "Friseur/in",
+    "kategorien": [
+      "gestaltung_design",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "praezisionsarbeit_hand",
+      "kunde_beraten_verkaufen",
+      "produkt_entwerfen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 65,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 45
+    },
+    "osm_tags": [
+      "shop=hairdresser",
+      "shop=beauty"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 1800,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "2075614e63af4ced"
+  },
+  {
+    "id": 13794,
+    "name": "Berufskraftfahrer/in",
+    "kategorien": [
+      "verkehr_logistik"
+    ],
+    "tags": [
+      "fahrzeug_fuehren",
+      "route_planen_navigieren",
+      "waren_verladen_lagern",
+      "maschine_warten_reparieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 40,
+      "allein_team": 20,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 50
+    },
+    "osm_tags": [
+      "amenity=fuel",
+      "amenity=parking"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "7340fe7edb46053e"
+  },
+  {
+    "id": 13809,
+    "name": "Chemielaborant/in",
+    "kategorien": [
+      "labor_naturwissenschaft",
+      "technik_maschinen"
+    ],
+    "tags": [
+      "probe_analysieren",
+      "experiment_durchfuehren",
+      "messdaten_dokumentieren",
+      "chemikalie_mischen",
+      "mikroskop_bedienen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 40,
+      "routine_wechsel": 50,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 3200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "2b92d3d7584c9b46"
+  },
+  {
+    "id": 14704,
+    "name": "Zahnmedizinische/r Fachangestellte/r",
+    "kategorien": [
+      "medizin_pflege",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "patient_untersuchen",
+      "wunde_versorgen",
+      "zahlen_buchhaltung",
+      "kunde_beraten_verkaufen",
+      "projekt_planen_organisieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 0,
+      "allein_team": 75,
+      "routine_wechsel": 40,
+      "anpacken_konzentriert": 65
+    },
+    "osm_tags": [
+      "amenity=dentist",
+      "healthcare=dentist"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "3f3f26bc93ca3d07"
+  },
+  {
+    "id": 14799,
+    "name": "Kraftfahrzeugmechatroniker/in - Personenkraftwagentechnik",
+    "kategorien": [
+      "technik_maschinen",
+      "elektronik_it"
+    ],
+    "tags": [
+      "maschine_warten_reparieren",
+      "motor_diagnostizieren",
+      "fahrzeug_reparieren",
+      "stromkreis_verdrahten",
+      "hydraulik_pneumatik"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 45,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "shop=car_repair",
+      "shop=car"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2600,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "92025659d203a874"
+  },
+  {
+    "id": 15164,
+    "name": "Anlagenmechaniker/in - Sanitär-, Heizungs- und Klimatechnik",
+    "kategorien": [
+      "technik_maschinen",
+      "bau_architektur"
+    ],
+    "tags": [
+      "rohr_verlegen",
+      "maschine_warten_reparieren",
+      "schweissen_loeten",
+      "metall_bearbeiten",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 30,
+      "allein_team": 65,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=plumber",
+      "craft=hvac"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "fa67a76bd0aa02e1"
+  },
+  {
+    "id": 29055,
+    "name": "Industriemechaniker/in",
+    "kategorien": [
+      "technik_maschinen",
+      "handwerk_material"
+    ],
+    "tags": [
+      "maschine_bedienen",
+      "maschine_warten_reparieren",
+      "schweissen_loeten",
+      "metall_bearbeiten",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 60,
+      "routine_wechsel": 45,
+      "anpacken_konzentriert": 35
+    },
+    "osm_tags": [
+      "craft=metal_construction",
+      "craft=locksmith"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "d33c435e410995fb"
+  },
+  {
+    "id": 33214,
+    "name": "Tiermedizinische/r Fachangestellte/r",
+    "kategorien": [
+      "tiere",
+      "medizin_pflege",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "tier_untersuchen_behandeln",
+      "tier_versorgen_fuettern",
+      "probe_analysieren",
+      "projekt_planen_organisieren",
+      "mensch_beraten_begleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 70,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 45
+    },
+    "osm_tags": [
+      "amenity=veterinary",
+      "healthcare=veterinary"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2100,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "21744acd8e5ea7f0"
+  },
+  {
+    "id": 93568,
+    "name": "Verwaltungsinformatik (grundständig)",
+    "kategorien": [
+      "elektronik_it",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "code_schreiben",
+      "datenbank_auswerten",
+      "netzwerk_einrichten",
+      "projekt_planen_organisieren",
+      "tabelle_auswerten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 65,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 90
+    },
+    "osm_tags": [
+      "office=it",
+      "office=government"
+    ],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3400,
+    "dauer_jahre": 3.5,
+    "seltenheit": "regional",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "09057caa093b9112"
+  },
+  {
+    "id": 93590,
+    "name": "Komplementärmedizin (grundständig)",
+    "kategorien": [
+      "medizin_pflege",
+      "labor_naturwissenschaft"
+    ],
+    "tags": [
+      "patient_untersuchen",
+      "therapie_anleiten",
+      "wunde_versorgen",
+      "mensch_beraten_begleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 40,
+      "routine_wechsel": 50,
+      "anpacken_konzentriert": 70
+    },
+    "osm_tags": [
+      "healthcare=physiotherapist",
+      "amenity=clinic"
+    ],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 2800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "selten",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "0b83f3590d94aa11"
+  },
+  {
+    "id": 93646,
+    "name": "Maschinenbau (grundständig)",
+    "kategorien": [
+      "technik_maschinen",
+      "bau_architektur",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "maschine_bedienen",
+      "maschine_warten_reparieren",
+      "gebaeude_planen_zeichnen",
+      "projekt_planen_organisieren",
+      "tabelle_auswerten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 15,
+      "allein_team": 70,
+      "routine_wechsel": 65,
+      "anpacken_konzentriert": 75
+    },
+    "osm_tags": [
+      "craft=metal_construction",
+      "office=engineer"
+    ],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 4200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "857d0f68a90b145e"
+  },
+  {
+    "id": 93672,
+    "name": "Industriebetriebswirtschaft (grundständig)",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "verkehr_logistik"
+    ],
+    "tags": [
+      "zahlen_buchhaltung",
+      "tabelle_auswerten",
+      "projekt_planen_organisieren",
+      "personal_verwalten",
+      "einkauf_handel",
+      "kunde_beraten_verkaufen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "223d3cdab2bc984d"
+  },
+  {
+    "id": 93676,
+    "name": "Bauingenieurwesen (grundständig)",
+    "kategorien": [
+      "bau_architektur",
+      "technik_maschinen",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "gebaeude_planen_zeichnen",
+      "vermessen_im_gelaende",
+      "projekt_planen_organisieren",
+      "tabelle_auswerten",
+      "maschine_bedienen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 40,
+      "allein_team": 70,
+      "routine_wechsel": 65,
+      "anpacken_konzentriert": 75
+    },
+    "osm_tags": [
+      "office=architect",
+      "craft=builder"
+    ],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "3f208d8d0bffa405"
+  },
+  {
+    "id": 93692,
+    "name": "Psychologie (grundständig)",
+    "kategorien": [
+      "medizin_pflege",
+      "bildung_soziales",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "mensch_beraten_begleiten",
+      "patient_untersuchen",
+      "therapie_anleiten",
+      "datenbank_auswerten",
+      "gruppe_anleiten",
+      "personal_verwalten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 60,
+      "routine_wechsel": 65,
+      "anpacken_konzentriert": 90
+    },
+    "osm_tags": [
+      "healthcare=psychotherapist",
+      "amenity=social_facility"
+    ],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3400,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "a74270bf1834d812"
+  },
+  {
+    "id": 93746,
+    "name": "Rechtswissenschaft (Erste juristische Prüfung)",
+    "kategorien": [
+      "recht_sicherheit",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "gesetz_recherchieren_anwenden",
+      "vertrag_aufsetzen",
+      "text_schreiben_redigieren",
+      "mensch_beraten_begleiten",
+      "konflikt_vermitteln"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 50,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 95
+    },
+    "osm_tags": [
+      "office=lawyer",
+      "amenity=courthouse"
+    ],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 4500,
+    "dauer_jahre": 5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "a21f5854aa71a0c0"
+  },
+  {
+    "id": 93803,
+    "name": "Lehramt an Förderschulen/für Sonderpädagogik (Staatsexamen)",
+    "kategorien": [
+      "bildung_soziales",
+      "medizin_pflege"
+    ],
+    "tags": [
+      "unterricht_halten_erklaeren",
+      "kind_betreuen_erziehen",
+      "mensch_beraten_begleiten",
+      "gruppe_anleiten",
+      "therapie_anleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 65,
+      "routine_wechsel": 45,
+      "anpacken_konzentriert": 75
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3800,
+    "dauer_jahre": 5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "d219d250f2524d0b"
+  },
+  {
+    "id": 93948,
+    "name": "Soziale Arbeit (grundständig)",
+    "kategorien": [
+      "bildung_soziales",
+      "medizin_pflege"
+    ],
+    "tags": [
+      "mensch_beraten_begleiten",
+      "kind_betreuen_erziehen",
+      "konflikt_vermitteln",
+      "gruppe_anleiten",
+      "patient_untersuchen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 20,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 70
+    },
+    "osm_tags": [
+      "amenity=social_facility",
+      "amenity=kindergarten",
+      "office=government"
+    ],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "0dd91cb44ca524d6"
+  },
+  {
+    "id": 93960,
+    "name": "Architektur (grundständig)",
+    "kategorien": [
+      "bau_architektur",
+      "gestaltung_design",
+      "technik_maschinen"
+    ],
+    "tags": [
+      "gebaeude_planen_zeichnen",
+      "projekt_planen_organisieren",
+      "zeichnen_illustrieren",
+      "produkt_entwerfen",
+      "vermessen_im_gelaende"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 25,
+      "allein_team": 65,
+      "routine_wechsel": 70,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [
+      "office=architect"
+    ],
+    "schulabschluss_min": "fachhochschulreife",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "60a88127faba098b"
+  },
+  {
+    "id": 94076,
+    "name": "Wirtschaftsingenieurwesen (grundständig)",
+    "kategorien": [
+      "wirtschaft_verwaltung",
+      "technik_maschinen",
+      "bau_architektur"
+    ],
+    "tags": [
+      "projekt_planen_organisieren",
+      "zahlen_buchhaltung",
+      "tabelle_auswerten",
+      "maschine_bedienen",
+      "gebaeude_planen_zeichnen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 20,
+      "allein_team": 75,
+      "routine_wechsel": 70,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 4200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "aad87ef7b253effe"
+  },
+  {
+    "id": 94126,
+    "name": "Elektrotechnik (grundständig)",
+    "kategorien": [
+      "technik_maschinen",
+      "elektronik_it",
+      "wirtschaft_verwaltung"
+    ],
+    "tags": [
+      "stromkreis_verdrahten",
+      "elektronik_loeten",
+      "code_schreiben",
+      "maschine_bedienen",
+      "projekt_planen_organisieren"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 10,
+      "allein_team": 65,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 70
+    },
+    "osm_tags": [
+      "craft=electrician",
+      "office=it"
+    ],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3800,
+    "dauer_jahre": 3.5,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "41f8f7c6fe5dc0c1"
+  },
+  {
+    "id": 94165,
+    "name": "Biologie (grundständig)",
+    "kategorien": [
+      "labor_naturwissenschaft",
+      "natur_umwelt"
+    ],
+    "tags": [
+      "mikroskop_bedienen",
+      "probe_analysieren",
+      "experiment_durchfuehren",
+      "messdaten_dokumentieren",
+      "pflanze_bestimmen_pflegen",
+      "boden_wasser_untersuchen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 30,
+      "allein_team": 65,
+      "routine_wechsel": 55,
+      "anpacken_konzentriert": 85
+    },
+    "osm_tags": [],
+    "schulabschluss_min": "abitur",
+    "ausbildungsart": "studium",
+    "mediangehalt": 3400,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "studium",
+    "_quell_hash": "a7eb22b6021d6b5d"
+  },
+  {
+    "id": 129406,
+    "name": "Dachdecker/in",
+    "kategorien": [
+      "bau_architektur",
+      "handwerk_material",
+      "technik_maschinen"
+    ],
+    "tags": [
+      "dach_decken",
+      "holz_bearbeiten",
+      "mauer_errichten",
+      "rohr_verlegen",
+      "praezisionsarbeit_hand"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 85,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 25
+    },
+    "osm_tags": [
+      "craft=roofer"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2600,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "76b361c2e692d47d"
+  },
+  {
+    "id": 132173,
+    "name": "Pflegefachmann/-frau (Ausbildung)",
+    "kategorien": [
+      "medizin_pflege",
+      "bildung_soziales"
+    ],
+    "tags": [
+      "patient_untersuchen",
+      "wunde_versorgen",
+      "medikament_verabreichen",
+      "senior_pflegen",
+      "kind_medizinisch_betreuen",
+      "mensch_beraten_begleiten"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 75,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 40
+    },
+    "osm_tags": [
+      "amenity=hospital",
+      "amenity=nursing_home",
+      "amenity=social_facility"
+    ],
+    "schulabschluss_min": "realschule",
+    "ausbildungsart": "schulische_ausbildung",
+    "mediangehalt": 3200,
+    "dauer_jahre": 3,
+    "seltenheit": "haeufig",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "bd5adb48f6178a0a"
+  },
+  {
+    "id": 142202,
+    "name": "Gold- und Silberschmied/in - Goldschmieden",
+    "kategorien": [
+      "handwerk_material",
+      "gestaltung_design"
+    ],
+    "tags": [
+      "metall_bearbeiten",
+      "schmuck_fertigen",
+      "praezisionsarbeit_hand",
+      "zeichnen_illustrieren",
+      "produkt_entwerfen"
+    ],
+    "umgebung": {
+      "drinnen_draussen": 5,
+      "allein_team": 20,
+      "routine_wechsel": 60,
+      "anpacken_konzentriert": 70
+    },
+    "osm_tags": [
+      "craft=jeweller",
+      "shop=jewelry"
+    ],
+    "schulabschluss_min": "hauptschule",
+    "ausbildungsart": "betriebliche_ausbildung",
+    "mediangehalt": 2200,
+    "dauer_jahre": 3.5,
+    "seltenheit": "regional",
+    "needs_review": false,
+    "gattung": "ausbildung",
+    "_quell_hash": "0ce1cf778d9d47bd"
+  }
+]
