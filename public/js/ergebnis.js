@@ -33,11 +33,12 @@ function anzeigeName(beruf) {
 
 /** KI-/Automatisierungs-Risiko als Ampel mit aufklappbarem Erklärtext. */
 function kiAmpel(beruf) {
-  if (!beruf.ki_risiko) return '';
-  const farbe = { niedrig: 'gruen', mittel: 'gelb', hoch: 'rot' }[beruf.ki_risiko] || 'gelb';
-  const label = { niedrig: 'gering', mittel: 'mittel', hoch: 'hoch' }[beruf.ki_risiko] || beruf.ki_risiko;
+  // ki_risiko gegen eine feste Whitelist prüfen — kein ungeprüfter Datenwert ins HTML.
+  const stufen = { niedrig: { farbe: 'gruen', label: 'gering' }, mittel: { farbe: 'gelb', label: 'mittel' }, hoch: { farbe: 'rot', label: 'hoch' } };
+  const s = stufen[beruf.ki_risiko];
+  if (!s) return '';
   return `<details class="ki-block">
-    <summary><span class="ki-ampel ki-${farbe}" aria-hidden="true"></span>KI-/Automatisierungs-Risiko: <strong>${label}</strong></summary>
+    <summary><span class="ki-ampel ki-${s.farbe}" aria-hidden="true"></span>KI-/Automatisierungs-Risiko: <strong>${s.label}</strong></summary>
     <p class="ki-text">${escapeHtml(beruf.zukunft_text || '')}<span class="ki-hinweis"> (KI-gestützte Schätzung, kein amtlicher Wert.)</span></p>
   </details>`;
 }
@@ -105,8 +106,9 @@ function karte(match, i, app) {
   const badge = `<span class="badge-weg">${escapeHtml(wegBadge(b))}</span>`;
   const istStudium = b.stufe === 'bachelor' || b.stufe === 'master' || b.ausbildungsart === 'studium' || b.ausbildungsart === 'duales_studium';
   const dauerLabel = istStudium ? 'Regelstudienzeit' : 'Dauer';
-  const dauer = b.dauer_jahre ? `<div class="meta">${dauerLabel}: <strong>${b.dauer_jahre} Jahre</strong></div>` : '';
-  const gehalt = b.mediangehalt
+  // Zahlenfelder per Number-Guard absichern (Zahlen können kein HTML transportieren).
+  const dauer = Number.isFinite(b.dauer_jahre) ? `<div class="meta">${dauerLabel}: <strong>${b.dauer_jahre} Jahre</strong></div>` : '';
+  const gehalt = Number.isFinite(b.mediangehalt) && b.mediangehalt > 0
     ? `<div class="meta">Einstiegsgehalt: <strong>ca. ${b.mediangehalt.toLocaleString('de-DE')} €</strong>/Monat <span title="grobe Schätzung, kein amtlicher Wert">(geschätzt)</span></div>`
     : '';
 

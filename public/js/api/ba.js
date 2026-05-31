@@ -39,5 +39,5 @@ export function stellenLink(beruf, ort, umkreisKm) {
 
 /** Link zum vollständigen BERUFENET-Steckbrief (öffentliche Seite). */
 export function berufenetLink(beruf) {
-  return `https://web.arbeitsagentur.de/berufenet/beruf/${beruf.id}`;
+  return `https://web.arbeitsagentur.de/berufenet/beruf/${encodeURIComponent(beruf.id)}`;
 }
