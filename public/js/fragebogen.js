@@ -33,7 +33,6 @@ export function schrittFertig(schritt, state) {
 
 export function rendereStart(app) {
   app.el.className = 'container';
-  const schule = app.daten.config.schulname || '';
   app.el.innerHTML = `
     <section class="startseite">
       <h1>Pfadfinder</h1>
@@ -46,10 +45,11 @@ export function rendereStart(app) {
       <button class="btn btn-primary" id="btn-start">Los geht's</button>
       ${app.zwischenstand ? `<div><button class="btn btn-leise" id="btn-weiter-alt">Dort weitermachen, wo ich aufgehört habe</button></div>` : ''}
       <details class="hinweis-block">
-        <summary>Datenschutz &amp; Hinweise</summary>
-        <p>Dieses Tool speichert deine Antworten ausschließlich lokal in deinem Browser (localStorage), damit du den Fragebogen fortsetzen kannst. Es gibt <strong>kein Tracking, keine Cookies, keine Konten</strong> und deine Antworten werden nirgendwo hochgeladen.</p>
-        <p>Erst wenn du auf der Ergebnisseite selbst auf „Stellen in deiner Nähe" oder „Betriebe in deiner Nähe" tippst, öffnet sich eine offizielle Seite der Bundesagentur für Arbeit bzw. eine OpenStreetMap-Karte in einem neuen Tab.</p>
-        <p>Die Berufsvorschläge sind eine Orientierungshilfe, keine verbindliche Empfehlung.${schule ? ` Bereitgestellt für: ${escapeHtml(schule)}.` : ''}</p>
+        <summary>Hinweis zu Nutzung und Datenschutz</summary>
+        <p><strong>Privater Charakter.</strong> Diese Seite ist ein privates, nicht-kommerzielles Werkzeug zur Berufsorientierung für das schulische und persönliche Umfeld. Es gibt keine Gewinnabsicht, keinen Support und keine Gewähr — die Vorschläge sind eine Orientierungshilfe, keine verbindliche Empfehlung.</p>
+        <p><strong>Was gespeichert wird.</strong> Deine Antworten (inklusive Postleitzahl) werden ausschließlich in deinem Browser (localStorage) auf deinem Gerät abgelegt, damit du den Fragebogen fortsetzen kannst. Es wird <em>nichts</em> an einen Server gesendet, es gibt kein Tracking, keine Cookies und keine Konten. Du kannst die Daten jederzeit löschen (Browser-Einstellungen → Website-Daten) oder über „Fragebogen neu starten".</p>
+        <p><strong>Externe Links.</strong> Erst wenn du auf der Ergebnisseite selbst auf „Stellen in deiner Nähe", „Betriebe in deiner Nähe" oder „BERUFENET-Eintrag" tippst, öffnet sich eine Seite der Bundesagentur für Arbeit bzw. eine OpenStreetMap-Karte in einem neuen Tab. Dort gelten deren eigene Datenschutzregeln.</p>
+        <p><strong>Weitergabe.</strong> Die Seite darf frei weitergegeben werden (z. B. per Link, QR-Code oder Aushang). Wer den Link verbreitet, trägt dafür selbst Verantwortung.</p>
       </details>
     </section>`;
 
