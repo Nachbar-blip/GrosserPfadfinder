@@ -1,5 +1,7 @@
 # Pfadfinder (groß)
 
+**▶ Live: https://nachbar-blip.github.io/GrosserPfadfinder/** — QR-Code & Aushang zum Verteilen in `share/`.
+
 Ein Berufsorientierungs-Tool für Schüler:innen der Klassen 9–12. Es fragt nach
 **konkreten Tätigkeiten** (nicht nach Persönlichkeit) und schlägt am Ende ein
 **Spektrum von bis zu 10 Ausbildungsberufen und Studiengängen** mit Begründung
