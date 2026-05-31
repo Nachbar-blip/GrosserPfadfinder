@@ -37,10 +37,14 @@ python -m http.server 8099
 # → http://127.0.0.1:8099/
 ```
 
-## Eine andere Schule einrichten
+## Schul-agnostisch / ortsunabhängig
 
-Nur `public/config.json` anpassen (Name, PLZ, Koordinaten, Standard-Umkreis),
-committen, deployen. Sonst nichts.
+Die App ist an **keine** Schule und keinen Ort gebunden: Im Header steht nur
+„PFADFINDER", und die Nutzer:in gibt ihre **PLZ** selbst ein (für „Stellen &
+Betriebe in deiner Nähe"). So lässt sich derselbe Link bundesweit teilen.
+`public/config.json` enthält nur noch optionale Defaults (`schulname` leer =
+generisch; `default_umkreis_km`). Eine Schule, die die App branden möchte, kann
+`schulname` setzen.
 
 ## Daten neu bauen (Betreiber, ~1×/Jahr)
 
@@ -52,14 +56,23 @@ npm install                 # @anthropic-ai/sdk
 
 Pipeline:
 ```bash
-node build/01_fetch_berufenet.js     # Berufe enumerieren (BERUFENET)
+node build/01_fetch_berufenet.js     # Berufe enumerieren: Ausbildung + Bachelor +
+                                     #   Master + Aufstiegsfortbildungen (~1841)
 node build/02_fetch_kompetenzen.js   # Steckbriefe je Beruf
-node build/03_tag_berufe.js --sample=50   # PFLICHT: erst 50er-Stichprobe prüfen!
+node build/05_fetch_plz.js           # PLZ→Koordinaten-Tabelle (public/data/plz.json)
+node build/03_tag_berufe.js --sample=50   # PFLICHT: erst Stichprobe prüfen!
 #   → build/raw/berufe_sample.json sichten, dann erst:
-node build/03_tag_berufe.js          # voller, inkrementeller Lauf (~9 €)
+node build/03_tag_berufe.js          # voller, inkrementeller Lauf (~20 €)
+#   (bei geändertem tags.json/Prompt/neuem Feld: --full-retag)
 node build/04_validate.js            # Konsistenz prüfen
 git diff public/data/berufe.json && git commit -am "data refresh" && git push
 ```
+
+Jeder Beruf trägt eine **Stufe** (ausbildung / bachelor / master / weiterbildung).
+Einstieg (Ausbildung + Bachelor) bildet das Haupt-Spektrum; Master + Weiterbildung
+erscheinen separat unter „Wohin kann das führen?". Der Tagger schätzt zusätzlich
+ein **KI-/Automatisierungs-Risiko** (niedrig/mittel/hoch) plus eine kurze
+ehrliche Einschätzung (klar als Schätzung markiert, kein amtlicher Wert).
 
 `03_tag_berufe.js` taggt **inkrementell**: unveränderte Berufe kommen aus dem
 Cache (`public/data/berufe.json`), nur neue/geänderte kosten API. `--full-retag`

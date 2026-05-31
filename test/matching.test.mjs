@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { matche, hartFiltern, bewerteBeruf, scoreProzent, passungsStufe } from '../public/js/matching.js';
+import { matche, matcheAnschluss, hartFiltern, bewerteBeruf, scoreProzent, passungsStufe } from '../public/js/matching.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fragen = JSON.parse(readFileSync(join(__dirname, '..', 'public', 'data', 'fragen.json'), 'utf8'));
@@ -81,6 +81,21 @@ console.log('matching.test.mjs');
 {
   ok(scoreProzent(0.6) === 100 && scoreProzent(0.3) === 50, 'scoreProzent: 0.6 → 100 %, 0.3 → 50 %');
   ok(passungsStufe(0.7).text === 'starke Passung' && passungsStufe(0.1).klasse === 'schwach', 'passungsStufe: Stufen korrekt');
+}
+
+// 7) Stufen-Trennung: matche() liefert nur Einstieg, matcheAnschluss() nur Master/Weiterbildung.
+{
+  const mitStufe = [
+    { ...BERUFE[0], id: 10, stufe: 'ausbildung' },
+    { ...BERUFE[3], id: 11, stufe: 'bachelor' },
+    { id: 12, name: 'Holztechnik (Master)', stufe: 'master', kategorien: ['handwerk_material'], tags: ['holz_bearbeiten', 'produkt_entwerfen', 'praezisionsarbeit_hand'], umgebung: { drinnen_draussen: 30, allein_team: 50, routine_wechsel: 50, anpacken_konzentriert: 60 }, schulabschluss_min: 'abitur', ausbildungsart: 'studium', mediangehalt: 4000, seltenheit: 'haeufig', osm_tags: [] },
+    { id: 13, name: 'Tischlermeister/in', stufe: 'weiterbildung', kategorien: ['handwerk_material'], tags: ['holz_bearbeiten', 'produkt_entwerfen', 'projekt_planen_organisieren'], umgebung: { drinnen_draussen: 30, allein_team: 60, routine_wechsel: 50, anpacken_konzentriert: 40 }, schulabschluss_min: 'realschule', ausbildungsart: 'weiterbildung', mediangehalt: 3500, seltenheit: 'haeufig', osm_tags: [] },
+  ];
+  const p = profil({ taetigkeiten: ['holz_bearbeiten', 'produkt_entwerfen', 'praezisionsarbeit_hand'] });
+  const einstieg = matche(mitStufe, p, fragen);
+  const anschluss = matcheAnschluss(mitStufe, p, fragen);
+  ok(einstieg.every((m) => ['ausbildung', 'bachelor'].includes(m.beruf.stufe)), 'matche() liefert nur Einstieg-Stufen');
+  ok(anschluss.length > 0 && anschluss.every((m) => ['master', 'weiterbildung'].includes(m.beruf.stufe)), 'matcheAnschluss() liefert nur Master/Weiterbildung');
 }
 
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);

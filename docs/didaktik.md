@@ -63,6 +63,29 @@ bleiben per `localStorage` auf dem Gerät.
    schon gewählten Beruf → raus (verhindert „4× Tiefbau").
 5. **Begründung:** rein regelbasiert aus den Match-Daten (kein LLM im Frontend).
 
+## „Wohin kann das führen?" (Anschlüsse)
+
+Das Haupt-Spektrum zeigt **Einstiegswege** (Ausbildung + Bachelor). Darunter
+erscheint — wenn passend — eine zweite Sektion mit **Master-Studiengängen und
+Aufstiegsfortbildungen** (Meister/Techniker/Fachwirt) aus den gleichen
+Interessensfeldern. So bedient das Tool beide Gruppen an der Schule: die
+15-Jährige vor der Erstentscheidung sieht oben ihre Einstiegswege, die
+18-Jährige mit Abitur sieht zusätzlich, welche weiterführenden Felder in ihrem
+Interessensbereich liegen. Diese Anschlüsse durchlaufen bewusst **keinen**
+Schulabschluss-Filter — sie sind Perspektiven, keine sofort verfügbaren Wege.
+
+## KI- und Zukunftseinschätzung
+
+Jeder Beruf trägt eine **Ampel** (KI-/Automatisierungs-Risiko niedrig/mittel/hoch)
+mit aufklappbarem, ehrlichem Erklärtext. Das ist eine **modellbasierte
+Orientierung, keine Prognose** und kein amtlicher Wert — so ist es im Tool auch
+ausgewiesen. Es gibt dafür keine abrufbare amtliche Quelle (die
+Automatisierungs-Daten der BA sind über deren API nicht erreichbar). Die
+Einschätzung soll zum Nachdenken anregen („was bleibt menschlich, was
+automatisiert sich?"), nicht abschrecken — körpernahe, pflegerische, kreative und
+zwischenmenschliche Tätigkeiten werden tendenziell als sicherer eingeschätzt,
+stark standardisierte Routine-/Datentätigkeiten als stärker betroffen.
+
 ## Was das Tool _nicht_ tut
 - Keine Notenabfrage, kein Eignungstest — wir messen Interesse, nicht Fähigkeit.
 - Keine Empfehlung „du _musst_ X werden" — immer ein Spektrum.

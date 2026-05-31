@@ -156,38 +156,56 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
   return { beruf, score: gesamt, matchTags, tagScore, umgebungScore, motivationScore };
 }
 
-/**
- * Hauptfunktion: gefilterte, bewertete, diversifizierte Top-Treffer (max. 10).
- * Gibt [] zurück, wenn nichts die Schwelle erreicht.
- */
-export function matche(berufe, antworten, fragenDef) {
-  const kandidaten = hartFiltern(berufe, antworten, fragenDef);
+// Einstieg = Wege direkt nach der Schule; Anschluss = baut darauf auf.
+const EINSTIEG_STUFEN = new Set(['ausbildung', 'bachelor']);
+const ANSCHLUSS_STUFEN = new Set(['master', 'weiterbildung']);
 
-  // Gehalts-Referenz für die Normalisierung (Max über die Kandidaten).
+function bewerteUndSortiere(kandidaten, antworten, fragenDef) {
   let gehaltMax = 0;
   for (const b of kandidaten) if (b.mediangehalt && b.mediangehalt > gehaltMax) gehaltMax = b.mediangehalt;
   const kontext = { gehaltMax };
-
-  const bewertet = kandidaten
+  return kandidaten
     .map((b) => bewerteBeruf(b, antworten, fragenDef, kontext))
     .sort((x, y) => y.score - x.score);
+}
 
-  // Schwelle: 2+ passende Tags ODER Score ≥ SCHWELLE_RELEVANT.
+/** Diversifizieren: max. 2 pro Oberkategorie + Skip bei ≥60 % Tag-Überlapp. */
+function diversifiziere(bewertet, maxErgebnisse) {
   const relevante = bewertet.filter((b) => b.matchTags.length >= 2 || b.score >= SCHWELLE_RELEVANT);
-
-  // Diversifizieren: max. 2 pro Oberkategorie + Skip bei ≥60 % Tag-Überlapp.
   const top = [];
   const katZaehler = {};
   for (const b of relevante) {
-    if (top.length >= MAX_ERGEBNISSE) break;
+    if (top.length >= maxErgebnisse) break;
     const hauptKat = (b.beruf.kategorien || [])[0] || '_unbekannt';
     if ((katZaehler[hauptKat] || 0) >= MAX_PRO_KAT) continue;
-    const duplikat = top.some((best) => tagUeberlapp(b.beruf.tags, best.beruf.tags) >= MAX_TAG_OVERLAP);
-    if (duplikat) continue;
+    if (top.some((best) => tagUeberlapp(b.beruf.tags, best.beruf.tags) >= MAX_TAG_OVERLAP)) continue;
     top.push(b);
     katZaehler[hauptKat] = (katZaehler[hauptKat] || 0) + 1;
   }
   return top;
+}
+
+function istEinstieg(b) {
+  return EINSTIEG_STUFEN.has(b.stufe) || !b.stufe; // !stufe = ältere Daten ohne Stufe
+}
+
+/**
+ * Hauptfunktion: das Spektrum der EINSTIEGS-Wege (Ausbildung + Bachelor),
+ * gefiltert, bewertet, diversifiziert (max. 10). [] wenn nichts die Schwelle erreicht.
+ */
+export function matche(berufe, antworten, fragenDef) {
+  const kandidaten = hartFiltern(berufe.filter(istEinstieg), antworten, fragenDef);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef), MAX_ERGEBNISSE);
+}
+
+/**
+ * „Wohin kann das führen?" — Master-Studiengänge und Aufstiegsfortbildungen,
+ * passend zu den Interessen. KEIN Schulabschluss-/Weg-Filter (das sind
+ * Anschlüsse, keine Erstwege). Max. 5.
+ */
+export function matcheAnschluss(berufe, antworten, fragenDef, max = 5) {
+  const kandidaten = berufe.filter((b) => ANSCHLUSS_STUFEN.has(b.stufe) && !b.needs_review);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef), max);
 }
 
 /** Passungs-Stufe (Badge + CSS-Klasse) für einen Score. */

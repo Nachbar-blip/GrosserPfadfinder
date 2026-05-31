@@ -16,6 +16,7 @@ export function leererState() {
       blockA: {
         schulabschluss: null,
         weg: new Set(),
+        plz: '',
         umkreis: null,
         gehalt_wichtig: null,
       },

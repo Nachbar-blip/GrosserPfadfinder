@@ -107,9 +107,28 @@ function renderBlockA(schritt, app) {
         <span class="option-text">${escapeHtml(opt.label)}</span></label>`;
     })
     .join('');
+  const plzFeld = def.id === 'umkreis' ? renderPlzFeld(app) : '';
   return `<h2 class="frage-titel">${escapeHtml(def.frage)}</h2>
     ${def.hinweis ? `<p class="frage-hinweis">${escapeHtml(def.hinweis)}</p>` : ''}
+    ${plzFeld}
     <div class="optionen">${optionen}</div>`;
+}
+
+function plzStatusHtml(plz, app) {
+  if ((plz || '').length !== 5) return '';
+  const ok = app.daten.plz && app.daten.plz[plz];
+  return ok ? '<span class="plz-ok">✓ erkannt</span>' : '<span class="plz-warn">PLZ nicht gefunden</span>';
+}
+
+function renderPlzFeld(app) {
+  const plz = app.state.antworten.blockA.plz || '';
+  return `<div class="plz-feld">
+    <label for="plz-input">Deine Postleitzahl <span class="plz-opt">– für „Stellen &amp; Betriebe in deiner Nähe" (optional)</span></label>
+    <div class="plz-zeile">
+      <input type="text" inputmode="numeric" maxlength="5" id="plz-input" value="${escapeHtml(plz)}" placeholder="z. B. 39356" autocomplete="postal-code">
+      <span id="plz-status">${plzStatusHtml(plz, app)}</span>
+    </div>
+  </div>`;
 }
 
 // ---- Block B/D: Schieberegler ----
@@ -199,6 +218,18 @@ function bindeBlockA(schritt, app) {
       app.rendere();
     });
   });
+
+  if (def.id === 'umkreis') {
+    const inp = document.getElementById('plz-input');
+    const status = document.getElementById('plz-status');
+    inp.addEventListener('input', (e) => {
+      const v = e.target.value.replace(/\D/g, '').slice(0, 5);
+      e.target.value = v;
+      a.plz = v;
+      status.innerHTML = plzStatusHtml(v, app);
+      app.speichere();
+    });
+  }
 }
 
 function bindeRegler(app) {

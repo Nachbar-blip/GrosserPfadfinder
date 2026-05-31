@@ -180,6 +180,36 @@ input[type="range"] { width: 100%; accent-color: var(--kompass-rot); height: 1.6
 .fuss { text-align: center; font-size: 0.82rem; color: var(--text-weich); padding: 2rem 1rem; border-top: 1px solid var(--linie); margin-top: 2rem; }
 .fuss a { color: var(--tinten-blau); }
 
+/* ---- KI-/Zukunfts-Ampel (Aufklappen) ---- */
+.ki-block { margin: 0.5rem 0; font-size: 0.88rem; border-top: 1px dashed var(--linie); padding-top: 0.5rem; }
+.ki-block summary { cursor: pointer; color: var(--text-weich); padding: 0.25em 0; display: flex; align-items: center; gap: 0.45rem; list-style: none; }
+.ki-block summary::-webkit-details-marker { display: none; }
+.ki-block summary::after { content: "▸"; margin-left: auto; color: var(--linie); }
+.ki-block[open] summary::after { content: "▾"; }
+.ki-ampel { width: 0.72em; height: 0.72em; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.ki-gruen { background: var(--moos-gruen); }
+.ki-gelb { background: #c79a1e; }
+.ki-rot { background: var(--kompass-rot); }
+.ki-text { margin: 0.3rem 0 0.2rem; color: var(--text-weich); line-height: 1.45; }
+.ki-hinweis { color: var(--linie); font-style: italic; }
+
+/* ---- "Wohin kann das führen?" ---- */
+.anschluss { margin-top: 2.5rem; border-top: 2px solid var(--linie); padding-top: 1.5rem; }
+.anschluss > h2 { color: var(--tinten-blau); }
+.anschluss > p { color: var(--text-weich); max-width: 660px; }
+.anschluss-karte { background: var(--sand-hell); }
+.anschluss-karte h3 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: baseline; }
+
+/* ---- PLZ-Eingabe ---- */
+.plz-feld { margin-bottom: 1.25rem; background: var(--sand-hell); border: 1px solid var(--linie); border-radius: 6px; padding: 0.8rem 1rem; }
+.plz-feld label { display: block; font-size: 0.92rem; margin-bottom: 0.45rem; color: var(--text); font-weight: 600; }
+.plz-opt { color: var(--text-weich); font-weight: 400; }
+.plz-zeile { display: flex; align-items: center; gap: 0.75rem; }
+.plz-zeile input { font: inherit; padding: 0.5em 0.8em; border: 1.5px solid var(--linie); border-radius: 6px; width: 7em; background: white; letter-spacing: 0.08em; }
+.plz-zeile input:focus { border-color: var(--tinten-blau); outline: none; }
+.plz-ok { color: var(--moos-gruen-dunkel); font-size: 0.9rem; font-weight: 600; }
+.plz-warn { color: var(--kompass-rot-dunkel); font-size: 0.9rem; }
+
 /* ---- Mobile ---- */
 @media (max-width: 520px) {
   body { font-size: 17px; }

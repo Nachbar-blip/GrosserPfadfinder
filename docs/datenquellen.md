@@ -109,6 +109,14 @@ Datenschutzproblem.
 - **`mediangehalt`** ist eine **Schätzung** des Modells (Entgeltatlas-API tot),
   monatliches Brutto-Einstiegsgehalt, im Frontend mit „(geschätzt)" markiert.
 
+## 5a. Postleitzahlen (ortsunabhängige App)
+
+`build/05_fetch_plz.js` baut `public/data/plz.json` (≈8.300 deutsche PLZ →
+[lat, lon], ~200 KB) aus dem offenen Datensatz
+`github.com/WZBSocialScienceCenter/plz_geocoord`. Damit tippt die Nutzer:in ihre
+PLZ ein; die BA-Suche nutzt die PLZ direkt (`wo=…`), die OSM-Karte die
+zugehörigen Koordinaten. Kein Geocoding-API-Call zur Laufzeit (offline/Zero-Backend).
+
 ## 6. Rate-Limits / Etikette
 
 - BERUFENET: 20 Einträge/Seite, ~179 Seiten für die Vollliste → throtteln

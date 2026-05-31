@@ -43,6 +43,31 @@ die ausdrückliche Freigabe brauchen.
   gemacht (erstes balanciertes `{…}`-Objekt); 5 unter-getaggte Berufe (u. a.
   Zahntechniker) per Prompt-Nudge auf ≥ 3 gültige Tags nachgebessert.
 
+## v2-Erweiterung (Branch `feature/v2-erweiterung`)
+
+Auf Wunsch ergänzt und **im Code fertig + verifiziert**:
+- **Mehr Berufe:** Master-Studiengänge + Aufstiegsfortbildungen (Meister/Techniker/
+  Fachwirt). Enumeration liefert **1841** Berufe (727 Ausbildung + 370 Bachelor +
+  373 Master + 371 Weiterbildung). Neues Feld `stufe`.
+- **„Wohin kann das führen?":** eigene Ergebnis-Sektion für Master/Weiterbildung
+  (Einstieg = Ausbildung+Bachelor im Haupt-Spektrum). `matcheAnschluss()` + 2 Unit-Tests.
+- **KI-/Zukunfts-Ampel** je Beruf (niedrig/mittel/hoch) mit aufklappbarem,
+  ehrlichem Text — modellbasierte Schätzung, klar markiert.
+- **Schul-agnostisch + PLZ-Eingabe:** Schulname raus, Nutzer:in tippt PLZ ein;
+  `build/05_fetch_plz.js` → `plz.json` (8298 PLZ). BA-Suche per PLZ, OSM-Karte per
+  Koordinaten. Header nur noch „PFADFINDER".
+- Verifiziert: 9 Unit-Tests grün; Browser-Smoketest mit synthetischen Volldaten
+  (PLZ ✓, 11 KI-Ampeln, Anschluss-Sektion, 0 Konsolenfehler); graceful degradation
+  mit Altdaten (Features blenden sich aus, keine Fehler).
+
+> **⚠ Daten-Retag ausstehend:** Der volle Lauf (1841 Berufe inkl. KI-Feld) brach
+> nach 125 Berufen ab — die **Anthropic-API-Monatsgrenze** war erreicht
+> („regain access 2026-06-01 00:00 UTC"). `berufe.json` ist auf den geprüften
+> 1097-Stand zurückgesetzt; `build/raw/berufe_voll.json` (1841) liegt bereit.
+> Sobald die Grenze zurückgesetzt ist (oder im Anthropic-Console-Cap angehoben):
+> `node build/03_tag_berufe.js --full-retag` → die KI-/Master-/Weiterbildungs-
+> Features füllen sich automatisch. Bis dahin läuft die App mit 1097 (ohne KI/Anschluss).
+
 ## Offen (nur mit ausdrücklicher Freigabe)
 
 1. GitHub-Remote anlegen + pushen.

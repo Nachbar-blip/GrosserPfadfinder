@@ -20,23 +20,20 @@ async function ladeJson(pfad, pflicht) {
 }
 
 export async function ladeDaten() {
-  const [config, tags, fragen, berufe] = await Promise.all([
+  const [config, tags, fragen, berufe, plz] = await Promise.all([
     ladeJson('config.json', false),
     ladeJson('data/tags.json', true),
     ladeJson('data/fragen.json', true),
     ladeJson('data/berufe.json', false),
+    ladeJson('data/plz.json', false),
   ]);
 
   return {
-    config: config || {
-      schulname: 'Pfadfinder',
-      schulkuerzel: '',
-      koordinaten: null,
-      default_umkreis_km: 50,
-    },
+    config: config || { schulname: '', default_umkreis_km: 50 },
     tags,
     fragen,
     berufe: Array.isArray(berufe) ? berufe : [],
     berufeVorhanden: Array.isArray(berufe) && berufe.length > 0,
+    plz: plz || {}, // { "39356": [lat, lon] }
   };
 }

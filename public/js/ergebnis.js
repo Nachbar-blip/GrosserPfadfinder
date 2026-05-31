@@ -4,7 +4,7 @@
  * (Link-Outs auf BA-Seite / OSM-Karte). Kein LLM, kein fetch.
  */
 
-import { matche, passungsStufe, scoreProzent } from './matching.js';
+import { matche, matcheAnschluss, passungsStufe, scoreProzent } from './matching.js';
 import { stellenLink, berufenetLink } from './api/ba.js';
 import { betriebeLink } from './api/overpass.js';
 import { escapeHtml, setzeBalkenBreiten } from './util.js';
@@ -14,10 +14,32 @@ const WEG_LABEL = {
   schulische_ausbildung: 'Schulische Ausbildung',
   duales_studium: 'Duales Studium',
   studium: 'Studium',
+  weiterbildung: 'Weiterbildung',
 };
 
+/** Badge-Text nach Stufe (Fallback: Ausbildungsart bei alten Daten ohne Stufe). */
+function wegBadge(beruf) {
+  switch (beruf.stufe) {
+    case 'bachelor': return 'Studium (Bachelor)';
+    case 'master': return 'Master';
+    case 'weiterbildung': return 'Weiterbildung';
+    default: return WEG_LABEL[beruf.ausbildungsart] || 'Ausbildung';
+  }
+}
+
 function anzeigeName(beruf) {
-  return (beruf.name || '').replace(/\s*\((grundständig|grundst\.)\)\s*/i, '').trim();
+  return (beruf.name || '').replace(/\s*\((grundständig|grundst\.|weiterführend)\)\s*/i, '').trim();
+}
+
+/** KI-/Automatisierungs-Risiko als Ampel mit aufklappbarem Erklärtext. */
+function kiAmpel(beruf) {
+  if (!beruf.ki_risiko) return '';
+  const farbe = { niedrig: 'gruen', mittel: 'gelb', hoch: 'rot' }[beruf.ki_risiko] || 'gelb';
+  const label = { niedrig: 'gering', mittel: 'mittel', hoch: 'hoch' }[beruf.ki_risiko] || beruf.ki_risiko;
+  return `<details class="ki-block">
+    <summary><span class="ki-ampel ki-${farbe}" aria-hidden="true"></span>KI-/Automatisierungs-Risiko: <strong>${label}</strong></summary>
+    <p class="ki-text">${escapeHtml(beruf.zukunft_text || '')}<span class="ki-hinweis"> (KI-gestützte Schätzung, kein amtlicher Wert.)</span></p>
+  </details>`;
 }
 
 /** Regelbasierte Begründung aus den Match-Daten (deterministisch, kein LLM). */
@@ -58,11 +80,14 @@ export function begruendung(match, app) {
 }
 
 function liveAktionen(beruf, app) {
-  const cfg = app.daten.config;
-  const umkreis = parseInt(app.state.antworten.blockA?.umkreis, 10) || cfg.default_umkreis_km || 50;
-  const ort = cfg.plz || cfg.schulort || '';
-  const stellen = stellenLink(beruf, ort, umkreis);
-  const betriebe = betriebeLink(beruf, cfg.koordinaten, umkreis);
+  const a = app.state.antworten.blockA || {};
+  const umkreis = parseInt(a.umkreis, 10) || app.daten.config.default_umkreis_km || 50;
+  const plz = (a.plz || '').trim();
+  const koordArr = plz && app.daten.plz ? app.daten.plz[plz] : null;
+  const koord = koordArr ? { lat: koordArr[0], lon: koordArr[1] } : null;
+
+  const stellen = stellenLink(beruf, plz, umkreis);
+  const betriebe = betriebeLink(beruf, koord, umkreis);
   const knoepfe = [`<a class="btn btn-sekundaer" href="${stellen.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(stellen.label)} →</a>`];
   if (betriebe) knoepfe.push(`<a class="btn btn-sekundaer" href="${betriebe.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(betriebe.label)} →</a>`);
   return `<div class="live-aktionen">${knoepfe.join('')}</div>`;
@@ -77,8 +102,9 @@ function karte(match, i, app) {
     b.seltenheit === 'selten'
       ? `<span class="badge-selten" title="Bundesweit nur an wenigen Standorten ausbildbar">selten</span>`
       : '';
-  const wegBadge = `<span class="badge-weg">${escapeHtml(WEG_LABEL[b.ausbildungsart] || 'Ausbildung')}</span>`;
-  const dauerLabel = b.ausbildungsart === 'studium' || b.ausbildungsart === 'duales_studium' ? 'Regelstudienzeit' : 'Ausbildungsdauer';
+  const badge = `<span class="badge-weg">${escapeHtml(wegBadge(b))}</span>`;
+  const istStudium = b.stufe === 'bachelor' || b.stufe === 'master' || b.ausbildungsart === 'studium' || b.ausbildungsart === 'duales_studium';
+  const dauerLabel = istStudium ? 'Regelstudienzeit' : 'Dauer';
   const dauer = b.dauer_jahre ? `<div class="meta">${dauerLabel}: <strong>${b.dauer_jahre} Jahre</strong></div>` : '';
   const gehalt = b.mediangehalt
     ? `<div class="meta">Einstiegsgehalt: <strong>ca. ${b.mediangehalt.toLocaleString('de-DE')} €</strong>/Monat <span title="grobe Schätzung, kein amtlicher Wert">(geschätzt)</span></div>`
@@ -86,15 +112,27 @@ function karte(match, i, app) {
 
   return `<article class="ergebnis-karte ${topKlasse}">
     <div class="rang">Vorschlag ${i + 1}</div>
-    <h2>${escapeHtml(anzeigeName(b))} ${wegBadge}${seltenBadge}</h2>
+    <h2>${escapeHtml(anzeigeName(b))} ${badge}${seltenBadge}</h2>
     <div class="match-zeile" title="${escapeHtml(stufe.text)}">
       <div class="match-balken"><div class="match-fuellung ${stufe.klasse}" data-width="${prozent}"></div></div>
       <div class="match-prozent">${prozent}%</div>
     </div>
     <div class="begruendung">${escapeHtml(begruendung(match, app))}</div>
     ${gehalt}${dauer}
+    ${kiAmpel(b)}
     ${liveAktionen(b, app)}
     <a class="link-mehr" href="${berufenetLink(b)}" target="_blank" rel="noopener noreferrer">Vollständiger BERUFENET-Eintrag →</a>
+  </article>`;
+}
+
+/** Kompakte Karte für die "Wohin kann das führen?"-Sektion (Master/Weiterbildung). */
+function anschlussKarte(match, app) {
+  const b = match.beruf;
+  return `<article class="ergebnis-karte anschluss-karte">
+    <h3>${escapeHtml(anzeigeName(b))} <span class="badge-weg">${escapeHtml(wegBadge(b))}</span></h3>
+    <div class="begruendung">${escapeHtml(begruendung(match, app))}</div>
+    ${kiAmpel(b)}
+    <a class="link-mehr" href="${berufenetLink(b)}" target="_blank" rel="noopener noreferrer">Auf BERUFENET ansehen →</a>
   </article>`;
 }
 
@@ -130,6 +168,7 @@ export function rendereErgebnis(app) {
   }
 
   const top = matche(app.daten.berufe, a, app.daten.fragen);
+  const anschluss = matcheAnschluss(app.daten.berufe, a, app.daten.fragen, 5);
   const anzahl = top.length;
   const hatSelten = top.some((m) => m.beruf.seltenheit === 'selten');
 
@@ -146,6 +185,15 @@ export function rendereErgebnis(app) {
     ${
       hatSelten
         ? `<div class="grosser-hinweis"><strong>Hinweis zu seltenen Berufen:</strong> Mit „selten" markierte Berufe werden nur an wenigen Orten in Deutschland ausgebildet. Ob es in deiner Nähe einen Platz gibt, klärst du am besten über die Buttons oder direkt bei der Arbeitsagentur.</div>`
+        : ''
+    }
+    ${
+      anschluss.length
+        ? `<section class="anschluss">
+            <h2>Wohin kann das führen?</h2>
+            <p>Aufbauend auf einem ersten Abschluss — Studiengänge und Weiterbildungen, die zu deinen Interessen passen:</p>
+            <div class="ergebnis-gitter">${anschluss.map((m) => anschlussKarte(m, app)).join('')}</div>
+          </section>`
         : ''
     }
     <div class="ergebnis-aktionen">
