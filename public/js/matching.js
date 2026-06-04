@@ -17,6 +17,16 @@ export const W_MOTIVATION = 0.15;
 // Kleine additive Nudges (verändern Reihenfolge, nicht die Grundlogik):
 export const W_GEHALT = 0.08;
 export const W_SINN = 0.08;
+// Mobilitäts-Nudge: koppelt die Pendel-/Umzugs-Bereitschaft (umkreis-Frage) an das
+// EINZIGE reale Geo-Signal pro Beruf — beruf.seltenheit (haeufig/regional/selten).
+// Additiv und klein (Größenordnung der anderen Nudges), damit Interesse dominiert.
+// Berufe sind nicht geokodiert, deshalb ist das eine ehrliche Heuristik, kein km-Filter.
+export const W_MOBILITAET = 0.08;
+export const MOBILITAET_NUDGE = {
+  '25': { haeufig: 1, regional: 0.3, selten: -1 },   // in der Nähe bleiben / täglich pendeln
+  '100': { haeufig: 0, regional: 0, selten: 0 },      // längeres Pendeln ok → neutral (ehrlicher Default)
+  '200': { haeufig: 0, regional: 0, selten: 0.4 },    // würde umziehen → seltene Nischenberufe leicht hervorheben
+};
 
 export const SCHWELLE_RELEVANT = 0.25; // ohne 2+ Tag-Match nötiger Mindest-Score
 export const SCHWELLE_STARK = 0.6;     // „starke Passung" (Balken = 100 %)
@@ -84,6 +94,10 @@ export function hartFiltern(berufe, antworten, fragenDef, { wegFilter = true } =
 
   return berufe.filter((b) => {
     if (b.needs_review) return false;
+    // Reha-/Fachpraktiker-Ausbildungen (§66 BBiG/§42r HwO): theoriereduzierte Wege für
+    // Menschen mit Behinderung, Vermittlung nur über die Reha-Beratung (nicht der offene
+    // Stellenmarkt). Nicht ins allgemeine Schüler-Ranking — als Datensatz bleiben sie erhalten.
+    if (b.reha_ausbildung) return false;
     if (schulFilterAktiv) {
       const bMin = ABSCHLUSS_RANG[b.schulabschluss_min ?? b.schulabschluss];
       if (bMin != null && bMin > schulRang) return false;
@@ -153,6 +167,15 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
     if (hatSinnKat) gesamt += W_SINN * (sinnWert / 100);
   }
 
+  // 4c) Mobilitäts-Nudge: Pendel-/Umzugs-Bereitschaft × Standort-Seltenheit des Berufs.
+  // Nur für Einstiegswege (kontext.mobilNudge) — ein Master/eine Weiterbildung ist keine
+  // ortsgebundene Erstwahl, dort wäre die Abwertung seltener Anschlüsse unpassend.
+  if (kontext && kontext.mobilNudge) {
+    const umkreis = (antworten.blockA || {}).umkreis;
+    const zeile = MOBILITAET_NUDGE[umkreis];
+    if (zeile) gesamt += W_MOBILITAET * (zeile[beruf.seltenheit] || 0);
+  }
+
   return { beruf, score: gesamt, matchTags, tagScore, umgebungScore, motivationScore };
 }
 
@@ -160,10 +183,10 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
 const EINSTIEG_STUFEN = new Set(['ausbildung', 'bachelor']);
 const ANSCHLUSS_STUFEN = new Set(['master', 'weiterbildung']);
 
-function bewerteUndSortiere(kandidaten, antworten, fragenDef) {
+function bewerteUndSortiere(kandidaten, antworten, fragenDef, opts = {}) {
   let gehaltMax = 0;
   for (const b of kandidaten) if (b.mediangehalt && b.mediangehalt > gehaltMax) gehaltMax = b.mediangehalt;
-  const kontext = { gehaltMax };
+  const kontext = { gehaltMax, mobilNudge: opts.mobilNudge === true };
   return kandidaten
     .map((b) => bewerteBeruf(b, antworten, fragenDef, kontext))
     .sort((x, y) => y.score - x.score);
@@ -204,7 +227,7 @@ export function matche(berufe, antworten, fragenDef) {
   if (kandidaten.length < MIN_POOL) {
     kandidaten = hartFiltern(einstieg, antworten, fragenDef, { wegFilter: false });
   }
-  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef), MAX_ERGEBNISSE);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: true }), MAX_ERGEBNISSE);
 }
 
 /**
@@ -213,16 +236,17 @@ export function matche(berufe, antworten, fragenDef) {
  * Anschlüsse, keine Erstwege). Max. 5.
  */
 export function matcheAnschluss(berufe, antworten, fragenDef, max = 5) {
-  const kandidaten = berufe.filter((b) => ANSCHLUSS_STUFEN.has(b.stufe) && !b.needs_review);
-  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef), max);
+  const kandidaten = berufe.filter((b) => ANSCHLUSS_STUFEN.has(b.stufe) && !b.needs_review && !b.reha_ausbildung);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: false }), max);
 }
 
-/** Passungs-Stufe (Badge + CSS-Klasse) für einen Score. */
+/** Passungs-Stufe (Badge + CSS-Klasse) für einen Score. Fallback auf die unterste Stufe,
+ *  damit ein (durch den Mobilitäts-Malus theoretisch möglicher) negativer Score nie undefined liefert. */
 export function passungsStufe(score) {
-  return PASSUNGS_STUFEN.find((s) => score >= s.min);
+  return PASSUNGS_STUFEN.find((s) => score >= s.min) || PASSUNGS_STUFEN[PASSUNGS_STUFEN.length - 1];
 }
 
-/** Score → Prozent (SCHWELLE_STARK = 100 %), für den Match-Balken. */
+/** Score → Prozent (SCHWELLE_STARK = 100 %), für den Match-Balken. Auf 0–100 geklemmt. */
 export function scoreProzent(score) {
-  return Math.min(100, Math.round((score / SCHWELLE_STARK) * 100));
+  return Math.max(0, Math.min(100, Math.round((score / SCHWELLE_STARK) * 100)));
 }

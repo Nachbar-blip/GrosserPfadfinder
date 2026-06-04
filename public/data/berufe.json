@@ -658,7 +658,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "499ed978b50e3fac"
+    "_quell_hash": "499ed978b50e3fac",
+    "reha_ausbildung": true
   },
   {
     "id": 531,
@@ -875,7 +876,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "97cb318ec68f3053"
+    "_quell_hash": "97cb318ec68f3053",
+    "reha_ausbildung": true
   },
   {
     "id": 580,
@@ -2642,7 +2644,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "69c7e5fa65cc1693"
+    "_quell_hash": "69c7e5fa65cc1693",
+    "reha_ausbildung": true
   },
   {
     "id": 1495,
@@ -2677,7 +2680,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "568f96afc6d37f15"
+    "_quell_hash": "568f96afc6d37f15",
+    "reha_ausbildung": true
   },
   {
     "id": 1528,
@@ -2958,7 +2962,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "57834dc0d0952d71"
+    "_quell_hash": "57834dc0d0952d71",
+    "reha_ausbildung": true
   },
   {
     "id": 1935,
@@ -3103,7 +3108,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "29e010394d544d70"
+    "_quell_hash": "29e010394d544d70",
+    "reha_ausbildung": true
   },
   {
     "id": 2153,
@@ -3213,7 +3219,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "1a4497e90937e0eb"
+    "_quell_hash": "1a4497e90937e0eb",
+    "reha_ausbildung": true
   },
   {
     "id": 2187,
@@ -3322,7 +3329,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "bfe685fda5b279fa"
+    "_quell_hash": "bfe685fda5b279fa",
+    "reha_ausbildung": true
   },
   {
     "id": 2266,
@@ -3472,7 +3480,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "b5c12beffe69f045"
+    "_quell_hash": "b5c12beffe69f045",
+    "reha_ausbildung": true
   },
   {
     "id": 2398,
@@ -3654,7 +3663,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "a92838d0196df080"
+    "_quell_hash": "a92838d0196df080",
+    "reha_ausbildung": true
   },
   {
     "id": 2488,
@@ -3764,7 +3774,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "0c0239b6e0040455"
+    "_quell_hash": "0c0239b6e0040455",
+    "reha_ausbildung": true
   },
   {
     "id": 2610,
@@ -4265,7 +4276,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "58e8d65b1097d8a5"
+    "_quell_hash": "58e8d65b1097d8a5",
+    "reha_ausbildung": true
   },
   {
     "id": 2757,
@@ -4372,7 +4384,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "006cc42d43f5c2d2"
+    "_quell_hash": "006cc42d43f5c2d2",
+    "reha_ausbildung": true
   },
   {
     "id": 2868,
@@ -4521,7 +4534,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "18206e1b68738244"
+    "_quell_hash": "18206e1b68738244",
+    "reha_ausbildung": true
   },
   {
     "id": 3003,
@@ -4556,7 +4570,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "243737de167f73ce"
+    "_quell_hash": "243737de167f73ce",
+    "reha_ausbildung": true
   },
   {
     "id": 3009,
@@ -4591,7 +4606,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "164ca62c56c82833"
+    "_quell_hash": "164ca62c56c82833",
+    "reha_ausbildung": true
   },
   {
     "id": 3045,
@@ -4659,7 +4675,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "f637aaea390e6527"
+    "_quell_hash": "f637aaea390e6527",
+    "reha_ausbildung": true
   },
   {
     "id": 3353,
@@ -4976,7 +4993,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "8a4442c924257c95"
+    "_quell_hash": "8a4442c924257c95",
+    "reha_ausbildung": true
   },
   {
     "id": 3654,
@@ -5049,7 +5067,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "0b8a2e79679e99ab"
+    "_quell_hash": "0b8a2e79679e99ab",
+    "reha_ausbildung": true
   },
   {
     "id": 3726,
@@ -5195,7 +5214,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "ab8d29f4b32f9298"
+    "_quell_hash": "ab8d29f4b32f9298",
+    "reha_ausbildung": true
   },
   {
     "id": 3789,
@@ -5603,7 +5623,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "ad6084b76c82375d"
+    "_quell_hash": "ad6084b76c82375d",
+    "reha_ausbildung": true
   },
   {
     "id": 3951,
@@ -5785,7 +5806,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "993484bc9d17d1fb"
+    "_quell_hash": "993484bc9d17d1fb",
+    "reha_ausbildung": true
   },
   {
     "id": 4066,
@@ -5892,7 +5914,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "3accb31fadf30787"
+    "_quell_hash": "3accb31fadf30787",
+    "reha_ausbildung": true
   },
   {
     "id": 4144,
@@ -6580,7 +6603,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "28e6426b19cb9d4f"
+    "_quell_hash": "28e6426b19cb9d4f",
+    "reha_ausbildung": true
   },
   {
     "id": 4432,
@@ -6724,7 +6748,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "9cddb6e84ba244a6"
+    "_quell_hash": "9cddb6e84ba244a6",
+    "reha_ausbildung": true
   },
   {
     "id": 4539,
@@ -6829,7 +6854,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "cd83d89977efbc3f"
+    "_quell_hash": "cd83d89977efbc3f",
+    "reha_ausbildung": true
   },
   {
     "id": 4613,
@@ -7003,7 +7029,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "f115882321c2b6df"
+    "_quell_hash": "f115882321c2b6df",
+    "reha_ausbildung": true
   },
   {
     "id": 4765,
@@ -8987,7 +9014,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "6f3800f4406bba3e"
+    "_quell_hash": "6f3800f4406bba3e",
+    "reha_ausbildung": true
   },
   {
     "id": 6515,
@@ -9356,7 +9384,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "616ed7e03d232856"
+    "_quell_hash": "616ed7e03d232856",
+    "reha_ausbildung": true
   },
   {
     "id": 6712,
@@ -10451,7 +10480,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "463330a90c8bfe50"
+    "_quell_hash": "463330a90c8bfe50",
+    "reha_ausbildung": true
   },
   {
     "id": 7413,
@@ -11131,7 +11161,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "31a955398c313b26"
+    "_quell_hash": "31a955398c313b26",
+    "reha_ausbildung": true
   },
   {
     "id": 7889,
@@ -15563,7 +15594,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "ba7500751f94bb8f"
+    "_quell_hash": "ba7500751f94bb8f",
+    "reha_ausbildung": true
   },
   {
     "id": 10152,
@@ -15710,7 +15742,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "77db1b75620f5d99"
+    "_quell_hash": "77db1b75620f5d99",
+    "reha_ausbildung": true
   },
   {
     "id": 10236,
@@ -15854,7 +15887,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "0518484ed9327c3a"
+    "_quell_hash": "0518484ed9327c3a",
+    "reha_ausbildung": true
   },
   {
     "id": 13602,
@@ -19972,7 +20006,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "8fe84807d5b761bb"
+    "_quell_hash": "8fe84807d5b761bb",
+    "reha_ausbildung": true
   },
   {
     "id": 14830,
@@ -20119,7 +20154,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "432a4568d91d25fa"
+    "_quell_hash": "432a4568d91d25fa",
+    "reha_ausbildung": true
   },
   {
     "id": 14869,
@@ -20296,7 +20332,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "ec8c0d8da5135da0"
+    "_quell_hash": "ec8c0d8da5135da0",
+    "reha_ausbildung": true
   },
   {
     "id": 15014,
@@ -23668,7 +23705,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "a563b52ffb28615b"
+    "_quell_hash": "a563b52ffb28615b",
+    "reha_ausbildung": true
   },
   {
     "id": 29388,
@@ -23867,7 +23905,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "0c85bf1c8dbb81b0"
+    "_quell_hash": "0c85bf1c8dbb81b0",
+    "reha_ausbildung": true
   },
   {
     "id": 30191,
@@ -24878,7 +24917,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "5fd120b1ff9e3a57"
+    "_quell_hash": "5fd120b1ff9e3a57",
+    "reha_ausbildung": true
   },
   {
     "id": 34980,
@@ -26247,7 +26287,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "cb902cd53fdb2ce7"
+    "_quell_hash": "cb902cd53fdb2ce7",
+    "reha_ausbildung": true
   },
   {
     "id": 50990,
@@ -26646,7 +26687,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "2a479df0293f9987"
+    "_quell_hash": "2a479df0293f9987",
+    "reha_ausbildung": true
   },
   {
     "id": 58319,
@@ -29298,7 +29340,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "4a5d13e2badc6680"
+    "_quell_hash": "4a5d13e2badc6680",
+    "reha_ausbildung": true
   },
   {
     "id": 77492,
@@ -30630,7 +30673,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "984807b85529cded"
+    "_quell_hash": "984807b85529cded",
+    "reha_ausbildung": true
   },
   {
     "id": 93277,
@@ -53629,7 +53673,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "523b1b8f50cef899"
+    "_quell_hash": "523b1b8f50cef899",
+    "reha_ausbildung": true
   },
   {
     "id": 94648,
@@ -54288,7 +54333,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "45230ea152b04b31"
+    "_quell_hash": "45230ea152b04b31",
+    "reha_ausbildung": true
   },
   {
     "id": 119751,
@@ -54360,7 +54406,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "33e83945eae1fe68"
+    "_quell_hash": "33e83945eae1fe68",
+    "reha_ausbildung": true
   },
   {
     "id": 120089,
@@ -56155,7 +56202,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "1c992dff3aacec85"
+    "_quell_hash": "1c992dff3aacec85",
+    "reha_ausbildung": true
   },
   {
     "id": 124509,
@@ -56546,7 +56594,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "2257a4766e701c01"
+    "_quell_hash": "2257a4766e701c01",
+    "reha_ausbildung": true
   },
   {
     "id": 125541,
@@ -57945,7 +57994,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "bb51af9f7287a655"
+    "_quell_hash": "bb51af9f7287a655",
+    "reha_ausbildung": true
   },
   {
     "id": 129348,
@@ -58460,7 +58510,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "fe0e4b94d397a64e"
+    "_quell_hash": "fe0e4b94d397a64e",
+    "reha_ausbildung": true
   },
   {
     "id": 129986,
@@ -58641,7 +58692,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "84e5448c7eb5daa4"
+    "_quell_hash": "84e5448c7eb5daa4",
+    "reha_ausbildung": true
   },
   {
     "id": 130255,
@@ -59712,7 +59764,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "da4ddf7adbf53cfa"
+    "_quell_hash": "da4ddf7adbf53cfa",
+    "reha_ausbildung": true
   },
   {
     "id": 132173,
@@ -60996,7 +61049,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "a5c4c3239f881606"
+    "_quell_hash": "a5c4c3239f881606",
+    "reha_ausbildung": true
   },
   {
     "id": 134653,
@@ -61433,7 +61487,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "cb7a14528281f33f"
+    "_quell_hash": "cb7a14528281f33f",
+    "reha_ausbildung": true
   },
   {
     "id": 134933,
@@ -62305,7 +62360,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "347a96b395413e15"
+    "_quell_hash": "347a96b395413e15",
+    "reha_ausbildung": true
   },
   {
     "id": 136259,
@@ -62341,7 +62397,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "f3b3618e3728b7e4"
+    "_quell_hash": "f3b3618e3728b7e4",
+    "reha_ausbildung": true
   },
   {
     "id": 136320,
@@ -62506,7 +62563,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "e26f8d9a7e8ad346"
+    "_quell_hash": "e26f8d9a7e8ad346",
+    "reha_ausbildung": true
   },
   {
     "id": 137041,
@@ -63298,7 +63356,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "e685da5ee958f2d1"
+    "_quell_hash": "e685da5ee958f2d1",
+    "reha_ausbildung": true
   },
   {
     "id": 138318,
@@ -64158,7 +64217,8 @@
     "needs_review": false,
     "gattung": "ausbildung",
     "stufe": "ausbildung",
-    "_quell_hash": "21d96d6447f17e20"
+    "_quell_hash": "21d96d6447f17e20",
+    "reha_ausbildung": true
   },
   {
     "id": 138879,

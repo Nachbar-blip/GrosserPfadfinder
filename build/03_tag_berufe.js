@@ -84,6 +84,10 @@ function normalisiere(p, roh) {
   p.kategorien = (Array.isArray(p.kategorien) ? p.kategorien : []).filter((k) => ALLE_KAT.has(k)).slice(0, 3);
   if (verworfen.length) p._verworfene_tags = verworfen;
   if (!Array.isArray(p.osm_tags)) p.osm_tags = [];
+  // Reha-/Fachpraktiker-Ausbildungen (§66 BBiG / §42r bzw. §42m HwO): theoriereduzierte
+  // Wege für Menschen mit Behinderung, Vermittlung nur über die Reha-Beratung. Markieren,
+  // damit das Matching sie aus dem allgemeinen Schüler-Ranking nimmt (als Datensatz bleiben sie).
+  if (/§\s?66\s?BBiG|§\s?42[rm]\s?HwO/i.test(roh.name || '')) p.reha_ausbildung = true;
   p._quell_hash = quellHash(roh);
   return p;
 }

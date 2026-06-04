@@ -166,6 +166,7 @@ input[type="range"] { width: 100%; accent-color: var(--kompass-rot); height: 1.6
 /* Live-API-Bereiche */
 .live-aktionen { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
 .live-aktionen .btn { padding: 0.5em 0.9em; font-size: 0.85rem; }
+.live-hinweis { color: var(--text-weich); font-size: 0.82rem; font-style: italic; margin: 0.1rem 0 0.3rem; }
 .live-panel { font-size: 0.88rem; margin-top: 0.5rem; border-top: 1px dashed var(--linie); padding-top: 0.6rem; }
 .live-panel ul { margin: 0.3rem 0; padding-left: 1.1rem; }
 .live-panel li { margin-bottom: 0.3rem; }
@@ -175,6 +176,7 @@ input[type="range"] { width: 100%; accent-color: var(--kompass-rot); height: 1.6
 
 .ergebnis-aktionen { display: flex; justify-content: center; gap: 1rem; margin: 2.5rem 0 1rem; flex-wrap: wrap; }
 .grosser-hinweis { background: var(--sand-hell); border: 1px solid var(--sand); border-radius: var(--radius); padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.92rem; }
+.grosser-hinweis.live-quelle { background: var(--weiss); border-style: dashed; }
 
 .fehler { border-color: var(--kompass-rot); }
 .fuss { text-align: center; font-size: 0.82rem; color: var(--text-weich); padding: 2rem 1rem; border-top: 1px solid var(--linie); margin-top: 2rem; }
@@ -221,7 +223,7 @@ input[type="range"] { width: 100%; accent-color: var(--kompass-rot); height: 1.6
 /* ---- Druck (window.print, Spec §9) ---- */
 @media print {
   body { background: #fff; font-size: 12pt; }
-  body::before, .kopf, .fortschritt, .frage-navigation, .ergebnis-aktionen, .live-aktionen, .btn, button, .hinweis-block { display: none !important; }
+  body::before, .kopf, .fortschritt, .frage-navigation, .ergebnis-aktionen, .live-aktionen, .live-hinweis, .grosser-hinweis.live-quelle, .btn, button, .hinweis-block { display: none !important; }
   .ergebnis-gitter { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
   .ergebnis-karte { break-inside: avoid; box-shadow: none; border: 1px solid #999; }
   .live-panel { display: none; }

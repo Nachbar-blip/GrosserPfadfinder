@@ -114,13 +114,14 @@
     },
     {
       "id": "umkreis",
-      "frage": "Wie weit würdest du für Ausbildung oder Studium fahren oder ziehen?",
+      "frage": "Wie mobil bist du für Ausbildung oder Studium?",
+      "hinweis": "Manche Berufe gibt es fast überall, andere nur an wenigen Orten in Deutschland. Deine Antwort beeinflusst die Reihenfolge der Vorschläge.",
       "typ": "einfach",
       "filter": "umkreis",
       "optionen": [
-        { "wert": "25", "label": "Maximal 25 km (täglich pendeln)" },
-        { "wert": "100", "label": "Bis 100 km (mit Zug/ÖPNV erreichbar)" },
-        { "wert": "200", "label": "Bundesweit (auch umziehen)" }
+        { "wert": "25", "label": "Ich möchte in der Nähe bleiben und täglich pendeln" },
+        { "wert": "100", "label": "Längeres Pendeln ist ok (z. B. mit Zug/ÖPNV)" },
+        { "wert": "200", "label": "Für den richtigen Beruf würde ich auch umziehen" }
       ]
     },
     {

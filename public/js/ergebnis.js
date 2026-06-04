@@ -28,7 +28,26 @@ function wegBadge(beruf) {
 }
 
 function anzeigeName(beruf) {
-  return (beruf.name || '').replace(/\s*\((grundständig|grundst\.|weiterführend)\)\s*/i, '').trim();
+  return (beruf.name || '')
+    .replace(/\s*\((grundständig|grundst\.|weiterführend)\)\s*/i, '')
+    .replace(/\s*\(§\s?66\s?BBiG[^)]*\)\s*/i, '') // Reha-Paragraphen-Zusatz nicht in der Überschrift
+    .trim();
+}
+
+/**
+ * Ehrlicher Hinweis, wie die Mobilitäts-Wahl diesen Beruf betrifft — nur bei seltenen
+ * Berufen, fester Text aus Whitelist (kein Datenwert ins HTML). Macht die Ranking-Wirkung
+ * der umkreis-Frage für die Schüler:in sichtbar (sonst wirkt die Auswahl folgenlos).
+ */
+function mobilHinweis(beruf, umkreis) {
+  if (beruf.seltenheit !== 'selten') return '';
+  if (umkreis === '25') {
+    return '<p class="live-hinweis">Diesen Beruf gibt es bundesweit nur an wenigen Orten — bei „in der Nähe bleiben“ schwer zu finden. Prüf über die Stellensuche, ob in deiner Nähe etwas frei ist.</p>';
+  }
+  if (umkreis === '200') {
+    return '<p class="live-hinweis">Selten — gibt es nur an wenigen Orten. Weil du umziehen würdest, zeigen wir dir solche Nischen bewusst.</p>';
+  }
+  return '';
 }
 
 /** KI-/Automatisierungs-Risiko als Ampel mit aufklappbarem Erklärtext. */
@@ -91,11 +110,18 @@ function liveAktionen(beruf, app) {
   const betriebe = betriebeLink(beruf, koord, umkreis);
   const knoepfe = [`<a class="btn btn-sekundaer" href="${stellen.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(stellen.label)} →</a>`];
   if (betriebe) knoepfe.push(`<a class="btn btn-sekundaer" href="${betriebe.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(betriebe.label)} →</a>`);
-  return `<div class="live-aktionen">${knoepfe.join('')}</div>`;
+
+  // Karten-Button fehlt für diesen Beruf (keine kartierbaren Betriebe, z. B. Studium/Büro):
+  // kurz erklären statt kommentarlos weglassen. Der PLZ-Fall wird global erklärt (sonst 10× Wiederholung).
+  const kartenHinweis = !betriebe && !(beruf.osm_tags || []).length
+    ? '<p class="live-hinweis">Für diesen Weg gibt es keine Betriebs-Karte (Studium/Büro) — nutze die Stellensuche.</p>'
+    : '';
+  return `<div class="live-aktionen">${knoepfe.join('')}</div>${kartenHinweis}`;
 }
 
 function karte(match, i, app) {
   const b = match.beruf;
+  const umkreis = (app.state.antworten.blockA || {}).umkreis;
   const prozent = scoreProzent(match.score);
   const stufe = passungsStufe(match.score);
   const topKlasse = i < 3 ? 'top' : '';
@@ -120,6 +146,7 @@ function karte(match, i, app) {
       <div class="match-prozent">${prozent}%</div>
     </div>
     <div class="begruendung">${escapeHtml(begruendung(match, app))}</div>
+    ${mobilHinweis(b, umkreis)}
     ${gehalt}${dauer}
     ${kiAmpel(b)}
     ${liveAktionen(b, app)}
@@ -173,6 +200,13 @@ export function rendereErgebnis(app) {
   const anschluss = matcheAnschluss(app.daten.berufe, a, app.daten.fragen, 5);
   const anzahl = top.length;
   const hatSelten = top.some((m) => m.beruf.seltenheit === 'selten');
+  // PLZ bekannt? Steuert den Zusatz-Tipp im Quellen-Hinweis (Karte braucht Koordinaten).
+  const plz = ((a.blockA || {}).plz || '').trim();
+  const plzBekannt = !!(plz && app.daten.plz && app.daten.plz[plz]);
+  const liveHinweis = `<div class="grosser-hinweis live-quelle">
+      <strong>Keine Treffer? Kein Fehler.</strong> Die Buttons öffnen offizielle Seiten der Bundesagentur für Arbeit (Jobbörse, Studiensuche, BERUFENET). Nicht jeder Beruf ist dort tagesaktuell ausgeschrieben — eine leere Liste bedeutet nicht, dass es den Beruf nicht gibt.${
+        plzBekannt ? '' : ' <strong>Tipp:</strong> Gib im Fragebogen deine Postleitzahl ein — dann zeigen wir bei vielen Berufen zusätzlich eine Karte mit Betrieben in der Nähe.'
+      }</div>`;
 
   app.el.innerHTML = `
     <section class="ergebnis-kopf">
@@ -189,6 +223,7 @@ export function rendereErgebnis(app) {
         ? `<div class="grosser-hinweis"><strong>Hinweis zu seltenen Berufen:</strong> Mit „selten" markierte Berufe werden nur an wenigen Orten in Deutschland ausgebildet. Ob es in deiner Nähe einen Platz gibt, klärst du am besten über die Buttons oder direkt bei der Arbeitsagentur.</div>`
         : ''
     }
+    ${liveHinweis}
     ${
       anschluss.length
         ? `<section class="anschluss">

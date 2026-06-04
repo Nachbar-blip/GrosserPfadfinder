@@ -107,5 +107,48 @@ console.log('matching.test.mjs');
   ok(top.length > 0 && top.some((m) => m.beruf.tags.includes('holz_bearbeiten')), 'Sicherheitsnetz: seltener Weg kollabiert den Pool nicht (Interesse-Fallback)');
 }
 
+// 9) Reha-Filter: §66-BBiG-Berufe (reha_ausbildung) erscheinen nicht im Schüler-Ranking.
+{
+  const mitReha = [
+    ...BERUFE,
+    { id: 90, name: 'Fachpraktiker/in für Tischler (§66 BBiG/§42r HwO)', reha_ausbildung: true, kategorien: ['handwerk_material'], tags: ['holz_bearbeiten', 'praezisionsarbeit_hand', 'maschine_bedienen'], umgebung: { drinnen_draussen: 20, allein_team: 40, routine_wechsel: 40, anpacken_konzentriert: 30 }, schulabschluss_min: 'hauptschule', ausbildungsart: 'betriebliche_ausbildung', mediangehalt: 1800, seltenheit: 'haeufig', osm_tags: [] },
+  ];
+  const p = profil({ taetigkeiten: ['holz_bearbeiten', 'praezisionsarbeit_hand', 'produkt_entwerfen'] });
+  const gefiltert = hartFiltern(mitReha, p, fragen);
+  const top = matche(mitReha, p, fragen);
+  ok(!gefiltert.some((b) => b.id === 90) && !top.some((m) => m.beruf.id === 90), 'Reha-Filter: §66-BBiG-Beruf wird aus dem Ranking genommen');
+}
+
+// 10) Mobilitäts-Nudge: ein seltener Beruf wird bei „in der Nähe bleiben" (25) abgewertet,
+//     bei „pendeln" (100) neutral, bei „umziehen" (200) leicht aufgewertet.
+{
+  const selten = { id: 81, name: 'Selten-Beruf', kategorien: ['gestaltung_design'], tags: ['metall_bearbeiten'], umgebung: {}, seltenheit: 'selten', ausbildungsart: 'betriebliche_ausbildung' };
+  const kontext = { gehaltMax: 0, mobilNudge: true };
+  const nah = bewerteBeruf(selten, profil({ blockA: { umkreis: '25' } }), fragen, kontext).score;
+  const pendeln = bewerteBeruf(selten, profil({ blockA: { umkreis: '100' } }), fragen, kontext).score;
+  const umzug = bewerteBeruf(selten, profil({ blockA: { umkreis: '200' } }), fragen, kontext).score;
+  ok(nah < pendeln && pendeln < umzug, 'Mobilitäts-Nudge: selten — 25 km < 100 km < 200 km im Score');
+}
+
+// 11) Mobilitäts-Nudge ist aus, wenn nicht angefordert (Anschluss-Sektion / mobilNudge:false).
+{
+  const selten = { id: 82, name: 'Selten-Beruf', kategorien: [], tags: ['metall_bearbeiten'], umgebung: {}, seltenheit: 'selten' };
+  const aus = bewerteBeruf(selten, profil({ blockA: { umkreis: '25' } }), fragen, { gehaltMax: 0, mobilNudge: false }).score;
+  const an = bewerteBeruf(selten, profil({ blockA: { umkreis: '25' } }), fragen, { gehaltMax: 0, mobilNudge: true }).score;
+  ok(aus > an, 'Mobilitäts-Nudge: bei mobilNudge:false (Anschluss) keine Abwertung');
+}
+
+// 12) Integration: die Mobilitäts-Wahl kippt die Reihenfolge zweier sonst gleichwertiger Berufe.
+{
+  const berufe = [
+    { id: 70, name: 'Metall (häufig)', stufe: 'ausbildung', kategorien: ['technik_maschinen'], tags: ['metall_bearbeiten'], umgebung: {}, schulabschluss_min: 'hauptschule', ausbildungsart: 'betriebliche_ausbildung', seltenheit: 'haeufig', osm_tags: [] },
+    { id: 71, name: 'Holz (selten)', stufe: 'ausbildung', kategorien: ['handwerk_material'], tags: ['holz_bearbeiten'], umgebung: {}, schulabschluss_min: 'hauptschule', ausbildungsart: 'betriebliche_ausbildung', seltenheit: 'selten', osm_tags: [] },
+  ];
+  const taet = ['metall_bearbeiten', 'holz_bearbeiten'];
+  const nah = matche(berufe, profil({ blockA: { umkreis: '25' }, taetigkeiten: taet }), fragen);
+  const umzug = matche(berufe, profil({ blockA: { umkreis: '200' }, taetigkeiten: taet }), fragen);
+  ok(nah[0]?.beruf.id === 70 && umzug[0]?.beruf.id === 71, 'Mobilitäts-Nudge (Integration): „in der Nähe" zeigt häufigen zuerst, „umziehen" hebt seltenen nach oben');
+}
+
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);
 process.exit(fehlgeschlagen ? 1 : 0);
