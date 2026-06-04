@@ -8,8 +8,9 @@ Ein Berufsorientierungs-Tool für Schüler:innen der Klassen 9–12. Es fragt na
 vor — inklusive Nischen, die in der üblichen Beratung untergehen.
 
 Schwesterprojekt des **kleinen Pfadfinders** (offline-HTML, nur Ausbildung).
-Der große ergänzt Studiengänge, harte Filter (Abschluss/Weg/Umkreis/Gehalt),
-~1.100 Berufe aus BERUFENET und nutzer-initiierte Live-Links auf BA & OSM.
+Der große ergänzt Studiengänge, harte Filter (Schulabschluss/Weg) plus
+Mobilitäts- und Gehalts-Nudges, rund 1.840 Berufe aus BERUFENET und
+nutzer-initiierte Live-Links auf BA & OSM.
 
 ## Aufbau
 

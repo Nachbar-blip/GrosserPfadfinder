@@ -14,17 +14,24 @@ Ein Realitäts-Stresstest: Bekommen sehr unterschiedliche Schüler:innen jeweils
 - Auswertung: programmatisch (alle 925) + qualitatives Urteil durch KI-Berater-
   Agenten (Stichprobe 91, inkl. aller Auffälligkeiten).
 
-## Kennzahlen (nach Bugfix)
+## Kennzahlen (nach Mobilitäts-Nudge + Reha-Filter · Stand 2026-06-04)
 
 | Kennzahl | Wert |
 |---|---|
 | Personas | 925 (475 K10 / 450 K12) |
 | Leere Ergebnisse | **0** |
 | Schwache Ergebnisse (< 5 Treffer) | **0** (vorher 21) |
-| Verschiedene Berufe empfohlen | **745 / 1841** (40 % der Datenbasis) |
-| Kategorien-Fit (erwartet ∩ Top-Treffer) | **99,9 %** (859 passt · 65 teilw. · 1 Rest) |
-| Qualitatives Urteil (strenge Stichprobe 91) | 49 passt · 31 teilweise · 11 passt_nicht |
+| Verschiedene Berufe empfohlen | **714 / 1841** (~39 % der Datenbasis) |
+| Kategorien-Fit (erwartet ∩ Top-Treffer) | **100 %** (867 passt · 58 teilw. · 0 passt_nicht) |
+| Qual. Urteil – Querschnitt 90 (streng + adversarial) | **13 passt · 73 teilweise · 4 passt_nicht** |
 | Anschluss-Sektion gezeigt | bei allen 925 |
+
+Der Reha-Filter + Mobilitäts-Nudge lösen den letzten verbliebenen
+`passt_nicht`-Fall auf (Kategorien-Fit 99,9 % → **100 %**); 0 leere/schwache
+Ergebnisse bleiben erhalten. Der Nudge verändert das Top-Set bei **588 von 925**
+Personas (Top-1 kippt bei 184) — 249× „in der Nähe", 115× „pendeln", 224×
+„würde umziehen". Die Mobilitäts-Wahl wirkt also sichtbar (kein folgenloses
+Bedienelement).
 
 ## ⭐ Der wichtigste Fund: ein echter Bug — gefunden und behoben
 
@@ -72,22 +79,62 @@ zukunftsrobust, und wo Risiko besteht, ist es transparent ausgewiesen.
 - **Lena, K12, kreative Modebloggerin** (Lookbooks, Nähen) → Textildesign · Maßschneider · Fotograf
 - **Clara, K10, Sprachbegabte** (Japanisch, Kalligrafie) → Übersetzen · Baltistik · Komposition
 
-## Ehrliche Grenzen (die 11 „passt_nicht")
+## Mobilitäts-Nudge unter der Lupe: 49 Berater-Agenten, adversarial geprüft
 
-Alle vom selben Typ: die Persona wünscht sich eine **sehr spezifische Nische**,
-die App liefert die **Nachbar-Familie** statt der exakten Nische:
-Zahnmedizin → Podologie/Ergotherapie; Fluggerätemechanik → Schiffsbetriebstechnik;
-Augenoptik → Orthopädieschuhmacher; Konditorei → Küche; Make-up/Kosmetik → nur
-Friseur; PR/NGO → Schauspiel/Pädagogik; reine Physik → angewandte Naturwissenschaft.
+Weil der Nudge so viele Rankings verschiebt, wurden die **32 am stärksten
+veränderten** Personas (die Härtefälle, bewusst kein Schönwetter-Querschnitt)
+einzeln von unabhängigen Berater-Agenten beurteilt; jeder Regressions-Verdacht
+ging zur Gegenprüfung an einen zweiten, skeptischen Agenten.
+
+| Kennzahl | Wert |
+|---|---|
+| Verdikt (32 Härtefälle) | 11 passt · 19 teilweise · 2 passt_nicht |
+| Mobilität wirkt sinnvoll | 22 / 32 |
+| Regressionen gemeldet → bestätigt | 16 → **5** |
+
+Von 16 gemeldeten „Regressionen" hielten nur **5** der skeptischen Gegenprüfung
+stand; die übrigen 11 waren gewolltes Spektrum-Rauschen, Wildcards oder eine
+korrekte Reha-Filter-Korrektur. Die 5 echten Fälle: der Seltenheits-/Häufigkeits-
+Boost schob einen inhaltlich besseren Treffer aus den Top-6 (z. B. ein Physik-
+Streber bekam Physik/Chemie zugunsten seltener Nischen nach unten gedrückt).
+
+**Lässt sich das wegtunen? Nein — getestet.** Sieben Varianten (Nudge × Tag-Score,
+Relevanz-Gate ≥ 2 Tags, abgestufte Gewichtung, Umzug-Boost 0.4 → 0.25 / 0.15 /
+0.0): keine heilt die Regressionen, ohne entweder das Nischen-Feature zu opfern
+(bei Boost 0 fällt der Umzug-Effekt auf den Nullniveau-Baseline 78 %) oder an der
+**Tag-Granularitäts-Grenze** zu scheitern — die 81 breiten Tags können
+„Kosmetika-Technologie" nicht von „Chemie" trennen (dieselbe bekannte Grenze wie
+unten). Die Nebenwirkung ist also **inhärent**: ein Mix aus dem *gewollten*
+Nischen-Feature für umzugsbereite Schüler:innen und der Tag-Grenze, kein
+Formelfehler — Quote ~1 von 6 der Härtefälle (über alle 925 deutlich seltener).
+**Bewusste Entscheidung:** `W_MOBILITAET = 0.08` / Umzug-Boost 0.4 bleiben. Der
+verdrängte Beruf bleibt im 10-Karten-Spektrum sichtbar (nur nicht in den Top-6) —
+passend zum Prinzip „Spektrum statt einer richtigen Wahl".
+
+## Ehrliche Grenzen (die 4 „passt_nicht" im aktuellen Querschnitt)
+
+*Methodik-Hinweis:* Der Re-Run (Stand 2026-06-04) urteilte **strenger und
+adversarial** als der Vor-Nudge-Lauf (49/31/11 von 91) — direkte Zahlenvergleiche
+sind nur bedingt fair. Gesichert: die **harten Fehltreffer sind von 11 auf 4
+gesunken**, während die mittlere „teilweise"-Kategorie wuchs (das strenge Urteil
+zählt „im Kern getroffen, aber verwässert" als teilweise statt passt).
+
+Die 4 verbliebenen `passt_nicht` haben ein klares, gemeinsames Muster — **nicht**
+Feinst-Nische, sondern eine ganze **etablierte Berufsfamilie verfehlt**:
+Luftfahrt (Fluggerätmechanik), maritime Technik (Schiffs-/Bootsbau), Sport-IT
+(Sportinformatik), Lokaljournalismus. Bei mehreren erscheint der eigentlich
+passende Beruf — wenn überhaupt — nur in der „Anschluss"-Liste, nicht im
+Einstiegs-Spektrum.
 
 **Warum:** Die App matcht über **81 breite Tätigkeits-Tags** — das trifft den
-Mainstream stark, kann aber Feinst-Nischen nicht punktgenau ansteuern (es gibt
-z. B. keinen Kosmetik-Tag; Koch und Konditor teilen sich `speise_zubereiten`).
-Dazu zeigt das Spektrum bewusst 1–2 „Wildcards" (Diversifizierung), was ein
-strenges Urteil als „teilweise" zählt. Ein Teil der Ausreißer ist außerdem
-**Rauschen der synthetischen Personas** selbst (z. B. „keine Tierliebe, aber
-Tier-Tags angekreuzt"). Das ist keine Fehlfunktion, sondern eine Eigenschaft des
-Tag-Systems — verbesserbar (mehr Tags / Berufsnamen-Boost), aber nicht nötig.
+Mainstream stark, bildet aber einige geschlossene Branchen nicht eigenständig ab
+(kein „Luftfahrt"- oder „maritim"-Tag; Sport-IT fällt zwischen Sport und IT;
+Koch und Konditor teilen sich `speise_zubereiten`). Dazu zeigt das Spektrum
+bewusst 1–2 „Wildcards" (Diversifizierung), die ein strenges Urteil als
+„teilweise" zählt. Konkreter Verbesserungs-Kandidat (kein Blocker): gezielte
+Tags / Berufsnamen-Boost für diese Familien, plus Prüfung, ob einzelne Berufe
+(z. B. Schiffsmechaniker) fälschlich als „Anschluss" statt „Einstieg" eingestuft
+sind.
 
 ## Fazit
 

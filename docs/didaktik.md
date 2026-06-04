@@ -53,8 +53,12 @@ bleiben per `localStorage` auf dem Gerät.
 
 1. **Harte Filter:** Schulabschluss (Beruf-Mindestabschluss ≤ angestrebt) und
    Weg (Ausbildungsart in gewählter Menge). „Unsicher"/„weiß nicht" filtern nicht.
+   Reha-/Fachpraktiker-Ausbildungen (§66 BBiG/§42r HwO) bleiben aus dem offenen
+   Ranking (Vermittlung läuft nur über die Reha-Beratung, nicht den Stellenmarkt).
 2. **Score** = `0.6 × Tag-Score + 0.25 × Umgebungs-Score + 0.15 × Motivations-Score`,
-   plus kleine Nudges für Gehalt (nur wenn wichtig) und gesellschaftlichen Sinn.
+   plus kleine Nudges für Gehalt (nur wenn wichtig), gesellschaftlichen Sinn und
+   Mobilität (die Umkreis-Wahl koppelt an `beruf.seltenheit` — kein km-Filter, da
+   die Berufe nicht geokodiert sind).
    - Tag-Score = Anteil der Beruf-Tags, die angekreuzt wurden (normalisiert,
      damit Berufe mit vielen Tags nicht bevorzugt werden).
 3. **Schwelle:** < 2 passende Tags _und_ Score < 0,25 → raus. Lieber 5 ehrliche
