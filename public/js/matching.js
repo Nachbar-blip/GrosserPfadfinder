@@ -34,7 +34,7 @@ export const MOBILITAET_NUDGE = {
 // (Nudge-Größenordnung), nur für Einstiegswege. Deterministisch, kein Re-Tagging.
 // sport_it trägt bewusst leere triggerTags → feuert nie (dokumentierter No-Op bis ein
 // Daten-Refresh „Sportinformatik" aufnimmt, P4). Siehe docs/plans/2026-06-05-…-design.md.
-export const W_NAME_BOOST = 0.06;
+export const W_NAME_BOOST = 0.08;
 // Annahme: max. 1 Trigger-Tag pro Domäne; Mehrfach-Trigger erfordern clusterbasierte Konkurrenz-Logik in aktiveBoostDomaenen.
 export const NAME_BOOST = [
   { domaene: 'luftfahrt', triggerTags: ['flugzeug_schiff_fuehren'],

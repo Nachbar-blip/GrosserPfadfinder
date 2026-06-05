@@ -14,7 +14,7 @@ Ein Realitäts-Stresstest: Bekommen sehr unterschiedliche Schüler:innen jeweils
 - Auswertung: programmatisch (alle 925) + qualitatives Urteil durch KI-Berater-
   Agenten (Stichprobe 91, inkl. aller Auffälligkeiten).
 
-## Kennzahlen (nach Mobilitäts-Nudge + Reha-Filter · Stand 2026-06-04)
+## Kennzahlen (nach Mobilitäts-Nudge + Reha-Filter + Berufsnamen-Boost · Stand 2026-06-05)
 
 | Kennzahl | Wert |
 |---|---|
@@ -22,7 +22,7 @@ Ein Realitäts-Stresstest: Bekommen sehr unterschiedliche Schüler:innen jeweils
 | Leere Ergebnisse | **0** |
 | Schwache Ergebnisse (< 5 Treffer) | **0** (vorher 21) |
 | Verschiedene Berufe empfohlen | **714 / 1841** (~39 % der Datenbasis) |
-| Kategorien-Fit (erwartet ∩ Top-Treffer) | **100 %** (867 passt · 58 teilw. · 0 passt_nicht) |
+| Kategorien-Fit (erwartet ∩ Top-Treffer) | **100 %** (868 passt · 57 teilw. · 0 passt_nicht) |
 | Qual. Urteil – Querschnitt 90 (streng + adversarial) | **13 passt · 73 teilweise · 4 passt_nicht** |
 | Anschluss-Sektion gezeigt | bei allen 925 |
 
@@ -32,6 +32,25 @@ Ergebnisse bleiben erhalten. Der Nudge verändert das Top-Set bei **588 von 925*
 Personas (Top-1 kippt bei 184) — 249× „in der Nähe", 115× „pendeln", 224×
 „würde umziehen". Die Mobilitäts-Wahl wirkt also sichtbar (kein folgenloses
 Bedienelement).
+
+## Berufsnamen-/Erwartungs-Boost (Stand 2026-06-05)
+
+Ein kleiner additiver Nudge (`W_NAME_BOOST = 0.08`, Nudge-Größenordnung wie
+Gehalt/Sinn/Mobilität) holt etablierte Berufsfamilien, die das 81-Tag-System nur
+**generisch** abbildet, über ein Schlüsselwort im **Berufsnamen** nach oben —
+ausgelöst durch ein angekreuztes Domänen-Interesse (`flugzeug_schiff_fuehren`
+bzw. `recherche_journalistisch`). Flug/Schiff werden über Indikator-Tags mit
+Fallback getrennt; ein Relevanz-Gate (≥ 1 gemeinsamer Tag) verhindert
+fachfremde Namens-Kollisionen. Details: `docs/plans/2026-06-05-berufsnamen-boost-design.md`.
+
+**Wirkung (Sweep 0.06 → 0.12, alle ohne Aggregat-Regress):** Bei den 13 Personas
+mit klarer Domäne und angekreuztem Interesse steigt der Anteil mit Familienberuf
+im Top-6 von 54 % (0.06) auf **62 % (0.08)**; 0.12 brächte 69 %, wäre aber als
+Signal stärker als die Motivation (0.15) — bewusst NICHT gewählt. Bei `0.08`
+bleiben **Fit 100 %, distinct 714, 0 leer/schwach** unverändert (kein folgenloses
+und kein schädliches Bedienelement). Klare Treffer u. a.: Fluggerätmechaniker
+(Flugtechnik-Schülerin), Schiffs-Offiziersassistent (schiffsverliebter Schrauber),
+Binnenschifffahrtskapitän (Seefahrt-/Binnenschiffer-Personas).
 
 ## ⭐ Der wichtigste Fund: ein echter Bug — gefunden und behoben
 
@@ -118,6 +137,9 @@ adversarial** als der Vor-Nudge-Lauf (49/31/11 von 91) — direkte Zahlenverglei
 sind nur bedingt fair. Gesichert: die **harten Fehltreffer sind von 11 auf 4
 gesunken**, während die mittlere „teilweise"-Kategorie wuchs (das strenge Urteil
 zählt „im Kern getroffen, aber verwässert" als teilweise statt passt).
+**Wichtig:** Diese „4 passt_nicht" sind die Qual-Zahl **vor** dem Berufsnamen-Boost;
+das 90-Agenten-Urteil wurde danach nicht erneut gefahren. Der Boost-Effekt unten ist
+**programmatisch** (Aggregat unverändert) und an den **Ziel-Personas** gemessen.
 
 Die 4 verbliebenen `passt_nicht` haben ein klares, gemeinsames Muster — **nicht**
 Feinst-Nische, sondern eine ganze **etablierte Berufsfamilie verfehlt**:
@@ -131,10 +153,28 @@ Mainstream stark, bildet aber einige geschlossene Branchen nicht eigenständig a
 (kein „Luftfahrt"- oder „maritim"-Tag; Sport-IT fällt zwischen Sport und IT;
 Koch und Konditor teilen sich `speise_zubereiten`). Dazu zeigt das Spektrum
 bewusst 1–2 „Wildcards" (Diversifizierung), die ein strenges Urteil als
-„teilweise" zählt. Konkreter Verbesserungs-Kandidat (kein Blocker): gezielte
-Tags / Berufsnamen-Boost für diese Familien, plus Prüfung, ob einzelne Berufe
-(z. B. Schiffsmechaniker) fälschlich als „Anschluss" statt „Einstieg" eingestuft
-sind.
+„teilweise" zählt.
+
+**Was der Berufsnamen-Boost (2026-06-05) davon adressiert:** Luftfahrt und
+maritime Technik erscheinen jetzt für die Personas, die das Domänen-Interesse
+(`flugzeug_schiff_fuehren`) **angekreuzt** haben, im Einstiegs-Top-6 (62 % der 13
+klaren Fälle, s. o.). **Bewusst nicht erzwungen** — die verbleibenden Fälle sind
+inhärente Grenzen, kein Formelfehler:
+- **Flug/Schiff-Konflation:** Ein Pilot und ein Schiffsführer kreuzen
+  tag-identisch `flugzeug_schiff_fuehren` + `route_planen_navigieren` +
+  `maschine_bedienen` an — ohne Disambiguator landet mal die falsche der beiden
+  Familien oben (z. B. „ambitionierter Pilot" → Hafenschiffer).
+- **Off-Domain-/Split-Interessen:** Wer neben dem Domänen-Tag stark anderswo
+  ankreuzt (Bootsbauerin mit Holz/Glas → Handwerk; Rettungs-Pilotin mit
+  Medizin-Tags → Pflege), bekommt diese legitim stärkeren Treffer.
+- **Kein Domänen-Signal im Fragebogen:** Profile, die das Interesse NUR in
+  Hobbys/Erwartung tragen, aber generische Mechanik-Tags ankreuzen (z. B.
+  „Luftfahrt-Träumer" ohne `flugzeug_schiff_fuehren`), bekommen korrekt
+  generische Mechanik-Berufe — die App täuscht kein Signal vor, das sie nicht hat.
+- **Sport-IT:** echte **Datenlücke** — „Sportinformatik" existiert nicht im
+  Datensatz; der Boost trägt den Eintrag bereits (No-Op), greift aber erst nach
+  einem Daten-Refresh (P4). Lokaljournalismus ist bereits korrekt getaggt; der
+  Boost wirkt dort nur als zusätzlicher Hebel über die Diversifizierungs-Grenze.
 
 ## Fazit
 
