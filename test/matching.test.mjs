@@ -162,5 +162,53 @@ console.log('matching.test.mjs');
   ok(JSON.stringify(dom(['recherche_journalistisch'])) === JSON.stringify(['journalismus']), 'Boost-Trennung: Journalismus-Trigger aktiv');
 }
 
+// 14) Berufsnamen-Boost: greift nur mit Trigger, hinter Relevanz-Gate, nur bei nameBoost:true.
+{
+  const schiffBeruf = { id: 60, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['maschine_warten_reparieren', 'hydraulik_pneumatik'], umgebung: {}, seltenheit: 'regional', ausbildungsart: 'betriebliche_ausbildung' };
+  const kAn = (p) => ({ gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(p.taetigkeiten) });
+  const kAus = { gehaltMax: 0, mobilNudge: false, nameBoost: false, boostDomaenen: [] };
+  const mitTrigger = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen', 'maschine_warten_reparieren'] });
+  const ohneTrigger = profil({ taetigkeiten: ['maschine_warten_reparieren'] });
+  const sBoost = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kAn(mitTrigger)).score;
+  const sOhneTrigger = bewerteBeruf(schiffBeruf, ohneTrigger, fragen, kAn(ohneTrigger)).score;
+  const sNudgeAus = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kAus).score;
+  ok(sBoost > sNudgeAus, 'Name-Boost: mit Trigger+Keyword höher als bei nameBoost:false');
+  ok(Math.abs(sOhneTrigger - sNudgeAus) < 1e-9, 'Name-Boost: ohne Trigger kein Boost');
+  const fremd = { id: 61, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['zahn_behandeln'], umgebung: {}, seltenheit: 'regional', ausbildungsart: 'betriebliche_ausbildung' };
+  const gateProfil = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen'] });
+  const fAn = bewerteBeruf(fremd, gateProfil, fragen, kAn(gateProfil)).score;
+  const fAus = bewerteBeruf(fremd, gateProfil, fragen, kAus).score;
+  ok(Math.abs(fAn - fAus) < 1e-9, 'Name-Boost: Relevanz-Gate — ohne gemeinsamen Tag kein Boost');
+}
+
+// 15) Domänen-Trennung wirkt im Score: klarer Luftfahrt-Lean boostet Flug-, nicht Schiff-Beruf.
+{
+  const flug = { id: 62, name: 'Fluggerätmechaniker/in', kategorien: ['technik_maschinen'], tags: ['metall_bearbeiten', 'praezisionsarbeit_hand'], umgebung: {}, seltenheit: 'regional' };
+  const schiff = { id: 63, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['metall_bearbeiten', 'praezisionsarbeit_hand'], umgebung: {}, seltenheit: 'regional' };
+  const luftLean = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'elektronik_loeten', 'metall_bearbeiten'] });
+  const kontextAn = { gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(luftLean.taetigkeiten) };
+  const flugScore = bewerteBeruf(flug, luftLean, fragen, kontextAn).score;
+  const schiffScore = bewerteBeruf(schiff, luftLean, fragen, kontextAn).score;
+  ok(flugScore > schiffScore, 'Name-Boost: Luftfahrt-Lean boostet Flug- über Schiff-Beruf');
+}
+
+// 16) Journalismus: Trigger recherche_journalistisch boostet Journalist/in.
+{
+  const journo = { id: 64, name: 'Journalist/in (Ausbildung)', kategorien: ['sprache_kommunikation'], tags: ['recherche_journalistisch', 'text_schreiben_redigieren'], umgebung: {}, seltenheit: 'regional' };
+  const p = profil({ taetigkeiten: ['recherche_journalistisch', 'text_schreiben_redigieren'] });
+  const an = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(p.taetigkeiten) }).score;
+  const aus = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: false, boostDomaenen: [] }).score;
+  ok(an > aus, 'Name-Boost: Journalismus-Trigger hebt Journalist/in');
+}
+
+// 17) matcheAnschluss boostet NICHT (nameBoost bleibt aus).
+{
+  const anschlussBeruf = { id: 65, name: 'Schiffbau, Meerestechnik (weiterführend)', stufe: 'master', kategorien: ['technik_maschinen'], tags: ['maschine_warten_reparieren', 'schweissen_loeten'], umgebung: {}, seltenheit: 'regional' };
+  const p = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen', 'maschine_warten_reparieren'] });
+  const res = matcheAnschluss([anschlussBeruf], p, fragen);
+  const direkt = bewerteBeruf(anschlussBeruf, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: false, boostDomaenen: [] }).score;
+  ok(res.length === 1 && Math.abs(res[0].score - direkt) < 1e-9, 'Name-Boost: Anschluss-Sektion erhält keinen Boost');
+}
+
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);
 process.exit(fehlgeschlagen ? 1 : 0);

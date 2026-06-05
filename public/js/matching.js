@@ -35,6 +35,7 @@ export const MOBILITAET_NUDGE = {
 // sport_it trägt bewusst leere triggerTags → feuert nie (dokumentierter No-Op bis ein
 // Daten-Refresh „Sportinformatik" aufnimmt, P4). Siehe docs/plans/2026-06-05-…-design.md.
 export const W_NAME_BOOST = 0.06;
+// Annahme: max. 1 Trigger-Tag pro Domäne; Mehrfach-Trigger erfordern clusterbasierte Konkurrenz-Logik in aktiveBoostDomaenen.
 export const NAME_BOOST = [
   { domaene: 'luftfahrt', triggerTags: ['flugzeug_schiff_fuehren'],
     indikatorTags: ['elektronik_loeten', 'code_schreiben'],          // Avionik/Drohnen → Luft
@@ -218,6 +219,20 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
     if (zeile) gesamt += W_MOBILITAET * (zeile[beruf.seltenheit] || 0);
   }
 
+  // 4d) Berufsnamen-/Erwartungs-Boost: angekreuztes Domänen-Interesse + Schlüsselwort im
+  // Berufsnamen hebt generisch getaggte Berufsfamilien (Luftfahrt/maritim/Journalismus).
+  // Nur Einstieg (kontext.nameBoost). Relevanz-Gate (≥1 Tag-Treffer) verhindert, dass eine
+  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht. kontext.boostDomaenen wird
+  // EINMAL pro Persona in bewerteUndSortiere berechnet (hängt nur von den Tätigkeiten ab,
+  // nicht vom Beruf). Siehe NAME_BOOST / aktiveBoostDomaenen.
+  if (kontext && kontext.nameBoost && matchTags.length >= 1) {
+    const aktiv = kontext.boostDomaenen || [];
+    const name = (beruf.name || '').toLowerCase();
+    if (aktiv.some((d) => d.keywords.some((kw) => name.includes(kw)))) {
+      gesamt += W_NAME_BOOST;
+    }
+  }
+
   return { beruf, score: gesamt, matchTags, tagScore, umgebungScore, motivationScore };
 }
 
@@ -228,7 +243,13 @@ const ANSCHLUSS_STUFEN = new Set(['master', 'weiterbildung']);
 function bewerteUndSortiere(kandidaten, antworten, fragenDef, opts = {}) {
   let gehaltMax = 0;
   for (const b of kandidaten) if (b.mediangehalt && b.mediangehalt > gehaltMax) gehaltMax = b.mediangehalt;
-  const kontext = { gehaltMax, mobilNudge: opts.mobilNudge === true };
+  const nameBoost = opts.nameBoost === true;
+  const kontext = {
+    gehaltMax,
+    mobilNudge: opts.mobilNudge === true,
+    nameBoost,
+    boostDomaenen: nameBoost ? aktiveBoostDomaenen(antworten.taetigkeiten) : [],
+  };
   return kandidaten
     .map((b) => bewerteBeruf(b, antworten, fragenDef, kontext))
     .sort((x, y) => y.score - x.score);
@@ -269,7 +290,7 @@ export function matche(berufe, antworten, fragenDef) {
   if (kandidaten.length < MIN_POOL) {
     kandidaten = hartFiltern(einstieg, antworten, fragenDef, { wegFilter: false });
   }
-  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: true }), MAX_ERGEBNISSE);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: true, nameBoost: true }), MAX_ERGEBNISSE);
 }
 
 /**
