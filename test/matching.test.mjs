@@ -210,5 +210,17 @@ console.log('matching.test.mjs');
   ok(res.length === 1 && Math.abs(res[0].score - direkt) < 1e-9, 'Name-Boost: Anschluss-Sektion erhält keinen Boost');
 }
 
+// 18) Integration: Bei sonst gleichwertigen Bewerbern hebt der Boost den Familienberuf
+//     mit Domänen-Keyword über den neutralen Beruf.
+{
+  const berufe = [
+    { id: 80, name: 'Industriemechaniker/in', stufe: 'ausbildung', kategorien: ['technik_maschinen'], tags: ['maschine_warten_reparieren', 'hydraulik_pneumatik'], umgebung: {}, schulabschluss_min: 'hauptschule', ausbildungsart: 'betriebliche_ausbildung', seltenheit: 'haeufig', osm_tags: [] },
+    { id: 81, name: 'Schiffsmechaniker/in', stufe: 'ausbildung', kategorien: ['verkehr_logistik'], tags: ['maschine_warten_reparieren', 'hydraulik_pneumatik'], umgebung: {}, schulabschluss_min: 'hauptschule', ausbildungsart: 'betriebliche_ausbildung', seltenheit: 'regional', osm_tags: [] },
+  ];
+  const p = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen', 'maschine_warten_reparieren', 'hydraulik_pneumatik'] });
+  const top = matche(berufe, p, fragen);
+  ok(top[0]?.beruf.id === 81, 'Integration: maritimes Interesse hebt Schiffsmechaniker an die Spitze');
+}
+
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);
 process.exit(fehlgeschlagen ? 1 : 0);
