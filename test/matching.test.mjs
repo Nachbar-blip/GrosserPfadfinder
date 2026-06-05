@@ -6,7 +6,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { matche, matcheAnschluss, hartFiltern, bewerteBeruf, scoreProzent, passungsStufe } from '../public/js/matching.js';
+import { matche, matcheAnschluss, hartFiltern, bewerteBeruf, scoreProzent, passungsStufe, aktiveBoostDomaenen } from '../public/js/matching.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const fragen = JSON.parse(readFileSync(join(__dirname, '..', 'public', 'data', 'fragen.json'), 'utf8'));
@@ -148,6 +148,18 @@ console.log('matching.test.mjs');
   const nah = matche(berufe, profil({ blockA: { umkreis: '25' }, taetigkeiten: taet }), fragen);
   const umzug = matche(berufe, profil({ blockA: { umkreis: '200' }, taetigkeiten: taet }), fragen);
   ok(nah[0]?.beruf.id === 70 && umzug[0]?.beruf.id === 71, 'Mobilitäts-Nudge (Integration): „in der Nähe" zeigt häufigen zuerst, „umziehen" hebt seltenen nach oben');
+}
+
+// 13) aktiveBoostDomaenen: Trenn-Logik (Indikator + Fallback).
+{
+  const dom = (tags) => aktiveBoostDomaenen(new Set(tags)).map((d) => d.domaene).sort();
+  const sd = (a) => a.slice().sort();
+  ok(dom([]).length === 0, 'Boost-Trennung: ohne Trigger keine Domäne');
+  ok(JSON.stringify(dom(['flugzeug_schiff_fuehren'])) === JSON.stringify(sd(['luftfahrt', 'maritim'])), 'Boost-Trennung: mehrdeutig → beide Domänen');
+  ok(JSON.stringify(dom(['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen'])) === JSON.stringify(['maritim']), 'Boost-Trennung: Wasser-Indikator → nur maritim');
+  ok(JSON.stringify(dom(['flugzeug_schiff_fuehren', 'elektronik_loeten'])) === JSON.stringify(['luftfahrt']), 'Boost-Trennung: Avionik-Indikator → nur luftfahrt');
+  ok(JSON.stringify(dom(['flugzeug_schiff_fuehren', 'elektronik_loeten', 'boden_wasser_untersuchen'])) === JSON.stringify(sd(['luftfahrt', 'maritim'])), 'Boost-Trennung: beidseitiger Indikator → beide');
+  ok(JSON.stringify(dom(['recherche_journalistisch'])) === JSON.stringify(['journalismus']), 'Boost-Trennung: Journalismus-Trigger aktiv');
 }
 
 console.log(`\n${bestanden} bestanden, ${fehlgeschlagen} fehlgeschlagen`);
