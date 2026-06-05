@@ -36,6 +36,8 @@ export const MOBILITAET_NUDGE = {
 // Daten-Refresh „Sportinformatik" aufnimmt, P4). Siehe docs/plans/2026-06-05-…-design.md.
 export const W_NAME_BOOST = 0.08;
 // Annahme: max. 1 Trigger-Tag pro Domäne; Mehrfach-Trigger erfordern clusterbasierte Konkurrenz-Logik in aktiveBoostDomaenen.
+// 'flug' deckt alle heutigen Luftfahrt-Namen ab; 'luftfahrt'/'fluggerät'/'maritim' treffen aktuell
+// 0 Einstiegs-Namen und stehen bewusst als Zukunftssicherung (fangen künftige Daten-Refresh-Namen).
 export const NAME_BOOST = [
   { domaene: 'luftfahrt', triggerTags: ['flugzeug_schiff_fuehren'],
     indikatorTags: ['elektronik_loeten', 'code_schreiben'],          // Avionik/Drohnen → Luft
