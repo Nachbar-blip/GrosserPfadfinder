@@ -28,6 +28,49 @@ export const MOBILITAET_NUDGE = {
   '200': { haeufig: 0, regional: 0, selten: 0.4 },    // würde umziehen → seltene Nischenberufe leicht hervorheben
 };
 
+// Berufsnamen-/Erwartungs-Boost: hebt etablierte Berufsfamilien, die das 81-Tag-System
+// nur GENERISCH abbildet (kein „luftfahrt"-/„maritim"-Tag), anhand eines Schlüsselworts
+// im BERUFSNAMEN — ausgelöst durch ein angekreuztes Domänen-Interesse. Additiv und klein
+// (Nudge-Größenordnung), nur für Einstiegswege. Deterministisch, kein Re-Tagging.
+// sport_it trägt bewusst leere triggerTags → feuert nie (dokumentierter No-Op bis ein
+// Daten-Refresh „Sportinformatik" aufnimmt, P4). Siehe docs/plans/2026-06-05-…-design.md.
+export const W_NAME_BOOST = 0.08;
+// Annahme: max. 1 Trigger-Tag pro Domäne; Mehrfach-Trigger erfordern clusterbasierte Konkurrenz-Logik in aktiveBoostDomaenen.
+export const NAME_BOOST = [
+  { domaene: 'luftfahrt', triggerTags: ['flugzeug_schiff_fuehren'],
+    indikatorTags: ['elektronik_loeten', 'code_schreiben'],          // Avionik/Drohnen → Luft
+    keywords: ['flug', 'luftfahrt', 'fluggerät'] },
+  { domaene: 'maritim', triggerTags: ['flugzeug_schiff_fuehren'],
+    indikatorTags: ['boden_wasser_untersuchen', 'waren_verladen_lagern', 'holz_bearbeiten'],
+    keywords: ['schiff', 'boot', 'maritim', 'nautik'] },
+  { domaene: 'journalismus', triggerTags: ['recherche_journalistisch'],
+    indikatorTags: [], keywords: ['journalist', 'redakteur'] },
+  { domaene: 'sport_it', triggerTags: [],
+    indikatorTags: [], keywords: ['sportinformatik'] },
+];
+
+/**
+ * Trenn-Logik für den Berufsnamen-Boost (Indikator mit Fallback):
+ * Welche NAME_BOOST-Domänen sind für die angekreuzten Tätigkeiten aktiv?
+ * - Domäne ohne konkurrierenden Trigger (z. B. Journalismus) → aktiv, sobald getriggert.
+ * - Bei geteiltem Trigger (Luft/Schiff): klarer Lean (Indikator nur einer Seite) → nur die;
+ *   mehrdeutig (kein/beidseitiger Indikator) → beide (sichere Degradation).
+ */
+export function aktiveBoostDomaenen(userTags) {
+  const tags = alsSet(userTags);
+  const getriggert = NAME_BOOST.filter((d) => d.triggerTags.some((t) => tags.has(t)));
+  return getriggert.filter((d) => {
+    const konkurrenten = getriggert.filter(
+      (o) => o !== d && o.triggerTags.some((t) => d.triggerTags.includes(t)),
+    );
+    if (konkurrenten.length === 0) return true;                    // kein Wettbewerb → aktiv
+    const leanD = d.indikatorTags.some((t) => tags.has(t));
+    if (leanD) return true;                                         // (Mit-)Lean zu D → aktiv
+    const leanKonkurrent = konkurrenten.some((o) => o.indikatorTags.some((t) => tags.has(t)));
+    return !leanKonkurrent;                                         // nur Fallback, wenn kein Konkurrent klar führt
+  });
+}
+
 export const SCHWELLE_RELEVANT = 0.25; // ohne 2+ Tag-Match nötiger Mindest-Score
 export const SCHWELLE_STARK = 0.6;     // „starke Passung" (Balken = 100 %)
 export const MAX_ERGEBNISSE = 10;
@@ -176,6 +219,22 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
     if (zeile) gesamt += W_MOBILITAET * (zeile[beruf.seltenheit] || 0);
   }
 
+  // 4d) Berufsnamen-/Erwartungs-Boost: angekreuztes Domänen-Interesse + Schlüsselwort im
+  // Berufsnamen hebt generisch getaggte Berufsfamilien (Luftfahrt/maritim/Journalismus).
+  // Nur Einstieg (kontext.nameBoost). Relevanz-Gate (≥1 Tag-Treffer) verhindert, dass eine
+  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht — bewusst lockerer als die
+  // Diversifizierungs-Schwelle (≥2 Tags), da diese die finale Relevanzhürde bleibt.
+  // kontext.boostDomaenen wird
+  // EINMAL pro Persona in bewerteUndSortiere berechnet (hängt nur von den Tätigkeiten ab,
+  // nicht vom Beruf). Siehe NAME_BOOST / aktiveBoostDomaenen.
+  if (kontext && kontext.nameBoost && matchTags.length >= 1) {
+    const aktiv = kontext.boostDomaenen || [];
+    const name = (beruf.name || '').toLowerCase();
+    if (aktiv.some((d) => d.keywords.some((kw) => name.includes(kw)))) {
+      gesamt += W_NAME_BOOST;
+    }
+  }
+
   return { beruf, score: gesamt, matchTags, tagScore, umgebungScore, motivationScore };
 }
 
@@ -186,7 +245,13 @@ const ANSCHLUSS_STUFEN = new Set(['master', 'weiterbildung']);
 function bewerteUndSortiere(kandidaten, antworten, fragenDef, opts = {}) {
   let gehaltMax = 0;
   for (const b of kandidaten) if (b.mediangehalt && b.mediangehalt > gehaltMax) gehaltMax = b.mediangehalt;
-  const kontext = { gehaltMax, mobilNudge: opts.mobilNudge === true };
+  const nameBoost = opts.nameBoost === true;
+  const kontext = {
+    gehaltMax,
+    mobilNudge: opts.mobilNudge === true,
+    nameBoost,
+    boostDomaenen: nameBoost ? aktiveBoostDomaenen(antworten.taetigkeiten) : [],
+  };
   return kandidaten
     .map((b) => bewerteBeruf(b, antworten, fragenDef, kontext))
     .sort((x, y) => y.score - x.score);
@@ -227,7 +292,7 @@ export function matche(berufe, antworten, fragenDef) {
   if (kandidaten.length < MIN_POOL) {
     kandidaten = hartFiltern(einstieg, antworten, fragenDef, { wegFilter: false });
   }
-  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: true }), MAX_ERGEBNISSE);
+  return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: true, nameBoost: true }), MAX_ERGEBNISSE);
 }
 
 /**
