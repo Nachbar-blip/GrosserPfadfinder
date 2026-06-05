@@ -147,23 +147,24 @@ Ans Ende von `test/matching.test.mjs` (vor der Schluss-Zusammenfassung) einfüge
 {
   // Beruf mit Domänen-Keyword im Namen UND einem Tag, das das Profil teilt.
   const schiffBeruf = { id: 60, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['maschine_warten_reparieren', 'hydraulik_pneumatik'], umgebung: {}, seltenheit: 'regional', ausbildungsart: 'betriebliche_ausbildung' };
-  const kontextAn = { gehaltMax: 0, mobilNudge: false, nameBoost: true };
-  const kontextAus = { gehaltMax: 0, mobilNudge: false, nameBoost: false };
+  // kontext wird wie in bewerteUndSortiere aufgebaut: boostDomaenen einmal pro Profil.
+  const kAn = (p) => ({ gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(p.taetigkeiten) });
+  const kAus = { gehaltMax: 0, mobilNudge: false, nameBoost: false, boostDomaenen: [] };
 
   // Trigger + Maritim-Indikator + geteilter Tag → Boost aktiv.
   const mitTrigger = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen', 'maschine_warten_reparieren'] });
   const ohneTrigger = profil({ taetigkeiten: ['maschine_warten_reparieren'] }); // kein flugzeug_schiff_fuehren
-  const sBoost = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kontextAn).score;
-  const sOhneTrigger = bewerteBeruf(schiffBeruf, ohneTrigger, fragen, kontextAn).score;
-  const sNudgeAus = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kontextAus).score;
+  const sBoost = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kAn(mitTrigger)).score;
+  const sOhneTrigger = bewerteBeruf(schiffBeruf, ohneTrigger, fragen, kAn(ohneTrigger)).score;
+  const sNudgeAus = bewerteBeruf(schiffBeruf, mitTrigger, fragen, kAus).score;
   ok(sBoost > sNudgeAus, 'Name-Boost: mit Trigger+Keyword höher als bei nameBoost:false');
   ok(Math.abs(sOhneTrigger - sNudgeAus) < 1e-9, 'Name-Boost: ohne Trigger kein Boost');
 
   // Relevanz-Gate: Keyword im Namen, aber 0 gemeinsame Tags → kein Boost.
   const fremd = { id: 61, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['zahn_behandeln'], umgebung: {}, seltenheit: 'regional', ausbildungsart: 'betriebliche_ausbildung' };
   const gateProfil = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'boden_wasser_untersuchen'] }); // teilt KEINEN Tag mit fremd
-  const fAn = bewerteBeruf(fremd, gateProfil, fragen, kontextAn).score;
-  const fAus = bewerteBeruf(fremd, gateProfil, fragen, kontextAus).score;
+  const fAn = bewerteBeruf(fremd, gateProfil, fragen, kAn(gateProfil)).score;
+  const fAus = bewerteBeruf(fremd, gateProfil, fragen, kAus).score;
   ok(Math.abs(fAn - fAus) < 1e-9, 'Name-Boost: Relevanz-Gate — ohne gemeinsamen Tag kein Boost');
 }
 
@@ -171,9 +172,9 @@ Ans Ende von `test/matching.test.mjs` (vor der Schluss-Zusammenfassung) einfüge
 {
   const flug = { id: 62, name: 'Fluggerätmechaniker/in', kategorien: ['technik_maschinen'], tags: ['metall_bearbeiten', 'praezisionsarbeit_hand'], umgebung: {}, seltenheit: 'regional' };
   const schiff = { id: 63, name: 'Schiffsmechaniker/in', kategorien: ['technik_maschinen'], tags: ['metall_bearbeiten', 'praezisionsarbeit_hand'], umgebung: {}, seltenheit: 'regional' };
-  const kontextAn = { gehaltMax: 0, mobilNudge: false, nameBoost: true };
   // Avionik-Indikator (elektronik_loeten) → nur luftfahrt aktiv. metall_bearbeiten teilt den Gate-Tag.
   const luftLean = profil({ taetigkeiten: ['flugzeug_schiff_fuehren', 'elektronik_loeten', 'metall_bearbeiten'] });
+  const kontextAn = { gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(luftLean.taetigkeiten) };
   const flugScore = bewerteBeruf(flug, luftLean, fragen, kontextAn).score;
   const schiffScore = bewerteBeruf(schiff, luftLean, fragen, kontextAn).score;
   ok(flugScore > schiffScore, 'Name-Boost: Luftfahrt-Lean boostet Flug- über Schiff-Beruf');
@@ -183,8 +184,8 @@ Ans Ende von `test/matching.test.mjs` (vor der Schluss-Zusammenfassung) einfüge
 {
   const journo = { id: 64, name: 'Journalist/in (Ausbildung)', kategorien: ['sprache_kommunikation'], tags: ['recherche_journalistisch', 'text_schreiben_redigieren'], umgebung: {}, seltenheit: 'regional' };
   const p = profil({ taetigkeiten: ['recherche_journalistisch', 'text_schreiben_redigieren'] });
-  const an = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: true }).score;
-  const aus = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: false }).score;
+  const an = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: true, boostDomaenen: aktiveBoostDomaenen(p.taetigkeiten) }).score;
+  const aus = bewerteBeruf(journo, p, fragen, { gehaltMax: 0, mobilNudge: false, nameBoost: false, boostDomaenen: [] }).score;
   ok(an > aus, 'Name-Boost: Journalismus-Trigger hebt Journalist/in');
 }
 
@@ -214,9 +215,11 @@ Mobilitäts-Nudge, ~Zeile 177, vor `return { beruf, score: gesamt, ... }`) einf�
   // 4d) Berufsnamen-/Erwartungs-Boost: angekreuztes Domänen-Interesse + Schlüsselwort im
   // Berufsnamen hebt generisch getaggte Berufsfamilien (Luftfahrt/maritim/Journalismus).
   // Nur Einstieg (kontext.nameBoost). Relevanz-Gate (≥1 Tag-Treffer) verhindert, dass eine
-  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht. Siehe NAME_BOOST.
+  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht. kontext.boostDomaenen wird
+  // EINMAL pro Persona in bewerteUndSortiere berechnet (hängt nur von den Tätigkeiten ab,
+  // nicht vom Beruf). Siehe NAME_BOOST / aktiveBoostDomaenen.
   if (kontext && kontext.nameBoost && matchTags.length >= 1) {
-    const aktiv = aktiveBoostDomaenen(userTags);
+    const aktiv = kontext.boostDomaenen || [];
     const name = (beruf.name || '').toLowerCase();
     if (aktiv.some((d) => d.keywords.some((kw) => name.includes(kw)))) {
       gesamt += W_NAME_BOOST;
@@ -224,10 +227,17 @@ Mobilitäts-Nudge, ~Zeile 177, vor `return { beruf, score: gesamt, ... }`) einf�
   }
 ```
 
-In `bewerteUndSortiere` (~Zeile 189) das `kontext`-Objekt um `nameBoost` erweitern:
+In `bewerteUndSortiere` (~Zeile 189) das `kontext`-Objekt um `nameBoost` + die einmal
+berechneten `boostDomaenen` erweitern (Performance: nicht pro Beruf neu berechnen):
 
 ```js
-  const kontext = { gehaltMax, mobilNudge: opts.mobilNudge === true, nameBoost: opts.nameBoost === true };
+  const nameBoost = opts.nameBoost === true;
+  const kontext = {
+    gehaltMax,
+    mobilNudge: opts.mobilNudge === true,
+    nameBoost,
+    boostDomaenen: nameBoost ? aktiveBoostDomaenen(antworten.taetigkeiten) : [],
+  };
 ```
 
 In `matche` (~Zeile 230) den Aufruf um `nameBoost: true` ergänzen:
