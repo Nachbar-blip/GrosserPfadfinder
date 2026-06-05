@@ -222,7 +222,9 @@ export function bewerteBeruf(beruf, antworten, fragenDef, kontext) {
   // 4d) Berufsnamen-/Erwartungs-Boost: angekreuztes Domänen-Interesse + Schlüsselwort im
   // Berufsnamen hebt generisch getaggte Berufsfamilien (Luftfahrt/maritim/Journalismus).
   // Nur Einstieg (kontext.nameBoost). Relevanz-Gate (≥1 Tag-Treffer) verhindert, dass eine
-  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht. kontext.boostDomaenen wird
+  // zufällige Namens-Kollision einen fachfremden Beruf hochzieht — bewusst lockerer als die
+  // Diversifizierungs-Schwelle (≥2 Tags), da diese die finale Relevanzhürde bleibt.
+  // kontext.boostDomaenen wird
   // EINMAL pro Persona in bewerteUndSortiere berechnet (hängt nur von den Tätigkeiten ab,
   // nicht vom Beruf). Siehe NAME_BOOST / aktiveBoostDomaenen.
   if (kontext && kontext.nameBoost && matchTags.length >= 1) {
