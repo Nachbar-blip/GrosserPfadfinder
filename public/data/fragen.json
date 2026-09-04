@@ -93,6 +93,7 @@
       "typ": "einfach",
       "filter": "schulabschluss_min",
       "optionen": [
+        { "wert": "hauptschule", "label": "Hauptschulabschluss (Berufsreife)" },
         { "wert": "realschule", "label": "Realschulabschluss" },
         { "wert": "fachhochschulreife", "label": "Fachhochschulreife" },
         { "wert": "abitur", "label": "Allgemeine Hochschulreife (Abitur)" },

@@ -276,6 +276,10 @@ function diversifiziere(bewertet, maxErgebnisse) {
 }
 
 function istEinstieg(b) {
+  // Berufe mit ausbildungsart 'weiterbildung' (Fluglehrer/in, Yogalehrer/in, …) setzen
+  // Vorerfahrung/Lizenzen voraus — kein Erstweg nach der Schule, auch wenn die Daten
+  // sie (stufe: 'ausbildung') als Einstieg führen. Sie wandern in „Wohin kann das führen?".
+  if (b.ausbildungsart === 'weiterbildung') return false;
   return EINSTIEG_STUFEN.has(b.stufe) || !b.stufe; // !stufe = ältere Daten ohne Stufe
 }
 
@@ -303,7 +307,9 @@ export function matche(berufe, antworten, fragenDef) {
  * Anschlüsse, keine Erstwege). Max. 5.
  */
 export function matcheAnschluss(berufe, antworten, fragenDef, max = 5) {
-  const kandidaten = berufe.filter((b) => ANSCHLUSS_STUFEN.has(b.stufe) && !b.needs_review && !b.reha_ausbildung);
+  const kandidaten = berufe.filter(
+    (b) => (ANSCHLUSS_STUFEN.has(b.stufe) || b.ausbildungsart === 'weiterbildung') && !b.needs_review && !b.reha_ausbildung,
+  );
   return diversifiziere(bewerteUndSortiere(kandidaten, antworten, fragenDef, { mobilNudge: false }), max);
 }
 
