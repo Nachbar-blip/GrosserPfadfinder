@@ -5,7 +5,7 @@ und Glas-/Keramik-Tätigkeiten, sodass ein SELTENER Beruf oben landet — und pr
 dass die neuen erklärenden Hinweise im Browser tatsächlich gerendert werden:
   - Mobilitäts-Hinweis (selten + umziehen)
   - „Keine Treffer? Kein Fehler."-Quellenhinweis (immer)
-  - Betriebs-Karten-Hinweis (Studium/Büro ohne OSM-Karte)
+  - Betriebs-Karten-Hinweis (Studium/Büro ohne Betriebs-Karte)
 Speichert einen Screenshot als Beleg.
 """
 import sys

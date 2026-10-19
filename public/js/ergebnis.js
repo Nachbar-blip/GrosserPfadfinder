@@ -1,12 +1,12 @@
 /**
  * ergebnis.js — rendert das Spektrum der Vorschläge (bis zu 10 gleichwertige
  * Karten), eine regelbasierte Begründung pro Beruf und die Live-Buttons
- * (Link-Outs auf BA-Seite / OSM-Karte). Kein LLM, kein fetch.
+ * (Link-Outs auf BA-Seiten / Kartensuche). Kein LLM, kein fetch.
  */
 
 import { matche, matcheAnschluss, passungsStufe, scoreProzent } from './matching.js';
 import { stellenLink, berufenetLink } from './api/ba.js';
-import { betriebeLink } from './api/overpass.js';
+import { betriebeLink } from './api/karte.js';
 import { escapeHtml, setzeBalkenBreiten } from './util.js';
 
 const WEG_LABEL = {
@@ -103,11 +103,11 @@ function liveAktionen(beruf, app) {
   const a = app.state.antworten.blockA || {};
   const umkreis = parseInt(a.umkreis, 10) || app.daten.config.default_umkreis_km || 50;
   const plz = (a.plz || '').trim();
-  const koordArr = plz && app.daten.plz ? app.daten.plz[plz] : null;
-  const koord = koordArr ? { lat: koordArr[0], lon: koordArr[1] } : null;
+  // Nur eine PLZ aus der Tabelle geht in die Kartensuche (Whitelist statt Freitext).
+  const plzGueltig = plz && app.daten.plz && app.daten.plz[plz] ? plz : '';
 
   const stellen = stellenLink(beruf, plz, umkreis);
-  const betriebe = betriebeLink(beruf, koord, umkreis);
+  const betriebe = betriebeLink(beruf, plzGueltig);
   const knoepfe = [`<a class="btn btn-sekundaer" href="${stellen.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(stellen.label)} →</a>`];
   if (betriebe) knoepfe.push(`<a class="btn btn-sekundaer" href="${betriebe.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(betriebe.label)} →</a>`);
 

@@ -10,7 +10,7 @@ vor — inklusive Nischen, die in der üblichen Beratung untergehen.
 Schwesterprojekt des **kleinen Pfadfinders** (offline-HTML, nur Ausbildung).
 Der große ergänzt Studiengänge, harte Filter (Schulabschluss/Weg) plus
 Mobilitäts- und Gehalts-Nudges, rund 1.840 Berufe aus BERUFENET und
-nutzer-initiierte Live-Links auf BA & OSM.
+nutzer-initiierte Live-Links auf BA-Seiten und eine Kartensuche.
 
 ## Aufbau
 
@@ -20,7 +20,7 @@ public/                  Frontend (genau das wird per GitHub Pages deployt)
   config.json            Schul-Config — DIE einzige Datei für einen Fork
   css/pfadfinder.css
   js/                    app, fragebogen, matching, ergebnis, state, daten, util
-  js/api/                ba.js, overpass.js  (Link-Builder, kein fetch)
+  js/api/                ba.js, karte.js  (Link-Builder, kein fetch)
   data/                  tags.json, fragen.json, berufe.json (generiert)
 build/                   Daten-Pipeline (nur lokal/CI, Node ≥18)
   01_fetch_berufenet.js  02_fetch_kompetenzen.js  03_tag_berufe.js  04_validate.js
@@ -90,6 +90,7 @@ Tagging-Prompt ändert). Ein jährlicher Refresh kostet typischerweise < 1 €.
 
 ```bash
 node test/matching.test.mjs          # Unit-Tests Matching-Logik
+node test/links.test.mjs             # Link-Builder (Jobsuche, Studiensuche, Karte)
 python test/smoke_browser.py         # Browser-Smoketest (Server auf :8099 nötig)
 ```
 

@@ -48,7 +48,7 @@ export function rendereStart(app) {
         <summary>Hinweis zu Nutzung und Datenschutz</summary>
         <p><strong>Privater Charakter.</strong> Diese Seite ist ein privates Werkzeug zur Berufsorientierung, ausgelegt für die Weitergabe im persönlichen und schulischen Umfeld. Es ist kein öffentliches Angebot, es gibt keine Gewinnabsicht und keinen Support.</p>
         <p><strong>Was gespeichert wird.</strong> Deine Antworten werden ausschließlich in deinem Browser (localStorage) auf deinem Gerät abgelegt, damit du den Fragebogen fortsetzen kannst. Es wird <em>nichts</em> an einen Server gesendet. Du kannst die Daten jederzeit löschen (Browser-Einstellungen → Website-Daten) oder über „Fragebogen neu starten".</p>
-        <p><strong>Externe Links.</strong> Beim Klick auf „Stellen in deiner Nähe", „Betriebe in deiner Nähe" oder „BERUFENET-Eintrag" öffnen sich Seiten der Bundesagentur für Arbeit bzw. eine OpenStreetMap-Karte. Dort gelten deren eigene Datenschutzregeln.</p>
+        <p><strong>Externe Links.</strong> Beim Klick auf „Stellen in deiner Nähe", „Betriebe in deiner Nähe" oder „BERUFENET-Eintrag" öffnen sich Seiten der Bundesagentur für Arbeit bzw. eine Kartensuche bei Google Maps (dabei wird nur der Suchbegriff mit deiner Postleitzahl übergeben; Cookies kannst du dort ablehnen). Dort gelten deren eigene Datenschutzregeln.</p>
         <p><strong>Weitergabe.</strong> Wer den Link weitergibt, trägt dafür selbst Verantwortung. Eine öffentliche Verbreitung (Social Media, Suchmaschinen, Aushänge) ist ausdrücklich nicht vorgesehen.</p>
       </details>
     </section>`;

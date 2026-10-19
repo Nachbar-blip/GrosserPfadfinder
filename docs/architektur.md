@@ -17,7 +17,7 @@ Schicht 2 — FRONTEND (public/, vanilla, offline-fähig nach Auslieferung)
         │
         ▼
 Schicht 3 — LIVE (optional, nutzer-initiiert)
-  Link-Outs auf BA-Jobsuche / BERUFENET / OSM-Karte (kein fetch, s. datenquellen.md)
+  Link-Outs auf BA-Jobsuche / Studiensuche / BERUFENET / Kartensuche (kein fetch, s. datenquellen.md)
 ```
 
 ## Frontend-Module (`public/js/`, ES-Module)
@@ -31,7 +31,7 @@ Schicht 3 — LIVE (optional, nutzer-initiiert)
 | `matching.js` | harte Filter + Scoring + Diversifizierung | `matche`, `hartFiltern`, `bewerteBeruf` |
 | `ergebnis.js` | Ergebnis-Karten, Begründung, Live-Buttons | `rendereErgebnis`, `begruendung` |
 | `api/ba.js` | Link-Builder BA-Suche + BERUFENET | `stellenLink`, `berufenetLink` |
-| `api/overpass.js` | Link-Builder OSM-Karte (overpass-turbo) | `betriebeLink` |
+| `api/karte.js` | Link-Builder Kartensuche (Google Maps, Begriff aus `osm_tags`) | `betriebeLink`, `kartenBegriff` |
 | `util.js` | `escapeHtml`, `gemischt` | — |
 
 Das `app`-Objekt wird an die Render-Module durchgereicht (`app.state`,
